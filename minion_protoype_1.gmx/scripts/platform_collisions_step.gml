@@ -88,15 +88,11 @@
     //==================================================================
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         //Find the closest floor and move towards it if you aren't touching it.
-    //if bottom of player is above or at floor
     if(bbox_bottom <= min(bld_y,brd_y)){
-        // if floor is smaller distance away from player than player speed
         if(point_distance(x,bbox_bottom,x,min(bld_y,brd_y)) < vspeed){
-            //set player to floor
             y=min(bld_y,brd_y)-(bbox_bottom-y);
             vspeed = 0;
         }
-    //player is at floor
     }else{
         y=min(bld_y,brd_y)-(bbox_bottom-y);
         vspeed = 0;
@@ -158,3 +154,4 @@
     }
     //------------------------------------------------------------------
 }
+
