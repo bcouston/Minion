@@ -6,7 +6,8 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\moe_1</sprite>
+    <sprite>sprites\moe_walk_right</sprite>
+    <sprite>sprites\moe_walk_left</sprite>
     <sprite>sprites\sprite_solid</sprite>
   </sprites>
   <backgrounds name="background"/>
