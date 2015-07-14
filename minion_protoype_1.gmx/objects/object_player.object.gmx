@@ -54,7 +54,7 @@
             <kind>1</kind>
             <string>{  
 
-    // Timer set
+    // Timer set - now redundant - keeping for possible future use
 
     if (wall_l_jump_timer &lt;= 0) {
       wall_l_jump_timer = -1;
@@ -81,14 +81,23 @@
     
     // L/R movement and jumping
     if (keyboard_check(ord('D')) &amp;&amp; place_free(x+1,y))
-        &amp;&amp; (wall_r_jump_timer &lt;= 0) {
-        hspeed = 4
+         {
         sprite_index = moe_walk_right
+        // Air movement
+        if place_free(x,y+1) &amp;&amp; hspeed &lt;= 4 {
+            hspeed += 1;
+        } else {
+            hspeed = 4;
+        }
     }
     if (keyboard_check(ord('A')) &amp;&amp; place_free(x-1,y))
-        &amp;&amp; (wall_l_jump_timer &lt;= 0) {
-        hspeed = -4
+         {
         sprite_index = moe_walk_left
+        if place_free(x,y+1) &amp;&amp; hspeed &gt;= -4 {
+            hspeed -= 1;
+        } else {
+            hspeed = -4;
+        }
     }
     if(keyboard_check_pressed(ord('W')) &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1)) {
         vspeed = -10
@@ -98,13 +107,13 @@
     if keyboard_check_pressed(ord('W')) &amp;&amp; place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
         if place_meeting(x+1,y,object_solid) {
             vspeed = -10
-            hspeed = -6
-            wall_r_jump_timer = 15;
+            hspeed = -12
+            // wall_r_jump_timer = 15;
         }
         if place_meeting(x-1,y,object_solid) {
             vspeed = -10
-            hspeed = 6
-            wall_l_jump_timer = 15;
+            hspeed = 12
+            // wall_l_jump_timer = 15;
         }
     }
     
