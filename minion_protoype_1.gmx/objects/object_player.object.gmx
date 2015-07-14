@@ -71,7 +71,8 @@
     
     if (place_free(x,y+1)){
         gravity = 0.8;
-        if (place_meeting(x+1,y,object_solid) || place_meeting(x-1,y,object_solid)) {
+        if (place_meeting(x+1,y,object_solid) || place_meeting(x-1,y,object_solid))
+            &amp;&amp; (vspeed &gt; 0) {
             gravity = 0.2;
         }
     } else {
