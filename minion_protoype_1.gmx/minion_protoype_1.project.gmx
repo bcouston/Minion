@@ -4,11 +4,15 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\darkworld</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\moe_walk_right</sprite>
     <sprite>sprites\moe_walk_left</sprite>
     <sprite>sprites\sprite_solid</sprite>
+    <sprite>sprites\moe_run_right</sprite>
+    <sprite>sprites\moe_run_left</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>

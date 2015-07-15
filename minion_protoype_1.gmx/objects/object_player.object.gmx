@@ -29,6 +29,9 @@
     platform_collisions_create(16);
     wall_l_jump_timer = -1;
     wall_r_jump_timer = -1;
+    
+    audio_play_sound(darkworld, 10, false)
+    
 }
 </string>
           </argument>
@@ -73,32 +76,53 @@
         gravity = 0.8;
         if (place_meeting(x+1,y,object_solid) || place_meeting(x-1,y,object_solid))
             &amp;&amp; (vspeed &gt; 0) {
-            gravity = 0.2;
+            gravity = 0.1;
         }
     } else {
         gravity = 0;
     }
     
     // L/R movement and jumping
-    if (keyboard_check(ord('D')) &amp;&amp; place_free(x+1,y))
+    
+    if keyboard_check(ord('D')) 
          {
+         if place_free(x+1,y) {
+            sprite_index = moe_run_right
+            // Air movement
+            if place_free(x,y+1) &amp;&amp; hspeed &lt;= 4 {
+                hspeed += 1;
+            // Ground movement
+            } else {
+                hspeed = 4;
+            }
+        } if !place_free(x+5,y) {
+            sprite_index = moe_walk_right
+        }
+    }
+    if keyboard_check_released(ord('D')) {
         sprite_index = moe_walk_right
-        // Air movement
-        if place_free(x,y+1) &amp;&amp; hspeed &lt;= 4 {
-            hspeed += 1;
-        } else {
-            hspeed = 4;
-        }
     }
-    if (keyboard_check(ord('A')) &amp;&amp; place_free(x-1,y))
+    
+    if keyboard_check(ord('A'))
          {
-        sprite_index = moe_walk_left
-        if place_free(x,y+1) &amp;&amp; hspeed &gt;= -4 {
-            hspeed -= 1;
-        } else {
-            hspeed = -4;
+         if place_free(x-1,y) {
+            sprite_index = moe_run_left
+             // Air movement
+            if place_free(x,y+1) &amp;&amp; hspeed &gt;= -4 {
+                hspeed -= 1;
+            // Ground movement
+            } else {
+                hspeed = -4;
+            }
+        } if !place_free(x-5,y){
+            sprite_index = moe_walk_left
         }
     }
+    if keyboard_check_released(ord('A')){
+        sprite_index = moe_walk_left
+    }
+    
+    // Jump
     if(keyboard_check_pressed(ord('W')) &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1)) {
         vspeed = -10
     }
