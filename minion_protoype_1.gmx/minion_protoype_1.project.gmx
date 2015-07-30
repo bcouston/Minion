@@ -13,6 +13,10 @@
     <sprite>sprites\sprite_solid</sprite>
     <sprite>sprites\moe_run_right</sprite>
     <sprite>sprites\moe_run_left</sprite>
+    <sprite>sprites\moe_jump_right</sprite>
+    <sprite>sprites\moe_jump_left</sprite>
+    <sprite>sprites\moe_wall_grab_left</sprite>
+    <sprite>sprites\moe_wall_grab_right</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
