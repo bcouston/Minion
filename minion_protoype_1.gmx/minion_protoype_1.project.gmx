@@ -12,11 +12,15 @@
     <sprite>sprites\moe_walk_left</sprite>
     <sprite>sprites\sprite_solid</sprite>
     <sprite>sprites\moe_run_right</sprite>
+    <sprite>sprites\moe_run_right_wood_sword</sprite>
     <sprite>sprites\moe_run_left</sprite>
+    <sprite>sprites\moe_run_left_wood_sword</sprite>
     <sprite>sprites\moe_jump_right</sprite>
     <sprite>sprites\moe_jump_left</sprite>
     <sprite>sprites\moe_wall_grab_left</sprite>
     <sprite>sprites\moe_wall_grab_right</sprite>
+    <sprite>sprites\moe_attack_wood_sword_right_1</sprite>
+    <sprite>sprites\moe_attack_wood_sword_right_2</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
