@@ -33,6 +33,7 @@
   <objects name="objects">
     <object>objects\object_player</object>
     <object>objects\object_solid</object>
+    <object>objects\object_badguy1</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room2</room>

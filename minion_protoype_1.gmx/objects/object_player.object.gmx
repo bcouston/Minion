@@ -38,10 +38,14 @@
     fight = true
     attack = false
     attack_animation = 1
+    moe_damage = 20
     
     //Animation
     moe_run_r = moe_run_right
     moe_run_l = moe_run_left
+    
+    //Health
+    moe_health = 100
     
 }
 </string>
@@ -67,10 +71,7 @@
           <argument>
             <kind>1</kind>
             <string>{
-    
-    
     // Horizontal speed control
-
     if hspeed &gt; 12 {
         hspeed = 12
     }
@@ -87,20 +88,24 @@
     }
     
     // Animation for jumping freeze
-    
     if((sprite_index == moe_jump_right || sprite_index == moe_jump_left) &amp;&amp; image_index == 5) {
         image_speed = 0
+        // Taking care of aereal attacks
+        //if attack = true {
+        //    gravity = 0
+        //    vspeed = 0
+        //    alarm[0]=room_speed*22
+        //    gravity = 5
+        //}
     } else {image_speed = 1}
     
     // Animation for attacking
-    
      if((sprite_index == moe_attack_wood_sword_right_1 || moe_attack_wood_sword_right_2) &amp;&amp; image_index == 11) {
         sprite_index = moe_walk_right
         attack = false
      }
 
     // Timer set - now redundant - keeping for possible future use
-
     if (wall_l_jump_timer &lt;= 0) {
       wall_l_jump_timer = -1;
     } else {
@@ -118,7 +123,7 @@
     platform_collisions_step(object_solid)
     
     // Gravity when jumping, in contact with a wall and on the floor, with animations
-    
+   
     if (place_free(x,y+1)){
         gravity = 0.8;
             if D == "lef" {
@@ -144,7 +149,6 @@
     }
     
     // L/R movement and jumping
-    
     if keyboard_check(ord('D')) &amp;&amp; attack == false
          {
          D = "rig"
@@ -232,8 +236,10 @@
                 sprite_index = moe_attack_wood_sword_right_1
             } else {sprite_index = moe_attack_wood_sword_right_2}
         }
+        if place_meeting(x+1,y,object_badguy1){
+            object_badguy1.baddie_health -= moe_damage
+        }
     }
-     
 }
 </string>
           </argument>
