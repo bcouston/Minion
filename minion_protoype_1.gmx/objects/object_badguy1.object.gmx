@@ -56,6 +56,10 @@
           <argument>
             <kind>1</kind>
             <string>{
+    if place_meeting(x+1, y, object_player) &amp;&amp; object_player.attack == true {
+        baddie_health -= object_player.moe_damage
+    }   
+
     if baddie_health &lt;= 0 {
         sprite_index = moe_walk_right
     }
