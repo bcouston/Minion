@@ -21,6 +21,7 @@
     <sprite>sprites\moe_wall_grab_right</sprite>
     <sprite>sprites\moe_attack_wood_sword_right_1</sprite>
     <sprite>sprites\moe_attack_wood_sword_right_2</sprite>
+    <sprite>sprites\moe_attack_wood_sword_right_3</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
