@@ -105,11 +105,13 @@
       wall_l_jump_timer = -1;
     } else {
       wall_l_jump_timer -= 1;
+      hspeed = 6
     } 
     if (wall_r_jump_timer &lt;= 0) {
       wall_r_jump_timer = -1;
     } else {
       wall_r_jump_timer -= 1;
+      hspeed = -6
     }     
     
     // Collisions
@@ -193,15 +195,15 @@
         if place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
             if place_meeting(x+1,y,object_solid) {
                 vspeed = -10
-                hspeed = -12
+                hspeed = -6
                 D = "lef"
-                // wall_r_jump_timer = 15;
+                wall_r_jump_timer = 15;
             }
             if place_meeting(x-1,y,object_solid) {
                 vspeed = -10
-                hspeed = 12
+                hspeed = 6
                 D = "rig"
-                // wall_l_jump_timer = 15;
+                wall_l_jump_timer = 15;
             }
             // Normal jump
         } else {
