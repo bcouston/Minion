@@ -16,12 +16,21 @@
     <sprite>sprites\moe_run_left</sprite>
     <sprite>sprites\moe_run_left_wood_sword</sprite>
     <sprite>sprites\moe_jump_right</sprite>
+    <sprite>sprites\moe_jump_descent_right</sprite>
+    <sprite>sprites\moe_jump_descent_left</sprite>
     <sprite>sprites\moe_jump_left</sprite>
     <sprite>sprites\moe_wall_grab_left</sprite>
     <sprite>sprites\moe_wall_grab_right</sprite>
     <sprite>sprites\moe_attack_wood_sword_right_1</sprite>
+    <sprite>sprites\moe_attack_aerial_wood_sword_right_1</sprite>
+    <sprite>sprites\moe_attack_aerial_wood_sword_left_1</sprite>
+    <sprite>sprites\moe_attack_wood_sword_left_1</sprite>
     <sprite>sprites\moe_attack_wood_sword_right_2</sprite>
+    <sprite>sprites\moe_attack_aerial_wood_sword_right_2</sprite>
+    <sprite>sprites\moe_attack_aerial_wood_sword_left_2</sprite>
+    <sprite>sprites\moe_attack_wood_sword_left_2</sprite>
     <sprite>sprites\moe_attack_wood_sword_right_3</sprite>
+    <sprite>sprites\moe_attack_wood_sword_left_3</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -33,8 +42,8 @@
   </scripts>
   <objects name="objects">
     <object>objects\object_player</object>
-    <object>objects\object_solid</object>
     <object>objects\object_badguy1</object>
+    <object>objects\object_solid</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room2</room>

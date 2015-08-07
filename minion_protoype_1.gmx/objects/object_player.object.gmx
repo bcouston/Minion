@@ -27,14 +27,22 @@
             <kind>1</kind>
             <string>{
     platform_collisions_create(16);
+    
+    //Timers
+    
     wall_l_jump_timer = -1;
     wall_r_jump_timer = -1;
+    
+    attack_timer = -1
+    attack_a_timer = -1;
+    aerial_attack_executed = false;
     
     //audio_play_sound(darkworld, 10, false)
     
     D = "rig"
     
     //Attacking
+    
     fight = true
     attack = false
     attack_animation = 2
@@ -43,6 +51,19 @@
     //Animation
     moe_run_r = moe_run_right
     moe_run_l = moe_run_left
+    
+    //Initialize attack animations array
+    attack_ani[0] = moe_attack_wood_sword_right_1
+    attack_ani[1] = moe_attack_wood_sword_left_1
+    attack_ani[2] = moe_attack_wood_sword_right_2
+    attack_ani[3] = moe_attack_wood_sword_left_2
+    attack_ani[4] = moe_attack_wood_sword_right_3
+    attack_ani[5] = moe_attack_wood_sword_left_3
+    attack_ani[6] = moe_attack_aerial_wood_sword_right_1
+    attack_ani[7] = moe_attack_aerial_wood_sword_left_1
+    attack_ani[8] = moe_attack_aerial_wood_sword_right_2
+    attack_ani[9] = moe_attack_aerial_wood_sword_left_2
+    
     
     //Health
     moe_health = 100
@@ -88,7 +109,7 @@
     }
     
     // Animation for jumping freeze
-    if((sprite_index == moe_jump_right || sprite_index == moe_jump_left) &amp;&amp; image_index == 5) {
+    if((sprite_index == moe_jump_right || sprite_index == moe_jump_left) &amp;&amp; image_index == image_number - 1) {
         image_speed = 0
         // Taking care of aereal attacks
         //if attack = true {
@@ -99,13 +120,27 @@
         //}
     } else {image_speed = 1}
     
-    // Animation for attacking
-     if((sprite_index == moe_attack_wood_sword_right_1 || moe_attack_wood_sword_right_2 || moe_attack_wood_sword_right_3) &amp;&amp; image_index == 11) {
-        sprite_index = moe_walk_right
-        attack = false
+    // Animation for attack ceasing -- change back to check for right and left attack sprites
+     if ( (attack_timer &lt;= 10) &amp;&amp; (image_index == image_number - 1) ) {
+        image_speed = 0
+        if (attack_timer == -1) {
+            sprite_index = moe_walk_right
+            attack = false
+        }
+     }
+     
+     if ( (attack_timer &lt;= 10) &amp;&amp; (image_index == image_number - 1) ) {
+        image_speed = 0
+        if (attack_timer == -1) {
+            sprite_index = moe_walk_left
+            attack = false
+        }
      }
 
-    // Timer set - now redundant - keeping for possible future use
+    // --- Timers ---
+    
+    // Wall jump speed
+    
     if (wall_l_jump_timer &lt;= 0) {
       wall_l_jump_timer = -1;
     } else {
@@ -117,22 +152,46 @@
     } else {
       wall_r_jump_timer -= 1;
       hspeed = -6
-    }     
+    }
+    
+    // Puts Moe in an "attack phase" while he is still attacking within a certain interval 
+    if (attack_timer &lt;= 0) {
+        attack_timer = -1;
+    } else {
+        attack_timer -= 1;
+    }
+    
+    // Aerial attack freeze 
+      if (attack_a_timer &lt;= 0) {
+        attack_a_timer = -1;
+    } else {
+        attack_a_timer -= 1;
+    }
+        
     
     // Collisions
     platform_collisions_step(object_solid)
     
     // Gravity when jumping, in contact with a wall and on the floor, with animations
    
-    if (place_free(x,y+1)){
+    if (attack_timer != -1 &amp;&amp; attack_a_timer != -1) {
+        gravity = 0
+        vspeed = 0
+        hspeed = 0
+    }
+    else if (place_free(x,y+1)){
         gravity = 0.8;
             if D == "lef" {
                 if !(place_meeting(x-1,y,object_solid)) {
-                    sprite_index = moe_jump_left
+                    if vspeed &lt;= 0 {
+                        sprite_index = moe_jump_left
+                    } else {sprite_index = moe_jump_descent_left}
                 } else {sprite_index = moe_wall_grab_left}
-            } else {
+            } else if D == "rig" {
                 if !(place_meeting(x+1,y,object_solid)) {
-                    sprite_index = moe_jump_right
+                    if vspeed &lt;= 0 {
+                        sprite_index = moe_jump_right
+                    } else {sprite_index = moe_jump_descent_right}
                 } else {sprite_index = moe_wall_grab_right}
             }
         if (place_meeting(x+1,y,object_solid) || place_meeting(x-1,y,object_solid)) &amp;&amp; (vspeed &gt; 0) {
@@ -140,10 +199,11 @@
         }
     } else {
         gravity = 0;
-         if (sprite_index == moe_jump_right || sprite_index = moe_wall_grab_right) {
+        aerial_attack_executed = false
+        if D == "rig" {
             sprite_index = moe_walk_right
         }
-        if (sprite_index == moe_jump_left || sprite_index = moe_wall_grab_left) {
+        else if D == "lef" {
             sprite_index = moe_walk_left
         }
     }
@@ -229,21 +289,60 @@
     // Right
     if keyboard_check_pressed(vk_right) {
         // Put attack sprites in array?
-        if (sprite_index != moe_attack_wood_sword_right_1 &amp;&amp; sprite_index != moe_attack_wood_sword_right_2 &amp;&amp; sprite_index != moe_attack_wood_sword_right_3) {
+        if (attack_timer &lt;= 1) {
             D = "rig"
             attack = true
+            attack_timer = 13
             attack_animation++
-            if (attack_animation mod 3 == 0) {
-                sprite_index = moe_attack_wood_sword_right_1
-            } else if  (attack_animation mod 3 == 1) {
-                sprite_index = moe_attack_wood_sword_right_2
-            } else {sprite_index = moe_attack_wood_sword_right_3}
-        }
-        
-        if place_meeting(x+1,y,object_badguy1){
-            object_badguy1.baddie_health -= moe_damage
+            if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false) {
+                attack_a_timer = 30
+                aerial_attack_executed = true
+            }
+            if attack_a_timer != -1 { 
+                if (attack_animation mod 3 == 0) {
+                    if !(place_free(x,y+1)) {
+                        sprite_index = attack_ani[0]
+                    } else {sprite_index = attack_ani[6]}
+                } else if  (attack_animation mod 3 == 1) {
+                    if !(place_free(x,y+1)) {
+                        sprite_index = attack_ani[2]
+                    } else {sprite_index = attack_ani[8]}
+                } else {
+                    if !(place_free(x,y+1)) {
+                        sprite_index = attack_ani[4]
+                    } else {sprite_index = attack_ani[6]}
+                }
+            }
         }
     }
+    // Left
+    if keyboard_check_pressed(vk_left) {
+        // Put attack sprites in array?
+        if (attack_timer &lt;= 1) {
+            D = "lef"
+            attack = true
+            attack_timer = 13
+            attack_animation++
+            if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false) {
+                attack_a_timer = 30
+                aerial_attack_executed = true
+            }
+            if (attack_animation mod 3 == 0) {
+                if !(place_free(x,y+1)) {
+                    sprite_index = attack_ani[1]
+                } else {sprite_index = attack_ani[7]}
+            } else if  (attack_animation mod 3 == 1) {
+                if !(place_free(x,y+1)) {
+                    sprite_index = attack_ani[3]
+                } else {sprite_index = attack_ani[9]}
+            } else {
+                if !(place_free(x,y+1)) {
+                    sprite_index = attack_ani[5]
+                } else {sprite_index = attack_ani[7]}
+            }
+        }
+    }
+    
 }
 </string>
           </argument>
