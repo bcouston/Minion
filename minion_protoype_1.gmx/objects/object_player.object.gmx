@@ -92,6 +92,12 @@
           <argument>
             <kind>1</kind>
             <string>{
+
+    // Bugs to fix
+    
+    // Quick turn around after running
+    // Can't move for a second after attacking sometimes - attack_timer
+
     // Horizontal speed control
     if hspeed &gt; 12 {
         hspeed = 12
@@ -109,7 +115,7 @@
     }
     
     // Animation for jumping freeze
-    if((sprite_index == moe_jump_right || sprite_index == moe_jump_left) &amp;&amp; image_index == image_number - 1) {
+    if((sprite_index == moe_jump_right || sprite_index == moe_jump_left) &amp;&amp; (image_index == image_number - 1) ) {
         image_speed = 0
         // Taking care of aereal attacks
         //if attack = true {
@@ -122,7 +128,7 @@
     
     // Animation for attack ceasing -- change back to check for right and left attack sprites
      if ( (attack_timer &lt;= 10) &amp;&amp; (image_index == image_number - 1) ) {
-        image_speed = 0
+        //image_speed = 0
         if (attack_timer == -1) {
             sprite_index = moe_walk_right
             attack = false
@@ -130,7 +136,7 @@
      }
      
      if ( (attack_timer &lt;= 10) &amp;&amp; (image_index == image_number - 1) ) {
-        image_speed = 0
+        //image_speed = 0
         if (attack_timer == -1) {
             sprite_index = moe_walk_left
             attack = false
@@ -200,10 +206,10 @@
     } else {
         gravity = 0;
         aerial_attack_executed = false
-        if D == "rig" {
+        if D == "rig" &amp;&amp; hspeed &lt;= 0.5 &amp;&amp; hspeed &gt;= -0.5 {
             sprite_index = moe_walk_right
         }
-        else if D == "lef" {
+        else if D == "lef" &amp;&amp; hspeed &gt;= -0.5 &amp;&amp; hspeed &lt;= 0.5 {
             sprite_index = moe_walk_left
         }
     }
@@ -327,18 +333,20 @@
                 attack_a_timer = 30
                 aerial_attack_executed = true
             }
-            if (attack_animation mod 3 == 0) {
-                if !(place_free(x,y+1)) {
-                    sprite_index = attack_ani[1]
-                } else {sprite_index = attack_ani[7]}
-            } else if  (attack_animation mod 3 == 1) {
-                if !(place_free(x,y+1)) {
-                    sprite_index = attack_ani[3]
-                } else {sprite_index = attack_ani[9]}
-            } else {
-                if !(place_free(x,y+1)) {
-                    sprite_index = attack_ani[5]
-                } else {sprite_index = attack_ani[7]}
+            if attack_a_timer != -1 { 
+                if (attack_animation mod 3 == 0) {
+                    if !(place_free(x,y+1)) {
+                        sprite_index = attack_ani[1]
+                    } else {sprite_index = attack_ani[7]}
+                } else if  (attack_animation mod 3 == 1) {
+                    if !(place_free(x,y+1)) {
+                        sprite_index = attack_ani[3]
+                    } else {sprite_index = attack_ani[9]}
+                } else {
+                    if !(place_free(x,y+1)) {
+                        sprite_index = attack_ani[5]
+                    } else {sprite_index = attack_ani[7]}
+                }
             }
         }
     }
