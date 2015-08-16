@@ -28,6 +28,11 @@
             <string>{
     platform_collisions_create(16);
     
+    //Constants
+    
+    attack_interval = 11
+    attack_a_interval = 30
+    
     //Timers
     
     wall_l_jump_timer = -1;
@@ -64,7 +69,6 @@
     attack_ani[8] = moe_attack_aerial_wood_sword_right_2
     attack_ani[9] = moe_attack_aerial_wood_sword_left_2
     
-    
     //Health
     moe_health = 100
     
@@ -95,7 +99,7 @@
 
     // Bugs to fix
     
-    // Can't move for a second after attacking sometimes - attack_timer
+    // descent animation stays around too long and slwoly move downwards when in aerial attack
 
     // Horizontal speed control
     if hspeed &gt; 12 {
@@ -116,31 +120,18 @@
     // Animation for jumping freeze
     if((sprite_index == moe_jump_right || sprite_index == moe_jump_left) &amp;&amp; (image_index == image_number - 1) ) {
         image_speed = 0
-        // Taking care of aereal attacks
-        //if attack = true {
-        //    gravity = 0
-        //    vspeed = 0
-        //    alarm[0]=room_speed*22
-        //    gravity = 5
-        //}
     } else {image_speed = 1}
     
-    // Animation for attack ceasing -- change back to check for right and left attack sprites
-     if ( (attack_timer &lt;= 10) &amp;&amp; (image_index == image_number - 1) ) {
-        //image_speed = 0
-        if (attack_timer == -1) {
-            sprite_index = moe_walk_right
+    // Animation for attack ceasing
+    if ( (attack_timer &lt;= attack_interval - 1) &amp;&amp; attack == true) {
+         if (image_index == image_number - 1) {
+            image_speed = 0
+         }
+         if (attack_timer == -1) {
             attack = false
-        }
-     }
-     
-     if ( (attack_timer &lt;= 10) &amp;&amp; (image_index == image_number - 1) ) {
-        //image_speed = 0
-        if (attack_timer == -1) {
-            sprite_index = moe_walk_left
-            attack = false
-        }
-     }
+            image_speed = 1
+         }
+    }
 
     // --- Timers ---
     
@@ -205,10 +196,10 @@
     } else {
         gravity = 0;
         aerial_attack_executed = false
-        if D == "rig" &amp;&amp; hspeed == 0 {
+        if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
             sprite_index = moe_walk_right
         }
-        else if D == "lef" &amp;&amp; hspeed == 0 {
+        else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
             sprite_index = moe_walk_left
         }
     }
@@ -287,17 +278,16 @@
     
     // Right
     if keyboard_check_pressed(vk_right) {
-        // Put attack sprites in array?
         if (attack_timer &lt;= 1) {
             D = "rig"
             attack = true
-            attack_timer = 13
+            attack_timer = attack_interval
             attack_animation++
-            if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false) {
-                attack_a_timer = 30
+            if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false &amp;&amp; place_free(x,y+1)) {
+                attack_a_timer = attack_a_interval
                 aerial_attack_executed = true
             }
-            if attack_a_timer != -1 { 
+            //if attack_a_timer != -1 { 
                 if (attack_animation mod 3 == 0) {
                     if !(place_free(x,y+1)) {
                         sprite_index = attack_ani[0]
@@ -311,22 +301,21 @@
                         sprite_index = attack_ani[4]
                     } else {sprite_index = attack_ani[6]}
                 }
-            }
+            //}
         }
     }
     // Left
     if keyboard_check_pressed(vk_left) {
-        // Put attack sprites in array?
         if (attack_timer &lt;= 1) {
             D = "lef"
             attack = true
-            attack_timer = 13
+            attack_timer = attack_interval
             attack_animation++
-            if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false) {
-                attack_a_timer = 30
+            if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false &amp;&amp; place_free(x,y+1)) {
+                attack_a_timer = attack_a_interval
                 aerial_attack_executed = true
             }
-            if attack_a_timer != -1 { 
+            //if attack_a_timer != -1 { 
                 if (attack_animation mod 3 == 0) {
                     if !(place_free(x,y+1)) {
                         sprite_index = attack_ani[1]
@@ -340,7 +329,7 @@
                         sprite_index = attack_ani[5]
                     } else {sprite_index = attack_ani[7]}
                 }
-            }
+            //}
         }
     }
     
