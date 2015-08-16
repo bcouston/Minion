@@ -27,9 +27,15 @@
             <kind>1</kind>
             <string>{
     platform_collisions_create(16);
-    wall_l_jump_timer = -1;
-    wall_r_jump_timer = -1;
 
+    //Damage stuff currently redundant but could be useful later
+    
+    //Constants
+    damage_interval = 10
+    
+    //Timers
+    damage_timer = -1
+    
     //Health
     baddie_health = 40
 }
@@ -56,7 +62,12 @@
           <argument>
             <kind>1</kind>
             <string>{
-    if baddie_health &lt;= 0 {
+
+    if place_meeting(x+1, y, object_player) &amp;&amp; object_player.damage == true {
+        baddie_health -= object_player.moe_damage
+    }   
+
+    if baddie_health == 0 {
         sprite_index = moe_walk_right
     }
 }
