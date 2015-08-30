@@ -6,11 +6,14 @@
   <NewExtensions/>
   <sounds name="sound">
     <sound>sound\darkworld</sound>
+    <sound>sound\brinstar</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\moe_walk_right</sprite>
     <sprite>sprites\moe_walk_left</sprite>
     <sprite>sprites\sprite_solid</sprite>
+    <sprite>sprites\sprite_stairs</sprite>
+    <sprite>sprites\sprite_slant</sprite>
     <sprite>sprites\moe_run_right</sprite>
     <sprite>sprites\moe_run_right_wood_sword</sprite>
     <sprite>sprites\moe_run_left</sprite>
@@ -32,6 +35,7 @@
     <sprite>sprites\moe_attack_wood_sword_right_3</sprite>
     <sprite>sprites\moe_attack_wood_sword_left_3</sprite>
     <sprite>sprites\sprite_floor_dungeon</sprite>
+    <sprite>sprites\train_dummy</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -47,9 +51,13 @@
     <object>objects\object_player</object>
     <object>objects\object_badguy1</object>
     <object>objects\object_solid</object>
+    <object>objects\object_dungeon_slant</object>
+    <object>objects\object_dungeon_stairs</object>
     <object>objects\object_dungeon_ground</object>
+    <object>objects\dummy</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\Level1_Combat</room>
     <room>rooms\room2</room>
     <room>rooms\room1</room>
   </rooms>
