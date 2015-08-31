@@ -33,6 +33,9 @@
     attack_interval = 11
     attack_a_interval = 30
     
+    //Collisions
+    wall_jump = false
+    
     //Timers
     
     wall_l_jump_timer = -1;
@@ -166,20 +169,29 @@
     } else {
         attack_a_timer -= 1;
     }
-        
+      
     
     // Collisions
     platform_collisions_step(object_solid)
     platform_collisions_step(object_dungeon_ground)
     platform_collisions_step(object_dungeon_stairs)
     platform_collisions_step(object_dungeon_slant)
+        //Wall jump collision
+        if (!place_free(x+1,y) || !place_free(x-1,y)) {
+            wall_jump = false
+            aerial_attack_executed = false
+        }
     
     // Gravity when attacking in air, when attacking on ground, when jumping, in contact with a wall and on the floor, with animations
    
-    if (attack == true &amp;&amp; attack_a_timer != -1 &amp;&amp; place_free(x,y+1)) {
+    // If attacking and not wall jump
+    if (attack == true &amp;&amp; attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == false) {
         gravity = 0
         vspeed = 0
         hspeed = 0
+    } else if (attack == true &amp;&amp; attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == true) {
+        gravity = 0.8
+    // If attacking on ground
     } else if (attack == true &amp;&amp; attack_timer != -1 &amp;&amp; !place_free(x,y+1)) {
         gravity = 0
         hspeed = 0
@@ -187,13 +199,13 @@
     else if (place_free(x,y+1)){
         gravity = 0.8;
             if D == "lef" {
-                if place_free(x-1,y) {
+                if place_free(x-2,y) {
                     if vspeed &lt;= 0 {
                         sprite_index = moe_jump_left
                     } else {sprite_index = moe_jump_descent_left}
                 } else {sprite_index = moe_wall_grab_left}
             } else if D == "rig" {
-                if place_free(x+1,y) {
+                if place_free(x+2,y) {
                     if vspeed &lt;= 0 {
                         sprite_index = moe_jump_right
                     } else {sprite_index = moe_jump_descent_right}
@@ -260,12 +272,14 @@
                 vspeed = -10
                 hspeed = -6
                 D = "lef"
+                wall_jump = true
                 wall_r_jump_timer = 15;
             }
             if !place_free(x-1,y) {
                 vspeed = -10
                 hspeed = 6
                 D = "rig"
+                wall_jump = true
                 wall_l_jump_timer = 15;
             }
             // Normal jump
@@ -287,7 +301,7 @@
     
     // Right
     if keyboard_check_pressed(vk_right) {
-        if (attack_timer &lt;= 1) {
+        if (attack_timer &lt;= 1 &amp;&amp; place_free(x+1,y) ) {
             D = "rig"
             attack = true
             damage = true
@@ -316,7 +330,7 @@
     }
     // Left
     if keyboard_check_pressed(vk_left) {
-        if (attack_timer &lt;= 1) {
+        if (attack_timer &lt;= 1 &amp;&amp; place_free(x-1,y) ) {
             D = "lef"
             attack = true
             damage = true
