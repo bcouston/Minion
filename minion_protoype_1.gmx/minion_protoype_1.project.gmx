@@ -36,6 +36,7 @@
     <sprite>sprites\moe_attack_wood_sword_left_3</sprite>
     <sprite>sprites\sprite_floor_dungeon</sprite>
     <sprite>sprites\train_dummy</sprite>
+    <sprite>sprites\shield_dummy</sprite>
     <sprite>sprites\swing_axe</sprite>
   </sprites>
   <backgrounds name="background">
@@ -56,6 +57,7 @@
     <object>objects\object_dungeon_stairs</object>
     <object>objects\object_dungeon_ground</object>
     <object>objects\object_dummy</object>
+    <object>objects\object_shield_dummy</object>
     <object>objects\object_swing_axe</object>
   </objects>
   <rooms name="rooms">
