@@ -54,7 +54,7 @@
     fight = true
     attack = false
     attack_animation = 2
-    moe_damage = 20
+    moe_damage = 10
     
     //Animation
     moe_run_r = moe_run_right

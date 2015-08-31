@@ -7,6 +7,10 @@
   <sounds name="sound">
     <sound>sound\darkworld</sound>
     <sound>sound\brinstar</sound>
+    <sounds name="Dummies">
+      <sound>sound\dummy_hurt</sound>
+      <sound>sound\dummy_die</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\moe_walk_right</sprite>
@@ -38,6 +42,9 @@
     <sprite>sprites\train_dummy</sprite>
     <sprite>sprites\shield_dummy</sprite>
     <sprite>sprites\swing_axe</sprite>
+    <sprite>sprites\elevator</sprite>
+    <sprite>sprites\dummy_damage</sprite>
+    <sprite>sprites\dummy_dead</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -59,6 +66,7 @@
     <object>objects\object_dummy</object>
     <object>objects\object_shield_dummy</object>
     <object>objects\object_swing_axe</object>
+    <object>objects\object_elevator</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Level1_Combat</room>
