@@ -11,6 +11,8 @@
       <sound>sound\dummy_hurt</sound>
       <sound>sound\dummy_die</sound>
     </sounds>
+    <sound>sound\get_item</sound>
+    <sound>sound\chest_open_sound</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\moe_walk_right</sprite>
@@ -45,6 +47,12 @@
     <sprite>sprites\elevator</sprite>
     <sprite>sprites\dummy_damage</sprite>
     <sprite>sprites\dummy_dead</sprite>
+    <sprite>sprites\chest_just_open</sprite>
+    <sprite>sprites\chest_open</sprite>
+    <sprite>sprites\moe_find_wood_sword</sprite>
+    <sprite>sprites\chest</sprite>
+    <sprite>sprites\moe_walk_sword_right</sprite>
+    <sprite>sprites\moe_walk_sword_left</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -67,6 +75,7 @@
     <object>objects\object_shield_dummy</object>
     <object>objects\object_swing_axe</object>
     <object>objects\object_elevator</object>
+    <object>objects\object_chest_wood_sword</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Level1_Combat</room>
