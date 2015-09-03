@@ -77,7 +77,7 @@
         &amp;&amp; object_player.damage == true &amp;&amp; sprite_index != dummy_dead {
         baddie_health -= object_player.moe_damage
         sprite_index = dummy_damage
-        audio_play_sound(dummy_hurt, 10, false)
+        audio_play_sound(sword_impact_1, 10, false)
     }   
 
     if baddie_health &lt;= 0 {
