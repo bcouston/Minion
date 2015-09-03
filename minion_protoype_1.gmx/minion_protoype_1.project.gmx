@@ -16,6 +16,7 @@
     <sounds name="Sword">
       <sound>sound\swoosh_1</sound>
       <sound>sound\swoosh_2</sound>
+      <sound>sound\sword_impact_1</sound>
     </sounds>
     <sound>sound\moe_jump</sound>
   </sounds>
@@ -23,6 +24,7 @@
     <sprite>sprites\moe_walk_right</sprite>
     <sprite>sprites\moe_walk_left</sprite>
     <sprite>sprites\sprite_solid</sprite>
+    <sprite>sprites\sprite_gate</sprite>
     <sprite>sprites\sprite_stairs</sprite>
     <sprite>sprites\sprite_slant</sprite>
     <sprite>sprites\moe_run_right</sprite>
@@ -88,6 +90,7 @@
     <object>objects\object_swing_axe</object>
     <object>objects\object_elevator</object>
     <object>objects\object_chest_wood_sword</object>
+    <object>objects\object_gate</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Level1_Combat</room>

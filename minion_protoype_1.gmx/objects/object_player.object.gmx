@@ -205,6 +205,7 @@
     platform_collisions_step(object_dungeon_ground)
     platform_collisions_step(object_dungeon_stairs)
     platform_collisions_step(object_dungeon_slant)
+    platform_collisions_step(object_gate)
         //Wall jump collision
         if (!place_free(x+1,y) || !place_free(x-1,y)) {
             wall_jump = false
