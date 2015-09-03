@@ -13,6 +13,11 @@
     </sounds>
     <sound>sound\get_item</sound>
     <sound>sound\chest_open_sound</sound>
+    <sounds name="Sword">
+      <sound>sound\swoosh_1</sound>
+      <sound>sound\swoosh_2</sound>
+    </sounds>
+    <sound>sound\moe_jump</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\moe_walk_right</sprite>
@@ -53,6 +58,13 @@
     <sprite>sprites\chest</sprite>
     <sprite>sprites\moe_walk_sword_right</sprite>
     <sprite>sprites\moe_walk_sword_left</sprite>
+    <sprite>sprites\moe_attack_wood_sword_up</sprite>
+    <sprite>sprites\moe_jump_right_wood_sword</sprite>
+    <sprite>sprites\moe_jump_descent_right_wood_sword</sprite>
+    <sprite>sprites\moe_jump_descent_left_wood_sword</sprite>
+    <sprite>sprites\moe_jump_left_wood_sword</sprite>
+    <sprite>sprites\moe_wall_grab_left_wood_sword</sprite>
+    <sprite>sprites\moe_wall_grab_right_wood_sword</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>

@@ -113,6 +113,9 @@
         hspeed = 12
     }
     
+    // --- SOUND ---
+
+    
     //--- DAMAGE ---
     damage = false
     
@@ -125,16 +128,32 @@
         
         moe_run_r = moe_run_right
         moe_run_l = moe_run_left
+        
+        moe_jump_r = moe_jump_right
+        moe_jump_l = moe_jump_left
+        moe_jump_descent_r = moe_jump_descent_right
+        moe_jump_descent_l = moe_jump_descent_left
+        
+        moe_wall_grab_r = moe_wall_grab_right
+        moe_wall_grab_l = moe_wall_grab_left
     } else {
         moe_walk_r = moe_walk_sword_right
         moe_walk_l = moe_walk_sword_left
         
         moe_run_r = moe_run_right_wood_sword
         moe_run_l = moe_run_left_wood_sword
+        
+        moe_jump_r = moe_jump_right_wood_sword
+        moe_jump_l = moe_jump_left_wood_sword
+        moe_jump_descent_r = moe_jump_descent_right_wood_sword
+        moe_jump_descent_l = moe_jump_descent_left_wood_sword
+        
+        moe_wall_grab_r = moe_wall_grab_right_wood_sword
+        moe_wall_grab_l = moe_wall_grab_left_wood_sword
     }
     
     // Animation for jumping freeze
-    if((sprite_index == moe_jump_right || sprite_index == moe_jump_left) &amp;&amp; (image_index == image_number - 1) ) {
+    if((sprite_index == moe_jump_r || sprite_index == moe_jump_l) &amp;&amp; (image_index == image_number - 1) ) {
         image_speed = 0
     } else {image_speed = 1}
     
@@ -219,15 +238,15 @@
             if D == "lef" {
                 if place_free(x-2,y) {
                     if vspeed &lt;= 0 {
-                        sprite_index = moe_jump_left
-                    } else {sprite_index = moe_jump_descent_left}
-                } else {sprite_index = moe_wall_grab_left}
+                        sprite_index = moe_jump_l
+                    } else {sprite_index = moe_jump_descent_l}
+                } else {sprite_index = moe_wall_grab_l}
             } else if D == "rig" {
                 if place_free(x+2,y) {
                     if vspeed &lt;= 0 {
-                        sprite_index = moe_jump_right
-                    } else {sprite_index = moe_jump_descent_right}
-                } else {sprite_index = moe_wall_grab_right}
+                        sprite_index = moe_jump_r
+                    } else {sprite_index = moe_jump_descent_r}
+                } else {sprite_index = moe_wall_grab_r}
             }
         // If touching wall
         if (!place_free(x+1,y) || !place_free(x-1,y)) &amp;&amp; (vspeed &gt; 0) {
@@ -286,6 +305,7 @@
     
     // Jump
     if keyboard_check_pressed(ord('W')) {
+        audio_play_sound(moe_jump, 10, false)
         // Wall jump
         if place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
             if !place_free(x+1,y) {
@@ -329,6 +349,7 @@
                 damage = true
                 attack_timer = attack_interval
                 attack_animation++
+                audio_play_sound(swoosh_1, 10, false)
                 if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false &amp;&amp; place_free(x,y+1)) {
                     attack_a_timer = attack_a_interval
                     aerial_attack_executed = true
@@ -350,6 +371,7 @@
                 //}
             }
         }
+        
         // Left
         if keyboard_check_pressed(vk_left) {
             if (attack_timer &lt;= 1 &amp;&amp; place_free(x-1,y) ) {
@@ -358,6 +380,7 @@
                 damage = true
                 attack_timer = attack_interval
                 attack_animation++
+                audio_play_sound(swoosh_2, 10, false)
                 if (attack_a_timer == -1 &amp;&amp; aerial_attack_executed == false &amp;&amp; place_free(x,y+1)) {
                     attack_a_timer = attack_a_interval
                     aerial_attack_executed = true
@@ -377,6 +400,16 @@
                         } else if (attack_a_timer != -1){sprite_index = attack_ani[7]}
                     }
                 //}
+            }
+        }
+        
+        // Up
+        if keyboard_check_pressed(vk_up) {
+            if (attack_timer &lt;= 1 &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1) ) {
+                attack = true
+                damage = true
+                attack_timer = attack_interval
+                sprite_index = moe_attack_wood_sword_up
             }
         }
     }
