@@ -58,6 +58,7 @@
     <sprite>sprites\chest_open</sprite>
     <sprite>sprites\moe_find_wood_sword</sprite>
     <sprite>sprites\chest</sprite>
+    <sprite>sprites\one_way_platform</sprite>
     <sprite>sprites\moe_walk_sword_right</sprite>
     <sprite>sprites\moe_walk_sword_left</sprite>
     <sprite>sprites\moe_attack_wood_sword_up</sprite>
@@ -88,6 +89,7 @@
     <object>objects\object_player</object>
     <object>objects\object_badguy1</object>
     <object>objects\object_solid</object>
+    <object>objects\object_one_way</object>
     <object>objects\object_dungeon_slant</object>
     <object>objects\object_dungeon_stairs</object>
     <object>objects\object_dungeon_ground</object>
