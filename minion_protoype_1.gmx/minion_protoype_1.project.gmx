@@ -75,6 +75,16 @@
     <sprite>sprites\minion_soldier_talk</sprite>
     <sprite>sprites\train_dummy_air</sprite>
     <sprite>sprites\train_dummy_air_damage</sprite>
+    <sprite>sprites\knight_attack_2</sprite>
+    <sprite>sprites\knight_attack_1_r</sprite>
+    <sprite>sprites\knight_attack_1_l</sprite>
+    <sprite>sprites\knight_prone_move_r</sprite>
+    <sprite>sprites\knight_prone_move_l</sprite>
+    <sprite>sprites\knight_prone_still_r</sprite>
+    <sprite>sprites\knight_prone_still_l</sprite>
+    <sprite>sprites\knight_idle_2</sprite>
+    <sprite>sprites\knight_idle_1</sprite>
+    <sprite>sprites\sword_blast_r</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -108,6 +118,8 @@
     <object>objects\object_gate</object>
     <object>objects\object_solider</object>
     <object>objects\object_dialog</object>
+    <object>objects\object_knight_boss</object>
+    <object>objects\object_sword_blast</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Level1_Combat</room>
