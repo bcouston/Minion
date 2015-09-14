@@ -70,6 +70,8 @@
     <sprite>sprites\moe_wall_grab_right_wood_sword</sprite>
     <sprite>sprites\minion_soldier_stand</sprite>
     <sprite>sprites\minion_soldier_talk</sprite>
+    <sprite>sprites\train_dummy_air</sprite>
+    <sprite>sprites\train_dummy_air_damage</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -94,6 +96,8 @@
     <object>objects\object_dungeon_stairs</object>
     <object>objects\object_dungeon_ground</object>
     <object>objects\object_dummy</object>
+    <object>objects\object_shield_dummy1</object>
+    <object>objects\object_air_dummy</object>
     <object>objects\object_shield_dummy</object>
     <object>objects\object_swing_axe</object>
     <object>objects\object_elevator</object>
