@@ -64,7 +64,7 @@
             <string>{
 
     //Animation
-    if sprite_index == dummy_damage &amp;&amp; image_index = image_number - 1 {
+    if (sprite_index == dummy_damage || sprite_index == dummy_damage_2) &amp;&amp; image_index = image_number - 1 {
         sprite_index = train_dummy
     }
     //Dead
@@ -73,16 +73,24 @@
         instance_destroy()
     }
     
-    if (place_meeting(x+player_damage_range, y, object_player) || place_meeting(x-player_damage_range, y, object_player))
-        &amp;&amp; object_player.damage == true &amp;&amp; sprite_index != dummy_dead {
-        baddie_health -= object_player.moe_damage
-        sprite_index = dummy_damage
-        audio_play_sound(sword_impact_1, 10, false)
-    }   
-
     if baddie_health &lt;= 0 {
         sprite_index = dummy_dead
     }
+    
+    //Damage
+    
+    if (place_meeting(x+player_damage_range, y, object_player) || place_meeting(x-player_damage_range, y, object_player))
+        &amp;&amp; object_player.damage == true &amp;&amp; sprite_index != dummy_dead {
+        baddie_health -= object_player.moe_damage
+        if place_meeting(x+player_damage_range, y, object_player) {
+            sprite_index = dummy_damage
+        } else
+        if place_meeting(x-player_damage_range, y, object_player) {
+            sprite_index = dummy_damage_2
+        }
+        audio_play_sound(sword_impact_1, 10, false)
+    }   
+
 }
 </string>
           </argument>

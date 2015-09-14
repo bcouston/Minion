@@ -17,6 +17,7 @@
       <sound>sound\swoosh_1</sound>
       <sound>sound\swoosh_2</sound>
       <sound>sound\sword_impact_1</sound>
+      <sound>sound\shield_impact_1</sound>
     </sounds>
     <sound>sound\moe_jump</sound>
   </sounds>
@@ -50,9 +51,11 @@
     <sprite>sprites\sprite_floor_dungeon</sprite>
     <sprite>sprites\train_dummy</sprite>
     <sprite>sprites\shield_dummy</sprite>
+    <sprite>sprites\shield_dummy_2</sprite>
     <sprite>sprites\swing_axe</sprite>
     <sprite>sprites\elevator</sprite>
     <sprite>sprites\dummy_damage</sprite>
+    <sprite>sprites\dummy_damage_2</sprite>
     <sprite>sprites\dummy_dead</sprite>
     <sprite>sprites\chest_just_open</sprite>
     <sprite>sprites\chest_open</sprite>
@@ -97,8 +100,8 @@
     <object>objects\object_dungeon_ground</object>
     <object>objects\object_dummy</object>
     <object>objects\object_shield_dummy1</object>
+    <object>objects\object_shield_dummy2</object>
     <object>objects\object_air_dummy</object>
-    <object>objects\object_shield_dummy</object>
     <object>objects\object_swing_axe</object>
     <object>objects\object_elevator</object>
     <object>objects\object_chest_wood_sword</object>
