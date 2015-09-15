@@ -28,12 +28,16 @@
             <string>{
     direction_facing = "right"
     player_attack_range = 35
+    beam_range = 100
+    beam_delay = 20
     attack_timer = -1
     attack_range_timer = -1 
+    beam_attack_timer = -1
     attack_interval = 30
     attack_range = 10
     y_range = 10
     attack = false
+    attack_or_beam = "attack"
 }
 </string>
           </argument>
@@ -58,6 +62,11 @@
           <argument>
             <kind>1</kind>
             <string>{
+
+    // Direction
+    
+     if (object_player.x - x &gt; 0) {direction_facing = "right"}
+     if (object_player.x - x &lt; 0) {direction_facing = "left"}
 
     // Animation
     
@@ -92,26 +101,49 @@
       if direction_facing == "right" {
         attack = true
         attack_timer = player_attack_range
-        sprite_index = knight_attack_1_r
+        if attack_or_beam == "attack" {
+            sprite_index = knight_attack_1_r
+        } else {
+            sprite_index = knight_attack_2_r
+            instance_create(x, y, object_sword_blast_r)
+            audio_play_sound(beam_1, 10, false)
+        }
       } else {
         attack = true
         attack_timer = player_attack_range
-        sprite_index = knight_attack_1_l
+        if attack_or_beam = "attack" {
+            sprite_index = knight_attack_1_l
+        } else {
+            sprite_index = knight_attack_2_l
+            instance_create(x, y, object_sword_blast_l)
+            audio_play_sound(beam_1, 10, false)
+        }
       }
       
     } else if attack_range_timer != -1 {
       attack_range_timer -= 1;
-    }  
+    }
+    
+    //Shoot beam when not in range
+    
+    if (object_player.x - x &gt;= beam_range) {
+        attack_or_beam = "beam"
+         if attack_range_timer == -1 {
+            attack_range_timer = beam_delay
+         }       
+    }
+      
     
     //-----MOVEMENT-----
     
-    if attack_timer == -1 {
+    if attack_timer == -1 || attack_or_beam = "beam" {
     
         // Stationary and attack if player in range
         
         if (object_player.x - x &lt;= player_attack_range) &amp;&amp;
             (object_player.x - x &gt;= (-1 * player_attack_range)) &amp;&amp;
             (object_player.y - y &gt;= (-1 * y_range)) {
+            attack_or_beam = "attack"
             if attack_range_timer == -1 {
                 attack_range_timer = attack_range
             }

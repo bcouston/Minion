@@ -18,6 +18,7 @@
       <sound>sound\swoosh_2</sound>
       <sound>sound\sword_impact_1</sound>
       <sound>sound\shield_impact_1</sound>
+      <sound>sound\beam_1</sound>
     </sounds>
     <sound>sound\moe_jump</sound>
   </sounds>
@@ -75,7 +76,8 @@
     <sprite>sprites\minion_soldier_talk</sprite>
     <sprite>sprites\train_dummy_air</sprite>
     <sprite>sprites\train_dummy_air_damage</sprite>
-    <sprite>sprites\knight_attack_2</sprite>
+    <sprite>sprites\knight_attack_2_r</sprite>
+    <sprite>sprites\knight_attack_2_l</sprite>
     <sprite>sprites\knight_attack_1_r</sprite>
     <sprite>sprites\knight_attack_1_l</sprite>
     <sprite>sprites\knight_prone_move_r</sprite>
@@ -85,6 +87,7 @@
     <sprite>sprites\knight_idle_2</sprite>
     <sprite>sprites\knight_idle_1</sprite>
     <sprite>sprites\sword_blast_r</sprite>
+    <sprite>sprites\sword_blast_l</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -119,7 +122,8 @@
     <object>objects\object_solider</object>
     <object>objects\object_dialog</object>
     <object>objects\object_knight_boss</object>
-    <object>objects\object_sword_blast</object>
+    <object>objects\object_sword_blast_r</object>
+    <object>objects\object_sword_blast_l</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Level1_Combat</room>
