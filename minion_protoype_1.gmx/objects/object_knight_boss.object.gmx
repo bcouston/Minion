@@ -28,8 +28,9 @@
             <string>{
     direction_facing = "right"
     player_attack_range = 35
-    beam_range = 100
-    beam_delay = 20
+    player_damage_range = 10
+    beam_range = 120
+    beam_delay = 40
     attack_timer = -1
     attack_range_timer = -1 
     beam_attack_timer = -1
@@ -103,6 +104,11 @@
         attack_timer = player_attack_range
         if attack_or_beam == "attack" {
             sprite_index = knight_attack_1_r
+            if place_meeting(x+player_damage_range,y,object_player) {
+                object_player.hurt = true
+                object_player.damage_object_pos[0] = x
+                object_player.damage_object_pos[1] = y
+            }
         } else {
             sprite_index = knight_attack_2_r
             instance_create(x, y, object_sword_blast_r)
@@ -113,6 +119,11 @@
         attack_timer = player_attack_range
         if attack_or_beam = "attack" {
             sprite_index = knight_attack_1_l
+              if place_meeting(x-player_damage_range,y,object_player) {
+                object_player.hurt = true
+                object_player.damage_object_pos[0] = x
+                object_player.damage_object_pos[1] = y
+            }
         } else {
             sprite_index = knight_attack_2_l
             instance_create(x, y, object_sword_blast_l)
@@ -131,7 +142,7 @@
          if attack_range_timer == -1 {
             attack_range_timer = beam_delay
          }       
-    }
+    } else {attack_or_beam = "attack"}
       
     
     //-----MOVEMENT-----

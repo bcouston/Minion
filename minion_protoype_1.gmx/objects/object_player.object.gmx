@@ -45,7 +45,7 @@
     attack_a_timer = -1;
     aerial_attack_executed = false;
     
-    audio_play_sound(brinstar, 6, false)
+    audio_play_sound(boss, 6, false)
     
     D = "rig"
     
@@ -79,6 +79,11 @@
     //Health
     moe_health = 100
     
+    //Coordinates for moving away from source of damage
+    damage_object_pos[0] = 0
+    damage_object_pos[1] = 0
+    hurt = false
+    hurt_timer = -1
 }
 </string>
           </argument>
@@ -221,6 +226,10 @@
         hspeed = 0
         vspeed = 0
         sprite_index = moe_find_wood_sword
+    }
+    // Moe is hurt
+    else if hurt == true {
+        if (hurt_timer &lt; 0) {hurt_timer = 10}
     }
     // If attacking and not wall jump
     else if (attack == true &amp;&amp; attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == false) {
@@ -421,6 +430,21 @@
         action = true
     } else {action = false}
     
+    //Damage
+    if (hurt_timer == 0) {
+        hurt = false
+        //speed = 0
+        //direction = 0
+        hurt_timer = -1;
+    } else if (hurt_timer != -1) {
+        hurt_timer -= 1;
+        playerdirection = point_direction(x,y,damage_object_pos[0],damage_object_pos[1])
+        direction = (playerdirection + 180)
+        speed = 8
+        if (x - damage_object_pos[0]) &gt; 0 {
+            sprite_index = moe_damage_l
+        } else {sprite_index = moe_damage_r}
+    }
 }
 </string>
           </argument>
