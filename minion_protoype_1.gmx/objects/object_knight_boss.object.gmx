@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>{
     direction_facing = "right"
-    player_attack_range = 35
+    player_attack_range = 50
     player_damage_range = 10
     beam_range = 120
     beam_delay = 40
@@ -39,6 +39,11 @@
     y_range = 10
     attack = false
     attack_or_beam = "attack"
+    within_range = false //Used so attack doesn't carry onto movement stage after player comes within movement range
+    player_previous_position_l = false //used for when player has changed sides of the knight, opening him for confusion
+    player_previous_position_r = false
+    confused_timer = -1 //time when boss is confused and vulnerable to backstab
+    confused_interval = 30
 }
 </string>
           </argument>
@@ -66,8 +71,8 @@
 
     // Direction
     
-     if (object_player.x - x &gt; 0) {direction_facing = "right"}
-     if (object_player.x - x &lt; 0) {direction_facing = "left"}
+     if (object_player.x - x &gt; 0 &amp;&amp; attack_range_timer == -1 &amp;&amp; attack_timer == -1 &amp;&amp; confused_timer == -1) {direction_facing = "right"}
+     if (object_player.x - x &lt; 0 &amp;&amp; attack_range_timer == -1 &amp;&amp; attack_timer == -1 &amp;&amp; confused_timer == -1) {direction_facing = "left"}
 
     // Animation
     
@@ -78,7 +83,7 @@
             if direction_facing == "right" {
                 sprite_index = knight_prone_still_r
             } else {sprite_index = knight_prone_still_l}
-            attack_timer = attack_interval
+            //attack_timer = attack_interval
         }
     }
 
@@ -92,16 +97,24 @@
       attack_timer -= 1;
     }
     
+    // Confusion
+    
+    if (confused_timer &lt;= 0) {
+      confused_timer = -1;
+    } else {
+      confused_timer -= 1;
+    }
+    
     // Attack player when in range
     
-    if attack_range_timer &lt;= 0 &amp;&amp; attack_range_timer != -1 {
+    if (attack_range_timer != -1 &amp;&amp; attack_range_timer &lt;= 0) {
       attack_range_timer = -1
       
       //Attack
       
       if direction_facing == "right" {
         attack = true
-        attack_timer = player_attack_range
+        attack_timer = attack_interval
         if attack_or_beam == "attack" {
             sprite_index = knight_attack_1_r
             if place_meeting(x+player_damage_range,y,object_player) {
@@ -109,14 +122,14 @@
                 object_player.damage_object_pos[0] = x
                 object_player.damage_object_pos[1] = y
             }
-        } else {
+        } else { //=beam
             sprite_index = knight_attack_2_r
             instance_create(x, y, object_sword_blast_r)
             audio_play_sound(beam_1, 10, false)
         }
       } else {
         attack = true
-        attack_timer = player_attack_range
+        attack_timer = attack_interval
         if attack_or_beam = "attack" {
             sprite_index = knight_attack_1_l
               if place_meeting(x-player_damage_range,y,object_player) {
@@ -138,11 +151,25 @@
     //Shoot beam when not in range
     
     if (object_player.x - x &gt;= beam_range) {
+        within_range = false
         attack_or_beam = "beam"
          if attack_range_timer == -1 {
             attack_range_timer = beam_delay
          }       
-    } else {attack_or_beam = "attack"}
+    } else {
+        attack_or_beam = "attack"
+    }
+    
+    //-----CONFUSION-----
+    
+    if confused_timer != -1 {
+    if direction_facing == "right" {
+        sprite_index = knight_idle_2_r
+    } else {
+        sprite_index = knight_idle_2_l
+    }
+        hspeed = 0
+    }
       
     
     //-----MOVEMENT-----
@@ -153,26 +180,50 @@
         
         if (object_player.x - x &lt;= player_attack_range) &amp;&amp;
             (object_player.x - x &gt;= (-1 * player_attack_range)) &amp;&amp;
-            (object_player.y - y &gt;= (-1 * y_range)) {
+            (object_player.y - y &gt;= (-1 * y_range)) &amp;&amp;
+            (confused_timer == -1) {
             attack_or_beam = "attack"
             if attack_range_timer == -1 {
                 attack_range_timer = attack_range
             }
-        } else
+        } else {
         
         // Movement towards player horizontally
         
-        if attack_range_timer == -1 {
-        
-            if object_player.x &gt; x {
-                hspeed = 2
-                direction_facing = "right"
-                sprite_index = knight_prone_move_r
-            }
-            else if object_player.x &lt; x {
-                hspeed = -2
-                direction_facing = "left"
-                sprite_index = knight_prone_move_l
+            if (object_player.x - x &lt; beam_range) {
+            
+                if !within_range {
+                    attack_range_timer = -1
+                    within_range = true
+                }
+            
+                if object_player.x &gt; x &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) {
+                    if !player_previous_position_r {
+                        confused_timer = confused_interval
+                        player_previous_position_r = true
+                        player_previous_position_l = false
+                        direction_facing = "left"
+                    }
+                    else if confused_timer == -1 {
+                        hspeed = 2
+                        direction_facing = "right"
+                        sprite_index = knight_prone_move_r
+                    }
+                }
+                else if object_player.x &lt; x &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) {
+                    if !player_previous_position_l {
+                        confused_timer = confused_interval
+                        player_previous_position_l = true
+                        player_previous_position_r = false
+                        direction_facing = "right"
+                    }
+                    else if confused_timer == -1 {
+                        hspeed = -2
+                        direction_facing = "left"
+                        sprite_index = knight_prone_move_l
+                    }
+                }
+            
             }
         
         }

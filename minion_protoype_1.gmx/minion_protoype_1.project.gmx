@@ -85,7 +85,8 @@
     <sprite>sprites\knight_prone_move_l</sprite>
     <sprite>sprites\knight_prone_still_r</sprite>
     <sprite>sprites\knight_prone_still_l</sprite>
-    <sprite>sprites\knight_idle_2</sprite>
+    <sprite>sprites\knight_idle_2_r</sprite>
+    <sprite>sprites\knight_idle_2_l</sprite>
     <sprite>sprites\knight_idle_1</sprite>
     <sprite>sprites\sword_blast_r</sprite>
     <sprite>sprites\sword_blast_l</sprite>
