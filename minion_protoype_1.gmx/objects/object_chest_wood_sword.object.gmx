@@ -79,8 +79,8 @@
         open = true
         open_timer = 90
         object_player.x = (self.x + 16);
-        audio_sound_gain(brinstar, 0.5, 10);
-        audio_play_sound(get_item, 10, false)
+        audio_sound_gain(brinstar, 0, 10);
+        audio_play_sound(get_item_2, 10, false)
         audio_play_sound(chest_open_sound, 10, false)
         script_dialog("You gained a#wooden sword!",1,x,y-(1.5*sprite_height))
     }

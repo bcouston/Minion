@@ -22,6 +22,7 @@
     </sounds>
     <sound>sound\moe_jump</sound>
     <sound>sound\boss</sound>
+    <sound>sound\get_item_2</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\moe_walk_right</sprite>
@@ -92,6 +93,8 @@
     <sprite>sprites\sword_blast_l</sprite>
     <sprite>sprites\moe_damage_r</sprite>
     <sprite>sprites\moe_damage_l</sprite>
+    <sprite>sprites\knight_damage_r</sprite>
+    <sprite>sprites\knight_damage_l</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
