@@ -232,7 +232,7 @@
     platform_collisions_step(object_dungeon_slant)
     platform_collisions_step(object_gate)
     platform_collisions_step(object_shield_dummy1)
-    platform_collisions_step(object_knight_boss)
+    //platform_collisions_step(object_knight_boss)
         //Wall jump collision
         if (!place_free(x+1,y) || !place_free(x-1,y)) {
             wall_jump = false
@@ -459,12 +459,17 @@
         hurt_timer = -1;
     } else if (hurt_timer != -1) {
         hurt_timer -= 1;
-        playerdirection = point_direction(x,y,damage_object_pos[0],damage_object_pos[1])
-        direction = (playerdirection + 180)
-        speed = 8
+        //playerdirection = point_direction(x,y,damage_object_pos[0],damage_object_pos[1])
+        //direction = (playerdirection + 180)
+        //speed = 6
         if (x - damage_object_pos[0]) &gt; 0 {
             sprite_index = moe_damage_l
-        } else {sprite_index = moe_damage_r}
+            hspeed = 6
+        } else {
+            sprite_index = moe_damage_r
+            hspeed = -6
+        }
+        if place_meeting(x-1,y,object_solid) || place_meeting(x-1,y,object_solid) {hspeed=0}
     }
 }
 </string>

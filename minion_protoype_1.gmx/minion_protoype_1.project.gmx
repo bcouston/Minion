@@ -23,6 +23,15 @@
     <sound>sound\moe_jump</sound>
     <sound>sound\boss</sound>
     <sound>sound\get_item_2</sound>
+    <sounds name="Vox">
+      <sound>sound\boss_grunt_1</sound>
+      <sound>sound\boss_grunt_2</sound>
+      <sound>sound\boss_warcry_</sound>
+    </sounds>
+    <sounds name="Energy">
+      <sound>sound\stage_charge</sound>
+      <sound>sound\power_beam</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\moe_walk_right</sprite>
@@ -95,6 +104,8 @@
     <sprite>sprites\moe_damage_l</sprite>
     <sprite>sprites\knight_damage_r</sprite>
     <sprite>sprites\knight_damage_l</sprite>
+    <sprite>sprites\knight_charge_complete</sprite>
+    <sprite>sprites\knight_charge</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
