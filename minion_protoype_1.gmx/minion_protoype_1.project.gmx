@@ -131,6 +131,7 @@
     <object>objects\object_knight_boss</object>
     <object>objects\object_sword_blast_r</object>
     <object>objects\object_sword_blast_l</object>
+    <object>objects\object_boss_hp</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Level1_Combat</room>

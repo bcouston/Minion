@@ -43,9 +43,9 @@
     player_previous_position_l = true //used for when player has changed sides of the knight, opening him for confusion
     player_previous_position_r = false
     confused_timer = -1 //time when boss is confused and vulnerable to backstab
-    confused_interval = 30
-    hurt = false
-    hurt_timer = -1
+    confused_interval = 30 // How long boss is in confused state
+    hurt = false // Whether hurt
+    hurt_timer = -1 // How long in hurt state
 }
 </string>
           </argument>
@@ -247,6 +247,7 @@
         if (hurt_timer &lt; 0) {
             confusion_timer = -1
             hurt_timer = 50 //Length of hurt state
+            object_boss_hp.current_health -= 20
         }
     }
     
