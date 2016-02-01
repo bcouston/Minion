@@ -50,7 +50,8 @@
     charge_timer = -1 //Charge up a stage
     complete_charge_timer = -1 //How long it takes to get to the complete charge stage
     up_stage = false // whether in process of going up stage
-    stage = 1 // current stage (up to 3)
+    stage = 1 //current stage
+    dodge_timer = -1 //boolean for stage 2 confusion
 }
 </string>
           </argument>
@@ -128,8 +129,25 @@
       complete_charge_timer -= 1;
     }
     
-    if !up_stage {
+    //Stage 2 - dodge
     
+    if (dodge_timer &lt;= 0) {
+      dodge_timer = -1;
+    } else {
+      dodge_timer -= 1;
+    }
+    
+    if !up_stage {
+        
+        //Boolean decision for stage 2 to decide if player has dodged attack
+        if (attack_range_timer != -1 || attack_timer != -1) {
+            if (object_player.y - y &lt; (-1 * y_range)) {
+                if dodge_timer == -1 {
+                    dodge_timer = 50
+                }
+            }
+        }
+        
         // Attack player when in range
         
         if (attack_range_timer != -1 &amp;&amp; attack_range_timer &lt;= 0) {
@@ -204,7 +222,11 @@
         
         if object_player.x &gt; x &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) &amp;&amp; confused_timer == -1 {
             if !player_previous_position_r {
-                confused_timer = confused_interval
+                if ( (stage == 1) || (stage == 2 &amp;&amp; dodge_timer != -1) ) {
+                    dodge_timer = -1
+                    confused_timer = confused_interval
+                    audio_play_sound(sword_impact_1, 10, false)
+                }
                 player_previous_position_r = true
                 player_previous_position_l = false
                 //direction_facing = "left"
@@ -213,7 +235,11 @@
         
         if object_player.x &lt; x &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) &amp;&amp; confused_timer == -1 {
             if !player_previous_position_l {
-                confused_timer = confused_interval
+                if ( (stage == 1) || (stage == 2 &amp;&amp; dodge_timer != -1) ) {
+                    dodge_timer = -1
+                    confused_timer = confused_interval
+                    audio_play_sound(sword_impact_1, 10, false)
+                }
                 player_previous_position_l = true
                 player_previous_position_r = false
                 //direction_facing = "right"
@@ -311,7 +337,7 @@
         }
         if complete_charge_timer &lt;= 0 {
             up_stage = false
-            move_speed = 4
+            move_speed++
         }
         
     }
