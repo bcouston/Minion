@@ -175,7 +175,7 @@
         
         //Shoot beam when not in range
         
-        if (object_player.x - x &gt;= beam_range) {
+        if (object_player.x - x &gt;= beam_range || x - object_player.x &gt;= beam_range) {
             within_range = false
             attack_or_beam = "beam"
              if attack_range_timer == -1 {
@@ -239,7 +239,7 @@
                 
                 // Movement towards player horizontally
             
-                else if (object_player.x - x &lt; beam_range) {
+                else if ( (object_player.x - x &lt; beam_range) &amp;&amp; (object_player.x - x &gt; -1 * beam_range) ) {
                 
                     if !within_range {
                         attack_range_timer = -1

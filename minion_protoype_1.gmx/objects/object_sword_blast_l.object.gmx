@@ -25,9 +25,15 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>{
-    hspeed = -4
-}
+            <string>{ 
+hspeed = -8
+if place_meeting(x,y,object_player) {
+    object_player.hurt = true
+    object_player.damage_object_pos[0] = x
+    object_player.damage_object_pos[1] = y
+    instance_destroy()
+ }
+ }
 </string>
           </argument>
         </arguments>
