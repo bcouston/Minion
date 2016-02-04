@@ -469,7 +469,7 @@
             sprite_index = moe_damage_r
             hspeed = -6
         }
-        if place_meeting(x-1,y,object_solid) || place_meeting(x-1,y,object_solid) {hspeed=0}
+        if place_meeting(x-1,y,object_solid) || place_meeting(x+1,y,object_solid) {hspeed=0}
     }
 }
 </string>

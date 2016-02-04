@@ -52,6 +52,7 @@
     up_stage = false // whether in process of going up stage
     stage = 1 //current stage
     dodge_timer = -1 //boolean for stage 2 confusion
+    dodge = true //boolean for whether attack hits player or not during time period
 }
 </string>
           </argument>
@@ -139,11 +140,18 @@
     
     if !up_stage {
         
+        //Has not dodged if player is damaged
+        if object_player.hurt {
+            dodge = false
+        }
+        
         //Boolean decision for stage 2 to decide if player has dodged attack
-        if (attack_range_timer != -1 || attack_timer != -1) {
-            if (object_player.y - y &lt; (-1 * y_range)) {
-                if dodge_timer == -1 {
-                    dodge_timer = 50
+        if dodge {
+            if (attack_range_timer != -1 || attack_timer != -1) {
+                if (object_player.y - y &lt; (-1 * y_range)) {
+                    if dodge_timer == -1 {
+                        dodge_timer = 50
+                    }
                 }
             }
         }
@@ -218,7 +226,7 @@
         //-----MOVEMENT-----
         
             
-        //Player has jumped over - confusion
+        //Player has jumped over - confusion (on player landing)
         
         if object_player.x &gt; x &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) &amp;&amp; confused_timer == -1 {
             if !player_previous_position_r {
@@ -229,6 +237,7 @@
                 }
                 player_previous_position_r = true
                 player_previous_position_l = false
+                dodge = true
                 //direction_facing = "left"
             }
         }
@@ -242,6 +251,7 @@
                 }
                 player_previous_position_l = true
                 player_previous_position_r = false
+                dodge = true
                 //direction_facing = "right"
             }
         }
