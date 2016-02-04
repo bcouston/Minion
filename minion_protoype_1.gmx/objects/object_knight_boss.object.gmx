@@ -53,6 +53,7 @@
     stage = 1 //current stage
     dodge_timer = -1 //boolean for stage 2 confusion
     dodge = true //boolean for whether attack hits player or not during time period
+    jump_over = false //detects if the player has executed a wall jump in the last stage
 }
 </string>
           </argument>
@@ -156,6 +157,11 @@
             }
         }
         
+        //Boolean decision for final stage to decide if player has wall jumped over
+        if object_player.wall_l_jump_timer != -1 || object_player.wall_r_jump_timer{
+            jump_over = true
+        }
+        
         // Attack player when in range
         
         if (attack_range_timer != -1 &amp;&amp; attack_range_timer &lt;= 0) {
@@ -230,28 +236,30 @@
         
         if object_player.x &gt; x &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) &amp;&amp; confused_timer == -1 {
             if !player_previous_position_r {
-                if ( (stage == 1) || (stage == 2 &amp;&amp; dodge_timer != -1) ) {
+                if ( (stage == 1) || (stage == 3 &amp;&amp; dodge_timer != -1) || (stage == 5 &amp;&amp; jump_over) ) {
                     dodge_timer = -1
                     confused_timer = confused_interval
-                    audio_play_sound(sword_impact_1, 10, false)
+                    audio_play_sound(confused, 10, false)
                 }
                 player_previous_position_r = true
                 player_previous_position_l = false
                 dodge = true
+                jump_over = false
                 //direction_facing = "left"
             }
         }
         
         if object_player.x &lt; x &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) &amp;&amp; confused_timer == -1 {
             if !player_previous_position_l {
-                if ( (stage == 1) || (stage == 2 &amp;&amp; dodge_timer != -1) ) {
+                if ( (stage == 1) || (stage == 3 &amp;&amp; dodge_timer != -1) || (stage == 5 &amp;&amp; jump_over) ) {
                     dodge_timer = -1
                     confused_timer = confused_interval
-                    audio_play_sound(sword_impact_1, 10, false)
+                    audio_play_sound(confused, 10, false)
                 }
                 player_previous_position_l = true
                 player_previous_position_r = false
                 dodge = true
+                jump_over = false
                 //direction_facing = "right"
             }
         }
@@ -274,7 +282,17 @@
                 }
                 
                 // Movement towards player horizontally
-            
+                
+                else if (place_meeting(x+1,y,object_solid) &amp;&amp; direction_facing == "right") {
+                    hspeed = 0
+                    sprite_index = knight_prone_still_r
+                }
+                
+                else if (place_meeting(x-1,y,object_solid) &amp;&amp; direction_facing == "left") {
+                    hspeed = 0
+                    sprite_index = knight_prone_still_l
+                } 
+                            
                 else if ( (object_player.x - x &lt; beam_range) &amp;&amp; (object_player.x - x &gt; -1 * beam_range) ) {
                 
                     if !within_range {
@@ -329,13 +347,13 @@
     
     } else if up_stage {
         //Set timers
-        if stage == 1 {
+        if stage == 1 || stage == 3 {
             charge_timer = 100
             complete_charge_timer = 150
             stage += 1
         }
-        //Stage 2
-        if stage == 2 {
+        //Stage up
+        if stage == 2 || stage == 4 {
             if charge_timer == 100 {
                 sprite_index = knight_charge
                 audio_play_sound(stage_charge, 10, false)
@@ -345,9 +363,16 @@
                 audio_play_sound(boss_warcry_, 10, false)
             }
         }
+        //Reset everything after end of charge stage
         if complete_charge_timer &lt;= 0 {
             up_stage = false
-            move_speed++
+            //Set new movement speed
+            if stage == 2 {
+                move_speed = 3
+            } else if stage == 4 {
+                move_speed = 6
+            }
+            stage++
         }
         
     }

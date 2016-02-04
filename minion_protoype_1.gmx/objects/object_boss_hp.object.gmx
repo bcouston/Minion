@@ -27,7 +27,8 @@
             <kind>1</kind>
             <string>{
 current_health = 100
-up_stage = true
+up_stage1 = true
+up_stage2 = true
 }
 </string>
           </argument>
@@ -52,7 +53,8 @@ up_stage = true
           <argument>
             <kind>1</kind>
             <string>{
-if current_health &lt;= 60 &amp;&amp; up_stage {object_knight_boss.up_stage = true; up_stage = false;}
+if current_health &lt;= 60 &amp;&amp; up_stage1 {object_knight_boss.up_stage = true; up_stage1 = false;}
+if current_health &lt;= 20 &amp;&amp; up_stage2 {object_knight_boss.up_stage = true; up_stage2 = false;}
 }
 </string>
           </argument>

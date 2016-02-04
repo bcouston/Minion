@@ -27,6 +27,7 @@
       <sound>sound\boss_grunt_1</sound>
       <sound>sound\boss_grunt_2</sound>
       <sound>sound\boss_warcry_</sound>
+      <sound>sound\confused</sound>
     </sounds>
     <sounds name="Energy">
       <sound>sound\stage_charge</sound>
