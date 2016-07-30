@@ -11,86 +11,6 @@
     <event eventtype="0" enumb="0">
       <action>
         <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>{
-    platform_collisions_create(100);
-    
-    //Constants
-    
-    attack_interval = 11
-    attack_a_interval = 30
-    
-    //Collisions
-    wall_jump = false
-    
-    //Timers
-    
-    wall_l_jump_timer = -1;
-    wall_r_jump_timer = -1;
-    
-    attack_timer = -1
-    attack_a_timer = -1;
-    aerial_attack_executed = false;
-    
-    audio_play_sound(brinstar, 6, false)
-    
-    D = "rig"
-    
-    //Attacking
-    
-    fight = true
-    attack = false
-    attack_animation = 2
-    moe_damage = 10
-    
-    //Actions
-    
-    action = false
-    
-    //Animation
-    moe_run_r = moe_run_right
-    moe_run_l = moe_run_left
-    
-    //Initialize attack animations array
-    attack_ani[0] = moe_attack_wood_sword_right_1
-    attack_ani[1] = moe_attack_wood_sword_left_1
-    attack_ani[2] = moe_attack_wood_sword_right_2
-    attack_ani[3] = moe_attack_wood_sword_left_2
-    attack_ani[4] = moe_attack_wood_sword_right_3
-    attack_ani[5] = moe_attack_wood_sword_left_3
-    attack_ani[6] = moe_attack_aerial_wood_sword_right_1
-    attack_ani[7] = moe_attack_aerial_wood_sword_left_1
-    attack_ani[8] = moe_attack_aerial_wood_sword_right_2
-    attack_ani[9] = moe_attack_aerial_wood_sword_left_2
-    
-    //Health
-    moe_health = 100
-    
-    //Coordinates for moving away from source of damage
-    damage_object_pos[0] = 0
-    damage_object_pos[1] = 0
-    hurt = false
-    hurt_timer = -1
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
         <id>721</id>
         <kind>0</kind>
         <userelative>-1</userelative>
@@ -345,6 +265,7 @@
                 D = "lef"
                 wall_jump = true
                 wall_r_jump_timer = 15;
+                audio_play_sound(moe_jump, 10, false)
             }
             if place_meeting(x-1,y,object_solid) {
                 vspeed = -10
@@ -352,6 +273,7 @@
                 D = "rig"
                 wall_jump = true
                 wall_l_jump_timer = 15;
+                audio_play_sound(moe_jump, 10, false)
             }
             // Normal jump
         } else {
