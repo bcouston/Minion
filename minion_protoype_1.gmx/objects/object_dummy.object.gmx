@@ -89,6 +89,7 @@
             sprite_index = dummy_damage_2
         }
         audio_play_sound(sword_impact_1, 10, false)
+        instance_create(x + 16, y + 16, object_hit_part)
     }   
 
 }
