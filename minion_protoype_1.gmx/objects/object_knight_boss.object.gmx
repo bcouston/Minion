@@ -144,7 +144,7 @@
         //Has not dodged if player is damaged
         if object_player.hurt {
             dodge = false
-        }
+        } else if (object_player.y - y &gt; (-1 * y_range)) {dodge = true}
         
         //Boolean decision for stage 2 to decide if player has dodged attack
         if dodge {
@@ -283,12 +283,14 @@
                 
                 // Movement towards player horizontally
                 
-                else if (place_meeting(x+1,y,object_solid) &amp;&amp; direction_facing == "right") {
+                //If at edge of room
+                
+                else if (place_meeting(x+1,y,object_solid) &amp;&amp; direction_facing == "left") {
                     hspeed = 0
                     sprite_index = knight_prone_still_r
                 }
                 
-                else if (place_meeting(x-1,y,object_solid) &amp;&amp; direction_facing == "left") {
+                else if (place_meeting(x-1,y,object_solid) &amp;&amp; direction_facing == "right") {
                     hspeed = 0
                     sprite_index = knight_prone_still_l
                 } 
@@ -302,12 +304,12 @@
                     }
                     if (object_player.x &gt; x) &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) {
                         hspeed = move_speed
-                        direction_facing = "right"
+                        //direction_facing = "right"
                         sprite_index = knight_prone_move_r
                     }
                     else if (object_player.x &lt; x) &amp;&amp; (object_player.y - y &gt;= (-1 * y_range)) {
                         hspeed = -1 * move_speed
-                        direction_facing = "left"
+                        //direction_facing = "left"
                         sprite_index = knight_prone_move_l
                     }
                 
@@ -326,7 +328,7 @@
                 if random(1) &lt; 0.5 {audio_play_sound(boss_grunt_1, 10, false)} else {audio_play_sound(boss_grunt_2, 10, false)}
                 confused_timer = -1
                 hurt_timer = 50 //Length of hurt state
-                object_boss_hp.current_health -= 20
+                object_boss_hp.current_health -= 20 //Minus hp
             }
         }
         
@@ -371,6 +373,8 @@
                 move_speed = 3
             } else if stage == 4 {
                 move_speed = 6
+                beam_range = 1000
+                within_range = true
             }
             stage++
         }
