@@ -303,12 +303,12 @@
          if place_free(x+1,y) {
             // Air movement
             if place_free(x,y+1) {
-                if hspeed &lt;= 4 {
+                if hspeed &lt;= 5 {
                     hspeed += 1
                 }
             // Ground movement
             } else {
-                hspeed = 4;
+                hspeed = 5;
                 sprite_index = moe_run_r
             }
         } else if !place_free(x+2,y) &amp;&amp; !place_free(x,y+1) {
@@ -322,12 +322,12 @@
          if place_free(x-1,y) {
              // Air movement
             if place_free(x,y+1) {
-                if hspeed &gt;= -4 {
+                if hspeed &gt;= -5 {
                     hspeed -= 1;
                 }
             // Ground movement
             } else {
-                hspeed = -4;
+                hspeed = -5;
                 sprite_index = moe_run_l
             }
         } if !place_free(x-2,y) &amp;&amp; !place_free(x,y+1) {
