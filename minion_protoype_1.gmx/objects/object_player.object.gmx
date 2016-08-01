@@ -55,6 +55,7 @@
     attack = false
     attack_animation = 2
     moe_damage = 10
+    attack_range = 16
 
     //Actions
 
@@ -381,6 +382,8 @@
                 D = "rig"
                 attack = true
                 damage = true
+                // Spawn combat invisible hitbox
+                instance_create(x + attack_range, y, object_player_combat_hitbox)
                 attack_timer = attack_interval
                 attack_animation++
                 audio_play_sound(swoosh_1, 10, false)
@@ -412,6 +415,8 @@
                 D = "lef"
                 attack = true
                 damage = true
+                // Spawn combat invisible hitbox
+                instance_create(x - attack_range, y, object_player_combat_hitbox)
                 attack_timer = attack_interval
                 attack_animation++
                 audio_play_sound(swoosh_1, 10, false)
@@ -435,6 +440,7 @@
                     }
                 //}
             }
+            
         }
 
         // Up

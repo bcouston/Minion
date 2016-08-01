@@ -77,10 +77,10 @@
         sprite_index = dummy_dead
     }
     
-    //Damage
+    // Damage
     
-    if (place_meeting(x+player_damage_range, y, object_player) || place_meeting(x-player_damage_range, y, object_player))
-        &amp;&amp; object_player.damage == true &amp;&amp; sprite_index != dummy_dead {
+    if (place_meeting(x, y, object_player_combat_hitbox) || place_meeting(x, y, object_player_combat_hitbox))
+        &amp;&amp; sprite_index != dummy_dead {
         baddie_health -= object_player.moe_damage
         if place_meeting(x+player_damage_range, y, object_player) {
             sprite_index = dummy_damage

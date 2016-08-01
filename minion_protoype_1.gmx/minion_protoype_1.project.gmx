@@ -108,6 +108,7 @@
     <sprite>sprites\train_dummy</sprite>
     <sprite>sprites\train_dummy_air</sprite>
     <sprite>sprites\train_dummy_air_damage</sprite>
+    <sprite>sprites\inv_hitbox</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -146,6 +147,7 @@
     <object>objects\object_sword_blast_l</object>
     <object>objects\object_boss_hp</object>
     <object>objects\object_hit_part</object>
+    <object>objects\object_player_combat_hitbox</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Level1_Combat</room>
