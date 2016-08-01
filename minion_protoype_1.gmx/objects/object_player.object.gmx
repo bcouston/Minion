@@ -32,6 +32,7 @@
 
     attack_interval = 11
     attack_a_interval = 30
+    wall_jump_speed = 6
 
     //Collisions
     wall_jump = false
@@ -202,13 +203,13 @@
       wall_l_jump_timer = -1;
     } else {
       wall_l_jump_timer -= 1;
-      hspeed = 6
+      hspeed = wall_jump_speed
     }
     if (wall_r_jump_timer &lt;= 0) {
       wall_r_jump_timer = -1;
     } else {
       wall_r_jump_timer -= 1;
-      hspeed = -6
+      hspeed = wall_jump_speed * -1
     }
 
     // Puts Moe in an "attack phase" while he is still attacking within a certain interval
@@ -289,6 +290,8 @@
     } else {
         gravity = 0;
         aerial_attack_executed = false
+        attack_a_timer = -1 
+        wall_jump = false
         if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
             sprite_index = moe_walk_r
         }
@@ -342,7 +345,7 @@
         if place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
             if place_meeting(x+1,y,object_solid) {
                 vspeed = -10
-                hspeed = -6
+                hspeed = -1 * wall_jump_speed
                 D = "lef"
                 wall_jump = true
                 wall_r_jump_timer = 15;
@@ -350,7 +353,7 @@
             }
             if place_meeting(x-1,y,object_solid) {
                 vspeed = -10
-                hspeed = 6
+                hspeed = wall_jump_speed
                 D = "rig"
                 wall_jump = true
                 wall_l_jump_timer = 15;
