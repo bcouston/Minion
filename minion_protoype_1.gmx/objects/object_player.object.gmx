@@ -366,6 +366,11 @@
                 audio_play_sound(moe_jump, 10, false)
             }
         }
+    // Analog jump - method sourced from info.sonicretro.org/SPG:Jumping
+    } else if keyboard_check_released(ord('W')) &amp;&amp; attack == false {
+        if place_free(x,y+1) &amp;&amp; vspeed &lt; -7 {
+            vspeed = -7
+        }
     }
 
     // Static friction
