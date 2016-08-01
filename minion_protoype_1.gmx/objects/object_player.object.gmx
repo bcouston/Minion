@@ -337,7 +337,7 @@
     }
 
     // Jump
-    if keyboard_check_pressed(ord('W')) {
+    if keyboard_check_pressed(ord('W')) &amp;&amp; attack == false {
         // Wall jump
         if place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
             if place_meeting(x+1,y,object_solid) {
