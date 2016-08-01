@@ -57,6 +57,8 @@
     attack_animation = 2
     moe_damage = 10
     attack_range = 16
+    // Detects if player has run out of attacks after executing aerial attacks
+    attacks_left = false
 
     //Actions
 
@@ -220,9 +222,10 @@
     }
 
     // Aerial attack freeze
-      if (attack_a_timer &lt;= 0) {
+      if (attack_a_timer == 0) {
         attack_a_timer = -1;
-    } else {
+        attacks_left = false;
+    } else if (attack_a_timer != -1) {
         attack_a_timer -= 1;
     }
 
@@ -290,7 +293,7 @@
     } else {
         gravity = 0;
         aerial_attack_executed = false
-        attack_a_timer = -1 
+        attacks_left = true
         wall_jump = false
         if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
             sprite_index = moe_walk_r
@@ -386,7 +389,7 @@
 
         // Right
         if keyboard_check_pressed(vk_right) {
-            if (attack_timer &lt;= 1 &amp;&amp; place_free(x+1,y) ) {
+            if (attack_timer &lt;= 1 &amp;&amp; place_free(x+1,y) &amp;&amp; attacks_left == true) {
                 D = "rig"
                 attack = true
                 damage = true
@@ -419,7 +422,7 @@
 
         // Left
         if keyboard_check_pressed(vk_left) {
-            if (attack_timer &lt;= 1 &amp;&amp; place_free(x-1,y) ) {
+            if (attack_timer &lt;= 1 &amp;&amp; place_free(x-1,y) &amp;&amp; attacks_left == true) {
                 D = "lef"
                 attack = true
                 damage = true
