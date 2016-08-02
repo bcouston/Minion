@@ -109,6 +109,10 @@
     <sprite>sprites\train_dummy_air</sprite>
     <sprite>sprites\train_dummy_air_damage</sprite>
     <sprite>sprites\inv_hitbox</sprite>
+    <sprite>sprites\moe_sleepy_walk_right</sprite>
+    <sprite>sprites\moe_sleepy_walk_left</sprite>
+    <sprite>sprites\moe_sleepy_still_right</sprite>
+    <sprite>sprites\moe_sleepy_still_left</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
