@@ -358,7 +358,7 @@
     if keyboard_check_pressed(ord('W')) &amp;&amp; attack == false {
         // Wall jump
         if place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
-            if place_meeting(x+1,y,object_solid) {
+            if place_meeting(x+10,y,object_solid) { // Some tolerance for proximity to the wall
                 vspeed = -10
                 hspeed = -1 * wall_jump_speed
                 D = "lef"
@@ -366,7 +366,7 @@
                 wall_r_jump_timer = 15;
                 audio_play_sound(moe_jump, 10, false)
             }
-            if place_meeting(x-1,y,object_solid) {
+            if place_meeting(x-10,y,object_solid) {
                 vspeed = -10
                 hspeed = wall_jump_speed
                 D = "rig"
