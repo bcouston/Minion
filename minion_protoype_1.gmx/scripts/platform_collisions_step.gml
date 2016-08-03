@@ -130,11 +130,26 @@
     //==================================================================
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     if(bbox_right <= min(trr_x,brr_x)){
-        if(point_distance(bbox_right,y,min(brr_x,trr_x),y) < hspeed){
-            x=min(brr_x,trr_x)-(bbox_right-x);
-            hspeed = 0;
+        if (point_distance(bbox_right,y,min(brr_x,trr_x),y) < hspeed) {
+            // Sloped floor
+            yplus = 0
+            while (collision_point(bbox_right + hspeed,bbox_bottom - yplus,argument0,true,true) && yplus <= abs(1 * hspeed) ) {
+                yplus +=1
+           }
+            if yplus > abs(1 * hspeed) {
+                x=min(brr_x,trr_x)-(bbox_right-x);
+                hspeed = 0;
+            } else {
+                y -= yplus
+                x += hspeed
+                if (object_get_name(argument0) == "object_dungeon_slope") {
+                    slope_speed = hspeed
+                }
+                hspeed = 0
+                vspeed = 0
+            }
         }
-    }else{
+    } else{
         x=min(brr_x,trr_x)-(bbox_right-x);
         hspeed = 0;
     }
@@ -148,13 +163,29 @@
     //==================================================================
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     if(bbox_left >= max(tll_x,bll_x)){
-        if((point_distance(bbox_left,y,max(bll_x,tll_x),y)*-1) > hspeed){
-            x=max(bll_x,tll_x)+(x-bbox_left);
-            hspeed = 0;
+        if ((point_distance(bbox_left,y,max(bll_x,tll_x),y)*-1) > hspeed) {
+            // Sloped floor
+            yplus = 0
+            while (collision_point(bbox_left + hspeed,bbox_bottom - yplus,argument0,true,true) && yplus <= abs(1 * hspeed) ) {
+               yplus +=1
+            }
+            if yplus > abs(1 * hspeed) {
+                x=max(bll_x,tll_x)+(x-bbox_left);
+               hspeed = 0;
+            } else {
+                y -= yplus
+                x += hspeed
+                if (object_get_name(argument0) == "object_dungeon_slope") {
+                    slope_speed = hspeed
+                }
+                hspeed = 0
+                vspeed = 0
+            }
         }
     }else{
         x=max(bll_x,tll_x)+(x-bbox_left);
         hspeed = 0;
     }
     //------------------------------------------------------------------
+    
 }

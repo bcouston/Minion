@@ -33,6 +33,9 @@
       <sound>sound\stage_charge</sound>
       <sound>sound\power_beam</sound>
     </sounds>
+    <sounds name="Music">
+      <sound>sound\vampire_killer</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\chest</sprite>
@@ -99,6 +102,7 @@
     <sprite>sprites\sprite_floor_dungeon</sprite>
     <sprite>sprites\sprite_gate</sprite>
     <sprite>sprites\sprite_slant</sprite>
+    <sprite>sprites\sprite_slope</sprite>
     <sprite>sprites\sprite_solid</sprite>
     <sprite>sprites\sprite_stairs</sprite>
     <sprite>sprites\sprite72</sprite>
@@ -124,6 +128,7 @@
     <script>scripts\platform_friction.gml</script>
     <script>scripts\platform_corner_check.gml</script>
     <script>scripts\script_dialog.gml</script>
+    <script>scripts\camera_movement.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\dialog</font>
@@ -134,6 +139,7 @@
     <object>objects\object_solid</object>
     <object>objects\object_one_way</object>
     <object>objects\object_dungeon_slant</object>
+    <object>objects\object_dungeon_slope</object>
     <object>objects\object_dungeon_stairs</object>
     <object>objects\object_dungeon_ground</object>
     <object>objects\object_dummy</object>
