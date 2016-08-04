@@ -43,6 +43,7 @@
     // Hspeed is reset after contacting sloped service, thus slope_speed
     // is used as a temporary store for previous step speed checking
     slope_speed = 0
+    jump = false
 
     //Timers
 
@@ -311,6 +312,7 @@
         gravity = 0;
         aerial_attacks_completed = 0
         attacks_left = true
+        jump = false
         wall_jump = false
         if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; slope_speed == 0 &amp;&amp; attack == false {
             sprite_index = moe_walk_r
@@ -387,6 +389,7 @@
         } else {
             if !place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
                 vspeed = -10
+                jump = true
                 audio_play_sound(moe_jump, 10, false)
             }
         }
@@ -521,7 +524,9 @@
     platform_collisions_step(object_dungeon_ground)
     platform_collisions_step(object_dungeon_stairs)
     platform_collisions_step(object_dungeon_slant)
-    platform_collisions_step(object_dungeon_slope)
+    if (jump == false) {
+        platform_collisions_step(object_dungeon_slope)
+    }
     platform_collisions_step(object_gate)
     platform_collisions_step(object_shield_dummy1)
     //platform_collisions_step(object_knight_boss)
