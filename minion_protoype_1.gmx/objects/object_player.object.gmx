@@ -259,6 +259,7 @@
     //Wall jump collision
     if (!place_free(x+1,y) || !place_free(x-1,y)) {
         wall_jump = false
+        jump = false
     }
 
     // --- Gravity when attacking in air, when attacking on ground, when jumping, in contact with a wall and on the floor, with animations ---
@@ -314,14 +315,12 @@
         attacks_left = true
         jump = false
         wall_jump = false
-        if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; slope_speed == 0 &amp;&amp; attack == false {
+        if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
             sprite_index = moe_walk_r
         }
-        else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; slope_speed == 0 &amp;&amp; attack == false {
+        else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
             sprite_index = moe_walk_l
         }
-        // Reset slope speed
-        slope_speed = 0
     }
 
     // L/R movement and jumping
@@ -374,6 +373,7 @@
                 hspeed = -1 * wall_jump_speed
                 D = "lef"
                 wall_jump = true
+                jump = true
                 wall_r_jump_timer = 15;
                 audio_play_sound(moe_jump, 10, false)
             }
@@ -382,6 +382,7 @@
                 hspeed = wall_jump_speed
                 D = "rig"
                 wall_jump = true
+                jump = true
                 wall_l_jump_timer = 15;
                 audio_play_sound(moe_jump, 10, false)
             }

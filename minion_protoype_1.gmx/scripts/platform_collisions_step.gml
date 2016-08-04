@@ -141,11 +141,6 @@
                 hspeed = 0;
             } else {
                 y -= yplus
-                x += hspeed
-                if (object_get_name(argument0) == "object_dungeon_slope") {
-                    slope_speed = hspeed
-                }
-                hspeed = 0
                 vspeed = 0
             }
         }
@@ -174,11 +169,6 @@
                hspeed = 0;
             } else {
                 y -= yplus
-                x += hspeed
-                if (object_get_name(argument0) == "object_dungeon_slope") {
-                    slope_speed = hspeed
-                }
-                hspeed = 0
                 vspeed = 0
             }
         }
