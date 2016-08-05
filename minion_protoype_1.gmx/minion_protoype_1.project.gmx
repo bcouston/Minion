@@ -102,7 +102,8 @@
     <sprite>sprites\sprite_floor_dungeon</sprite>
     <sprite>sprites\sprite_gate</sprite>
     <sprite>sprites\sprite_slant</sprite>
-    <sprite>sprites\sprite_slope</sprite>
+    <sprite>sprites\sprite_slope_right</sprite>
+    <sprite>sprites\sprite_slope_left</sprite>
     <sprite>sprites\sprite_solid</sprite>
     <sprite>sprites\sprite_stairs</sprite>
     <sprite>sprites\sprite72</sprite>
@@ -139,7 +140,8 @@
     <object>objects\object_solid</object>
     <object>objects\object_one_way</object>
     <object>objects\object_dungeon_slant</object>
-    <object>objects\object_dungeon_slope</object>
+    <object>objects\object_dungeon_slope_right</object>
+    <object>objects\object_dungeon_slope_left</object>
     <object>objects\object_dungeon_stairs</object>
     <object>objects\object_dungeon_ground</object>
     <object>objects\object_dummy</object>
