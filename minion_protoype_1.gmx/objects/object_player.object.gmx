@@ -215,7 +215,7 @@
             image_speed = 1
          }
     }
-
+    
     // --- Timers ---
 
     // Wall jump speed
@@ -375,6 +375,8 @@
                 wall_jump = true
                 jump = true
                 wall_r_jump_timer = 15;
+                //Audio
+                audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
             }
             if place_meeting(x-10,y,object_solid) {
@@ -384,6 +386,8 @@
                 wall_jump = true
                 jump = true
                 wall_l_jump_timer = 15;
+                //Audio
+                audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
             }
             // Normal jump
@@ -391,6 +395,8 @@
             if !place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
                 vspeed = -10
                 jump = true
+                //Audio
+                audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
             }
         }
