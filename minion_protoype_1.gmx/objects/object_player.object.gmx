@@ -348,7 +348,7 @@
          {
          D = "lef"
                                 // Additional check for sloped surface
-         if place_free(x-1,y) || place_meeting(bbox_left-1,y,object_dungeon_slope) {
+         if place_free(x-1,y) || place_meeting(x,y+1,object_dungeon_slope) {
              // Air movement
             if place_free(x,y+1) {
                 if hspeed &gt;= -1 * run_speed {
@@ -375,7 +375,7 @@
                 wall_jump = true
                 jump = true
                 wall_r_jump_timer = 15;
-                audio_play_sound(moe_jump, 10, false)
+                audio_play_sound(moe_jump, 5, false)
             }
             if place_meeting(x-10,y,object_solid) {
                 vspeed = -10
@@ -384,14 +384,14 @@
                 wall_jump = true
                 jump = true
                 wall_l_jump_timer = 15;
-                audio_play_sound(moe_jump, 10, false)
+                audio_play_sound(moe_jump, 5, false)
             }
             // Normal jump
         } else {
             if !place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
                 vspeed = -10
                 jump = true
-                audio_play_sound(moe_jump, 10, false)
+                audio_play_sound(moe_jump, 5, false)
             }
         }
     // Analog jump - method sourced from info.sonicretro.org/SPG:Jumping
@@ -519,7 +519,7 @@
         }
         if place_meeting(x-1,y,object_solid) || place_meeting(x+1,y,object_solid) {hspeed=0}
     }
-    
+
     // Collisions
     platform_collisions_step(object_solid)
     platform_collisions_step(object_dungeon_ground)
