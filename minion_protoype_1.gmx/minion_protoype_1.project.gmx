@@ -24,6 +24,7 @@
       <sound>sound\footstep</sound>
       <sound>sound\wall_grind</sound>
       <sound>sound\floor_impact</sound>
+      <sound>sound\wind_fall</sound>
     </sounds>
     <sound>sound\moe_jump</sound>
     <sound>sound\boss</sound>
