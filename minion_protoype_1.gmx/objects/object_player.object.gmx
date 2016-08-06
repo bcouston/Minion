@@ -232,7 +232,7 @@
       wall_r_jump_timer = -1;
     } else {
       wall_r_jump_timer -= 1;
-      hspeed = wall_jump_speed * -1
+      hspeed = -1 * wall_jump_speed 
     }
 
     // Puts Moe in an "attack phase" while he is still attacking within a certain interval
@@ -376,7 +376,7 @@
                 D = "lef"
                 wall_jump = true
                 jump = true
-                wall_r_jump_timer = wall_jump_interval;
+                wall_r_jump_timer = wall_jump_interval
                 //Audio
                 audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
@@ -387,7 +387,7 @@
                 D = "rig"
                 wall_jump = true
                 jump = true
-                wall_l_jump_timer = wall_jump_interval;
+                wall_l_jump_timer = wall_jump_interval
                 //Audio
                 audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
