@@ -31,7 +31,6 @@
     
     //Constants
     damage_interval = 10
-    player_damage_range = 10
     
     //Timers
     damage_timer = -1
@@ -69,6 +68,7 @@
     }
     //Dead
     if sprite_index == dummy_dead &amp;&amp; image_index = image_number - 1 {
+        audio_sound_pitch(dummy_die, random_range(0.8,1.2))
         audio_play_sound(dummy_die, 10, false)
         instance_destroy()
     }
@@ -79,15 +79,16 @@
     
     // Damage
     
-    if (place_meeting(x, y, object_player_combat_hitbox) || place_meeting(x, y, object_player_combat_hitbox))
-        &amp;&amp; sprite_index != dummy_dead {
+    if (place_meeting(x, y, object_player_combat_hitbox)
+        &amp;&amp; (sprite_index != dummy_dead)) {
         baddie_health -= object_player.moe_damage
-        if place_meeting(x+player_damage_range, y, object_player) {
+        if place_meeting(x+object_player.player_damage_range, y, object_player) {
             sprite_index = dummy_damage
         } else
-        if place_meeting(x-player_damage_range, y, object_player) {
+        if place_meeting(x-object_player.player_damage_range, y, object_player) {
             sprite_index = dummy_damage_2
         }
+        audio_sound_pitch(sword_impact_1, random_range(0.9,1.1))
         audio_play_sound(sword_impact_1, 10, false)
         instance_create(x + 16, y + 16, object_hit_part)
     }   

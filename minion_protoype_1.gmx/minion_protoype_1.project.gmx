@@ -20,6 +20,11 @@
       <sound>sound\shield_impact_1</sound>
       <sound>sound\beam_1</sound>
     </sounds>
+    <sounds name="Moe">
+      <sound>sound\footstep</sound>
+      <sound>sound\wall_grind</sound>
+      <sound>sound\floor_impact</sound>
+    </sounds>
     <sound>sound\moe_jump</sound>
     <sound>sound\boss</sound>
     <sound>sound\get_item_2</sound>
