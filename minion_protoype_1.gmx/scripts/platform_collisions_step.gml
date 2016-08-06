@@ -129,7 +129,7 @@
     //                        COLLIDING RIGHT
     //==================================================================
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    if(bbox_right <= min(trr_x,brr_x)){
+    if ((bbox_right <= min(trr_x,brr_x)) || (object_get_name(argument0) == "object_dungeon_slope_right")) {
         if (point_distance(bbox_right,y,min(brr_x,trr_x),y) < hspeed) {
             // Going up slope
             yplus = 0
@@ -139,27 +139,14 @@
             if yplus > abs(1 * hspeed) {
                 x=min(brr_x,trr_x)-(bbox_right-x);
                 hspeed = 0;
-            } else {
+            } else if (jump == false) {
                 y -= yplus
                 vspeed = 0
             }
         } else {
-           // Going down slope - Not very scalable, might have to do for each sloped object
-            if ((object_get_name(argument0) == "object_dungeon_slope_left") && (sign(hspeed) == 1)) {
-                if (!collision_point(bbox_left + hspeed,bbox_bottom + 1,argument0,true,true) && collision_point(bbox_left,bbox_bottom + 1,argument0,true,true)) {
-                    yminus = 0
-                    while (!collision_point(bbox_left + hspeed,bbox_bottom + yminus + 1,argument0,true,true) && yminus <= abs(1 * hspeed) ) {
-                        yminus +=1
-                    }
-                    //show_message(yminus)
-                    if yminus <= abs(1 * hspeed) {
-                        y += yminus
-                        vspeed = 0
-                    }
-                }
-            }
+            //
         }
-    } else {
+    } else if !(object_get_name(argument0) == "object_dungeon_slope_right") {
         x=min(brr_x,trr_x)-(bbox_right-x);
         hspeed = 0;
     }
@@ -173,7 +160,7 @@
     //                        COLLIDING LEFT
     //==================================================================
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    if(bbox_left >= max(tll_x,bll_x)){
+    if ((bbox_left >= max(tll_x,bll_x)) || (object_get_name(argument0) == "object_dungeon_slope_left")) {
         if ((point_distance(bbox_left,y,max(bll_x,tll_x),y)*-1) > hspeed) {
             // Going up slope
             yplus = 0
@@ -183,29 +170,51 @@
             if yplus > abs(1 * hspeed) {
                 x=max(bll_x,tll_x)+(x-bbox_left);
                 hspeed = 0;
-            } else {
+            } else if (jump == false) {
                 y -= yplus
                 vspeed = 0
             }
         } else {
-            // Going down slope - Not very scalable, might have to do for each sloped object
-            if ((object_get_name(argument0) == "object_dungeon_slope_right") && (sign(hspeed) == -1)) {
-                if (!collision_point(bbox_right + hspeed,bbox_bottom + 1,argument0,true,true) && collision_point(bbox_right,bbox_bottom + 1,argument0,true,true)) {//(place_meeting(bbox_left,bbox_bottom + 1,object_dungeon_slope)) && 
-                    yminus = 0
-                    while (!collision_point(bbox_right + hspeed,bbox_bottom + yminus + 1,argument0,true,true) && yminus <= abs(1 * hspeed) ) {
-                        yminus +=1
-                    }
-                    //show_message(yminus)
-                    if yminus <= abs(1 * hspeed) {
-                        y += yminus
-                        vspeed = 0
-                    }
-                }
+            //
+        }
+    } else if !(object_get_name(argument0) == "object_dungeon_slope_left") {
+        x=max(bll_x,tll_x)+(x-bbox_left);
+        hspeed = 0;
+    }
+    
+    //=================
+    // GOING DOWN SLOPE
+    //=================
+    //|||||||||||||||||
+    
+    // Going down slope - Not very scalable, might have to do for each sloped object
+    if ((object_get_name(argument0) == "object_dungeon_slope_left") && (D == "rig")) {
+        if (!collision_point(bbox_left + hspeed,bbox_bottom + 1,argument0,true,true) && collision_point(bbox_left,bbox_bottom + 1,argument0,true,true)) {
+            yminus = 0
+            while (!collision_point(bbox_left + hspeed,bbox_bottom + yminus + 1,argument0,true,true) && yminus <= abs(1 * hspeed) ) {
+                yminus +=1
+            }
+            //show_message(yminus)
+            if yminus <= abs(1 * hspeed) && (jump == false) {
+                y += yminus
+                vspeed = 0
             }
         }
     } else {
-        x=max(bll_x,tll_x)+(x-bbox_left);
-        hspeed = 0;
+        // Going down slope - Not very scalable, might have to do for each sloped object
+        if ((object_get_name(argument0) == "object_dungeon_slope_right") && (D == "lef")) {
+            if (!collision_point(bbox_right + hspeed,bbox_bottom + 1,argument0,true,true) && collision_point(bbox_right,bbox_bottom + 1,argument0,true,true)) {//(place_meeting(bbox_left,bbox_bottom + 1,object_dungeon_slope)) && 
+                yminus = 0
+                while (!collision_point(bbox_right + hspeed,bbox_bottom + yminus + 1,argument0,true,true) && yminus <= abs(1 * hspeed) ) {
+                    yminus +=1
+                }
+                //show_message(yminus)
+                if yminus <= abs(1 * hspeed) && (jump == false) {
+                    y += yminus
+                    vspeed = 0
+                }
+            }
+        }
     }
     
     //------------------------------------------------------------------

@@ -33,6 +33,7 @@
     attack_interval = 10
     attack_a_interval = 15
     wall_jump_speed = 6
+    wall_jump_interval = 15
     no_of_aerial_attacks = 2
     run_speed = 5
 
@@ -158,6 +159,7 @@
 
     //--- DAMAGE ---
     damage = false
+    
 
     // --- ANIMATION ---
 
@@ -255,7 +257,7 @@
     if (aerial_attacks_completed == no_of_aerial_attacks) {
         attacks_left = false;
     }
-    
+        
     //Wall jump collision
     if (!place_free(x+1,y) || !place_free(x-1,y)) {
         wall_jump = false
@@ -374,7 +376,7 @@
                 D = "lef"
                 wall_jump = true
                 jump = true
-                wall_r_jump_timer = 15;
+                wall_r_jump_timer = wall_jump_interval;
                 //Audio
                 audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
@@ -385,7 +387,7 @@
                 D = "rig"
                 wall_jump = true
                 jump = true
-                wall_l_jump_timer = 15;
+                wall_l_jump_timer = wall_jump_interval;
                 //Audio
                 audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
@@ -531,10 +533,8 @@
     platform_collisions_step(object_dungeon_ground)
     platform_collisions_step(object_dungeon_stairs)
     platform_collisions_step(object_dungeon_slant)
-    if (jump == false) {
-        platform_collisions_step(object_dungeon_slope_right)
-        platform_collisions_step(object_dungeon_slope_left)
-    }
+    platform_collisions_step(object_dungeon_slope_right)
+    platform_collisions_step(object_dungeon_slope_left)
     platform_collisions_step(object_gate)
     platform_collisions_step(object_shield_dummy1)
     //platform_collisions_step(object_knight_boss)
