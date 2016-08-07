@@ -165,6 +165,9 @@
     <object>objects\object_sword_blast_l</object>
     <object>objects\object_boss_hp</object>
     <object>objects\object_hit_part</object>
+    <object>objects\object_walk_dust_part</object>
+    <object>objects\object_land_dust_part</object>
+    <object>objects\object_wall_grind_dust_part</object>
     <object>objects\object_player_combat_hitbox</object>
   </objects>
   <rooms name="rooms">

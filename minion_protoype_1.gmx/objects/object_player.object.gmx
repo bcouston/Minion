@@ -266,6 +266,8 @@
             //Audio
             audio_sound_pitch(footstep, random_range(1.0,1.4))
             audio_play_sound(footstep, 1, false)
+            //Particles
+            instance_create(x, bbox_bottom, object_walk_dust_part)
         }
         footsteps_timer -= 1
     }
@@ -330,8 +332,15 @@
             gravity = 0.1;
             // Wall grind
             if !(wall_grind_start) {
+                // Audio
                 audio_play_sound(wall_grind, 1, false)
                 wall_grind_start = true
+            }
+            // Particles
+            if D == "rig" {
+                instance_create(bbox_right, bbox_bottom, object_wall_grind_dust_part)
+            } else if D == "lef" {
+                instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
             }
             // Stop fall sound
              audio_stop_sound(wind_fall)
@@ -354,8 +363,11 @@
         attacks_left = true
         // Jumping
         if (jump) {
-            audio_sound_pitch(floor_impact, random_range(0.8,1.0))
+            //Audio
+            audio_sound_pitch(floor_impact, random_range(1.0,1.2))
             audio_play_sound(floor_impact, 1, false)
+            //Particles
+            instance_create(x, bbox_bottom, object_land_dust_part)
         }
         jump = false
         wall_jump = false
