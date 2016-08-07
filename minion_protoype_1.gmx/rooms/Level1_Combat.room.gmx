@@ -849,7 +849,7 @@
     <instance objName="object_solid" x="3744" y="1312" name="inst_3D8AEE46" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dummy" x="3232" y="1472" name="inst_1C5620C1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dummy" x="3328" y="1472" name="inst_85D9CAC2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_dummy" x="3424" y="1472" name="inst_C21ED01C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_dummy" x="3360" y="1472" name="inst_C21ED01C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="3616" y="1328" name="inst_B92DBB6F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="3616" y="1344" name="inst_62BE1568" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="3616" y="1360" name="inst_0B5796C9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -1120,18 +1120,20 @@
     <instance objName="object_solid" x="736" y="912" name="inst_F2241D99" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="736" y="928" name="inst_59110514" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_hit_part" x="4008" y="1432" name="inst_D958B23D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_dungeon_slope_right" x="3480" y="1496" name="inst_03D4DD01" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_dungeon_slope_right" x="3496" y="1480" name="inst_3B283C81" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_dungeon_slope_right" x="3512" y="1464" name="inst_666C8EA0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_dungeon_slope_right" x="3528" y="1448" name="inst_11130858" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_dungeon_slope_right" x="3544" y="1432" name="inst_19CACEAA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_player" x="3448" y="1488" name="inst_BCB6C7CF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_dungeon_slope_right" x="3464" y="1480" name="inst_03D4DD01" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_dungeon_slope_right" x="3480" y="1464" name="inst_3B283C81" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_dungeon_slope_right" x="3496" y="1448" name="inst_666C8EA0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_dungeon_slope_right" x="3512" y="1432" name="inst_11130858" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_dungeon_slope_right" x="3528" y="1416" name="inst_19CACEAA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_player" x="3408" y="1488" name="inst_BCB6C7CF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dungeon_slope_left" x="3216" y="1496" name="inst_06DE793F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dungeon_slope_left" x="3200" y="1480" name="inst_CA7937CB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dungeon_slope_left" x="3184" y="1464" name="inst_C050288F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dungeon_slope_left" x="3168" y="1448" name="inst_581C7A43" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dungeon_slope_left" x="3152" y="1432" name="inst_0C977C9A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_solid" x="3600" y="1456" name="inst_09C16249" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_solid" x="3584" y="1440" name="inst_09C16249" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_solid" x="3600" y="1440" name="inst_E6C5F804" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_dungeon_slope_right" x="3448" y="1496" name="inst_20873457" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
