@@ -319,11 +319,13 @@
                     if vspeed &lt;= 0 {
                         sprite_index = moe_jump_l
                     } else {sprite_index = moe_jump_descent_l}
+                } else if place_meeting(x-1,y,object_solid) {sprite_index = moe_wall_grab_l}
             } else if D == "rig" {
                 if place_free(x+1,y) {
                     if vspeed &lt;= 0 {
                         sprite_index = moe_jump_r
                     } else {sprite_index = moe_jump_descent_r}
+                } else if place_meeting(x+1,y,object_solid) {sprite_index = moe_wall_grab_r}
             }
         // If touching wall
         if (!place_free(x+1,y) || !place_free(x-1,y)) &amp;&amp; (vspeed &gt; 0) {

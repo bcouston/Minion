@@ -88,7 +88,7 @@
         if place_meeting(x-object_player.player_damage_range, y, object_player) {
             sprite_index = dummy_damage_2
         }
-        audio_sound_pitch(sword_impact_1, random_range(0.9,1.1))
+        audio_sound_pitch(sword_impact_1, random_range(0.95,1.05))
         audio_play_sound(sword_impact_1, 10, false)
         instance_create(x + 16, y + 16, object_hit_part)
     }   
