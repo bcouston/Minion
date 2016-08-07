@@ -191,7 +191,7 @@
     if ((object_get_name(argument0) == "object_dungeon_slope_left") && (D == "rig")) {
         if (!collision_point(bbox_left + hspeed,bbox_bottom + 1,argument0,true,true) && collision_point(bbox_left,bbox_bottom + 1,argument0,true,true)) {
             yminus = 0
-            while (!collision_point(bbox_left + hspeed,bbox_bottom + yminus + 1,argument0,true,true) && yminus <= abs(1 * hspeed) ) {
+            while (place_free(x + hspeed,y + yminus + 1) && yminus <= abs(1 * hspeed)) {
                 yminus +=1
             }
             //show_message(yminus)
@@ -205,7 +205,7 @@
         if ((object_get_name(argument0) == "object_dungeon_slope_right") && (D == "lef")) {
             if (!collision_point(bbox_right + hspeed,bbox_bottom + 1,argument0,true,true) && collision_point(bbox_right,bbox_bottom + 1,argument0,true,true)) {//(place_meeting(bbox_left,bbox_bottom + 1,object_dungeon_slope)) && 
                 yminus = 0
-                while (!collision_point(bbox_right + hspeed,bbox_bottom + yminus + 1,argument0,true,true) && yminus <= abs(1 * hspeed) ) {
+                while (place_free(x + hspeed,y + yminus + 1) && yminus <= abs(1 * hspeed)) {
                     yminus +=1
                 }
                 //show_message(yminus)
@@ -218,5 +218,16 @@
     }
     
     //------------------------------------------------------------------
+    
+    // Correction in case of collision into wall
+    if (collision_point(bbox_right,y,argument0,true,true)) {
+        x -= 1
+    }
+    if (collision_point(bbox_left,y,argument0,true,true)) {
+        x += 1
+    }
+    if (collision_point(x,bbox_bottom,argument0,true,true)) {
+        y -= 1
+    }
     
 }

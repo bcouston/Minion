@@ -315,17 +315,15 @@
         jump = true
         footsteps_timer = -1
             if D == "lef" {
-                if place_free(x-2,y) {
+                if place_free(x-1,y) {
                     if vspeed &lt;= 0 {
                         sprite_index = moe_jump_l
                     } else {sprite_index = moe_jump_descent_l}
-                } else if place_meeting(x-2,y,object_solid) {sprite_index = moe_wall_grab_l}
             } else if D == "rig" {
-                if place_free(x+2,y) {
+                if place_free(x+1,y) {
                     if vspeed &lt;= 0 {
                         sprite_index = moe_jump_r
                     } else {sprite_index = moe_jump_descent_r}
-                } else if place_meeting(x+2,y,object_solid) {sprite_index = moe_wall_grab_r}
             }
         // If touching wall
         if (!place_free(x+1,y) || !place_free(x-1,y)) &amp;&amp; (vspeed &gt; 0) {
@@ -406,7 +404,7 @@
                     footsteps_timer = footsteps_interval
                 }
             }
-        } else if !place_free(x+2,y) &amp;&amp; !place_free(x,y+1) {
+        } else if !place_free(x+1,y) &amp;&amp; !place_free(x,y+1) {
             sprite_index = moe_walk_r
         }
     }
@@ -429,7 +427,7 @@
                     footsteps_timer = footsteps_interval
                 }
             }
-        } else if !place_free(x-2,y) &amp;&amp; !place_free(x,y+1) {
+        } else if !place_free(x-1,y) &amp;&amp; !place_free(x,y+1) {
             sprite_index = moe_walk_l
         }
     }
@@ -449,7 +447,7 @@
                 audio_sound_pitch(moe_jump, random_range(0.8,1.2))
                 audio_play_sound(moe_jump, 5, false)
             }
-            if place_meeting(x-10,y,object_solid) {
+            if place_meeting(x-5,y,object_solid) {
                 vspeed = -10
                 hspeed = wall_jump_speed
                 D = "rig"
@@ -503,6 +501,7 @@
                 // Audio
                 audio_sound_pitch(swoosh_1, random_range(0.9,1.1))
                 audio_play_sound(swoosh_1, 10, false)
+                audio_stop_sound(wind_fall)
                 if (aerial_attacks_completed != no_of_aerial_attacks &amp;&amp; place_free(x,y+1)) {
                     attack_a_timer = attack_a_interval
                     aerial_attacks_completed++
@@ -540,6 +539,7 @@
                 // Audio
                 audio_sound_pitch(swoosh_1, random_range(0.9,1.1))
                 audio_play_sound(swoosh_1, 10, false)
+                audio_stop_sound(wind_fall)
                 if (aerial_attacks_completed != no_of_aerial_attacks &amp;&amp; place_free(x,y+1)) {
                     attack_a_timer = attack_a_interval
                     aerial_attacks_completed++
