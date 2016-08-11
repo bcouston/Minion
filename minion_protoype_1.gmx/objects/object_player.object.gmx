@@ -61,7 +61,7 @@
     footsteps_timer = -1
     
     // Music
-    //audio_play_sound(vampire_killer, 6, false)
+    audio_play_sound(vampire_killer, 6, false)
 
     //Attacking
 
@@ -280,7 +280,8 @@
     //Wall jump collision
     if (!place_free(x+1,y) || !place_free(x-1,y)) {
         wall_jump = false
-        //jump = false
+        aerial_attacks_completed = 0
+        attacks_left = true
     }
 
     // --- Gravity when attacking in air, when attacking on ground, when jumping, in contact with a wall and on the floor, with animations ---
