@@ -122,5 +122,11 @@
     <frame index="99">images\merv_still_99.png</frame>
     <frame index="100">images\merv_still_100.png</frame>
     <frame index="101">images\merv_still_101.png</frame>
+    <frame index="102">images\merv_still_102.png</frame>
+    <frame index="103">images\merv_still_103.png</frame>
+    <frame index="104">images\merv_still_104.png</frame>
+    <frame index="105">images\merv_still_105.png</frame>
+    <frame index="106">images\merv_still_106.png</frame>
+    <frame index="107">images\merv_still_107.png</frame>
   </frames>
 </sprite>
