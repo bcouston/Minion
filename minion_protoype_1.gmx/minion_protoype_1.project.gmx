@@ -25,6 +25,7 @@
       <sound>sound\wall_grind</sound>
       <sound>sound\floor_impact</sound>
       <sound>sound\wind_fall</sound>
+      <sound>sound\fall_bed</sound>
     </sounds>
     <sound>sound\moe_jump</sound>
     <sound>sound\boss</sound>
@@ -41,6 +42,11 @@
     </sounds>
     <sounds name="Music">
       <sound>sound\vampire_killer</sound>
+      <sound>sound\crash</sound>
+    </sounds>
+    <sounds name="ui">
+      <sound>sound\dialog_continue</sound>
+      <sound>sound\standard_speech</sound>
     </sounds>
   </sounds>
   <sprites name="sprites">
@@ -102,6 +108,9 @@
       <sprite>sprites\sprite_slope_right</sprite>
       <sprite>sprites\sprite_solid</sprite>
       <sprite>sprites\sprite_stairs</sprite>
+      <sprite>sprites\solid_floor</sprite>
+      <sprite>sprites\solid_stairs_r</sprite>
+      <sprite>sprites\solid_stairs_l</sprite>
     </sprites>
     <sprites name="enemies">
       <sprites name="bosses">
@@ -154,6 +163,12 @@
     <sprites name="hazards">
       <sprite>sprites\swing_axe</sprite>
     </sprites>
+    <sprites name="sensors">
+      <sprite>sprites\room_drop_sensor</sprite>
+    </sprites>
+    <sprites name="ui">
+      <sprite>sprites\dialog_arrow</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -165,7 +180,11 @@
     <script>scripts\platform_friction.gml</script>
     <script>scripts\platform_corner_check.gml</script>
     <script>scripts\script_dialog.gml</script>
-    <script>scripts\camera_movement.gml</script>
+    <scripts name="camera">
+      <script>scripts\camera_house_view_1.gml</script>
+      <script>scripts\camera_house_view_2.gml</script>
+      <script>scripts\camera_movement.gml</script>
+    </scripts>
   </scripts>
   <fonts name="fonts">
     <font>fonts\dialog</font>
@@ -203,9 +222,12 @@
     <object>objects\object_moe_bed</object>
     <object>objects\object_moe_house_cutscene</object>
     <object>objects\object_moe_dad</object>
+    <object>objects\object_room_drop_sensor</object>
+    <object>objects\object_global_vars</object>
   </objects>
   <timelines name="timelines">
     <timeline>timelines\cutscene_moe_waking</timeline>
+    <timeline>timelines\cutscene_moe_waking_dialog</timeline>
   </timelines>
   <rooms name="rooms">
     <room>rooms\moe_house</room>

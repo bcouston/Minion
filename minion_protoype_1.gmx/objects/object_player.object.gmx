@@ -30,14 +30,21 @@
 
     //Constants
 
+    fight = true
     attack_interval = 10
     attack_a_interval = 15
     no_of_aerial_attacks = 2
     player_damage_range = 24
     wall_jump_speed = 6
     wall_jump_interval = 15
-    run_speed = 5
-    footsteps_interval = 8
+    sleepy = true
+    if (!sleepy) {
+        run_speed = 5
+        footsteps_interval = 8
+    } else {
+        run_speed = 2
+        footsteps_interval = 20
+    }
 
     //Collisions
     wall_jump = false
@@ -61,11 +68,9 @@
     footsteps_timer = -1
     
     // Music
-    audio_play_sound(vampire_killer, 6, false)
+    //audio_play_sound(vampire_killer, 6, false)
 
     //Attacking
-
-    fight = true
     attack = false
     attack_animation = 2
     moe_damage = 10
@@ -170,7 +175,22 @@
 
     // Idle/Fight Animation
     if animation_change == true {
-        if fight == false  {
+        if (sleepy == true) {
+            moe_walk_r = moe_sleepy_still_right
+            moe_walk_l = moe_sleepy_still_left
+    
+            moe_run_r = moe_sleepy_walk_right
+            moe_run_l = moe_sleepy_walk_left
+    
+            moe_jump_r = moe_jump_right
+            moe_jump_l = moe_jump_left
+            moe_jump_descent_r = moe_jump_descent_right
+            moe_jump_descent_l = moe_jump_descent_left
+    
+            moe_wall_grab_r = moe_wall_grab_right
+            moe_wall_grab_l = moe_wall_grab_left  
+        }
+        else if (fight == false)  {
             moe_walk_r = moe_walk_right
             moe_walk_l = moe_walk_left
     
@@ -287,14 +307,14 @@
     // --- Gravity when attacking in air, when attacking on ground, when jumping, in contact with a wall and on the floor, with animations ---
 
     // Found wood sword in chest
-    if (object_chest_wood_sword.open) {
-        gravity = 0
-        hspeed = 0
-        vspeed = 0
-        sprite_index = moe_find_wood_sword
-    }
+    //if (object_chest_wood_sword.open) {
+    //    gravity = 0
+    //    hspeed = 0
+    //    vspeed = 0
+    //   sprite_index = moe_find_wood_sword
+    //}
     // Moe is hurt
-    else if hurt == true {
+    if hurt == true { //else
         if (hurt_timer &lt; 0) {hurt_timer = 10}
     }
     // If attacking and not wall jump
@@ -615,7 +635,9 @@
     //platform_collisions_step(object_knight_boss)
     
     // Camera movement
-    camera_movement()
+    if (sleepy == false) {
+        camera_movement()
+    }
     
 }
 </string>
