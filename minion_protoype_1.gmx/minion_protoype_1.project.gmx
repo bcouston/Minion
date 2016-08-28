@@ -149,6 +149,7 @@
         <sprite>sprites\moe_dad_stand</sprite>
         <sprite>sprites\moe_mum_still_r</sprite>
         <sprite>sprites\moe_mum_walk_r</sprite>
+        <sprite>sprites\moe_mum_walk_l</sprite>
       </sprites>
     </sprites>
     <sprites name="statics">
@@ -238,6 +239,8 @@
     <timeline>timelines\cutscene_moe_waking</timeline>
     <timeline>timelines\cutscene_moe_waking_dialog</timeline>
     <timeline>timelines\cutscene_mum_greeting</timeline>
+    <timeline>timelines\cutscene_mum_greeting_2</timeline>
+    <timeline>timelines\cutscene_mum_greeting_3</timeline>
   </timelines>
   <rooms name="rooms">
     <room>rooms\moe_house</room>

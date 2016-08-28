@@ -27,6 +27,10 @@
             <kind>1</kind>
             <string>player_arrived = false
 camera_mum = false
+camera_moe = false
+dialog_listener = 0
+current_timeline_index = 0
+timeline_in_progress = false
 </string>
           </argument>
         </arguments>
@@ -56,8 +60,39 @@ camera_mum = false
     timeline_running = true;
 }
 
+// Views
 if (camera_mum) {
     camera_house_view_mum()
+}
+if (camera_moe) {
+    camera_house_view_2()
+}
+
+// Move to next timeline after dialog completed
+
+if (dialog_listener = 1) {
+    if (global.completed_message) {
+        timeline_in_progress = false
+        dialog_listener = 0
+        current_timeline_index++
+    }
+}
+
+// Start timelines in sequence
+if (!timeline_in_progress) {
+    if (current_timeline_index == 1) {
+        timeline_running = false;
+        timeline_index = cutscene_mum_greeting_2;
+        timeline_position = 0;
+        timeline_running = true;
+        timeline_in_progress = true   
+    } else if (current_timeline_index == 2) {
+        timeline_running = false;
+        timeline_index = cutscene_mum_greeting_3;
+        timeline_position = 0;
+        timeline_running = true;
+        timeline_in_progress = true   
+    }
 }
 </string>
           </argument>

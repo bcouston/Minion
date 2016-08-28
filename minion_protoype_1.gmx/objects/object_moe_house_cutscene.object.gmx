@@ -26,7 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>audio_play_sound(crash, 6, false)
-cutscene_dialog_complete = false
+camera_house_view_2()
+cutscene_dialog_complete = true
 </string>
           </argument>
         </arguments>
@@ -55,7 +56,7 @@ cutscene_dialog_complete = false
           </argument>
           <argument>
             <kind>4</kind>
-            <string>0</string>
+            <string>1</string>
           </argument>
           <argument>
             <kind>4</kind>

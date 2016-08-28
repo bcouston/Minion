@@ -30,9 +30,10 @@ print = ""
 time = 0
 depth = depth - instance_number(object_dialog)
 trash = false
+global.completed_message = false
 margin = 4
-completed_message = false
 audio_play_sound(standard_speech,6,false)
+text_length_reached = false
 </string>
           </argument>
         </arguments>
@@ -64,9 +65,9 @@ audio_play_sound(standard_speech,6,false)
     
     //Manual destroy
     
-    if trash {
-        instance_destroy()    
-    }
+    //if trash {
+    //    instance_destroy()    
+    //}
     
 }
 </string>
@@ -127,7 +128,7 @@ if (alpha &lt; 1) {
 draw_set_font(font)
 draw_set_color(c_white)
 draw_rectangle(x-(box_width/2)-margin,y,x+(box_width/2) + 8,y+(box_height),0)
-draw_triangle(x-(box_width/2), y+(box_height), x-(box_width/2)+margin, y+(box_height), x-(box_width/2), y+(box_height)+margin, 0);
+draw_triangle(x, y+(box_height), x+margin, y+(box_height), x, y+(box_height)+margin, 0);
 
 draw_set_color(c_black)
 draw_set_halign(fa_left)
@@ -161,15 +162,16 @@ draw_set_alpha(1)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.completed_message) {
-    global.completed_message = false
-    audio_play_sound(dialog_continue,6,false)
-    instance_destroy()
-}
-if (time &gt;= text_length) {
+            <string>if (time &gt;= text_length) {
+    //if (!text_length_reached) {
+    //    show_message("reached text length")
+    //    text_length_reached = true
+    //}
     draw_sprite(dialog_arrow,-1,x+(box_width/2)+2,y + (box_height/2))
     if (keyboard_check(vk_space)) {
         global.completed_message = true
+        audio_play_sound(dialog_continue,6,false)
+        instance_destroy()
     }
 }
 </string>

@@ -25,6 +25,9 @@
     instance_create(x,y-36,object_exclamation)
     camera_mum = true
 }
+with (object_player) {
+    sprite_index = moe_sleepy_still_left
+}
 </string>
           </argument>
         </arguments>
@@ -57,6 +60,93 @@
 with (object_moe_mum) {
     hspeed = 1
     sprite_index = moe_mum_walk_r
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </entry>
+  <entry>
+    <step>140</step>
+    <event>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with (object_moe_mum) {
+    hspeed = 0
+    sprite_index = moe_mum_still_r
+    //camera_mum = false
+    //camera_moe = true
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </entry>
+  <entry>
+    <step>150</step>
+    <event>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with (object_moe_mum) {
+    script_dialog("Happy 18th Resurrection#Day Moe!",1,x,y-(sprite_height * 1.5))
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </entry>
+  <entry>
+    <step>160</step>
+    <event>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with (object_moe_mum) {
+    dialog_listener = 1
 }
 </string>
           </argument>
