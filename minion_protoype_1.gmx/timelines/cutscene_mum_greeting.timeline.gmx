@@ -25,9 +25,6 @@
     instance_create(x,y-36,object_exclamation)
     camera_mum = true
 }
-with (object_player) {
-    sprite_index = moe_sleepy_still_left
-}
 </string>
           </argument>
         </arguments>

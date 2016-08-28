@@ -158,6 +158,161 @@
 
     // Bugs to fix
 
+    // --- ANIMATION ---
+    
+    // Idle/Fight Animation
+    if animation_change == true {
+        if (sleepy == true) {
+            moe_walk_r = moe_sleepy_still_right
+            moe_walk_l = moe_sleepy_still_left
+    
+            moe_run_r = moe_sleepy_walk_right
+            moe_run_l = moe_sleepy_walk_left
+    
+            moe_jump_r = moe_jump_right
+            moe_jump_l = moe_jump_left
+            moe_jump_descent_r = moe_jump_descent_right
+            moe_jump_descent_l = moe_jump_descent_left
+    
+            moe_wall_grab_r = moe_wall_grab_right
+            moe_wall_grab_l = moe_wall_grab_left  
+        }
+        else if (fight == false)  {
+            moe_walk_r = moe_walk_right
+            moe_walk_l = moe_walk_left
+    
+            moe_run_r = moe_run_right
+            moe_run_l = moe_run_left
+    
+            moe_jump_r = moe_jump_right
+            moe_jump_l = moe_jump_left
+            moe_jump_descent_r = moe_jump_descent_right
+            moe_jump_descent_l = moe_jump_descent_left
+    
+            moe_wall_grab_r = moe_wall_grab_right
+            moe_wall_grab_l = moe_wall_grab_left
+        } else {
+            moe_walk_r = moe_walk_sword_right
+            moe_walk_l = moe_walk_sword_left
+            //moe_walk_r = moe_sleepy_still_right
+            //moe_walk_l = moe_sleepy_still_left
+    
+            moe_run_r = moe_run_right_wood_sword
+            moe_run_l = moe_run_left_wood_sword
+            //moe_run_r = moe_sleepy_walk_right
+            //moe_run_l = moe_sleepy_walk_left
+    
+            moe_jump_r = moe_jump_right_wood_sword
+            moe_jump_l = moe_jump_left_wood_sword
+            moe_jump_descent_r = moe_jump_descent_right_wood_sword
+            moe_jump_descent_l = moe_jump_descent_left_wood_sword
+    
+            moe_wall_grab_r = moe_wall_grab_right_wood_sword
+            moe_wall_grab_l = moe_wall_grab_left_wood_sword
+        }
+        animation_change = false
+    }
+    
+    if hurt == true { //else
+        if (hurt_timer &lt; 0) {hurt_timer = 10}
+    }
+    // If attacking and not wall jump
+    else if (attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == false) {
+        gravity = 0
+        vspeed = 0
+        hspeed = 0
+    // If attacking and wall jump
+    } else if (attack == true &amp;&amp; attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == true) {
+        gravity = 0.8
+    // If attacking on ground
+    } else if (attack == true &amp;&amp; attack_timer != -1 &amp;&amp; !place_free(x,y+1)) {
+        gravity = 0
+        hspeed = 0
+    }
+    // If not touching ground
+    else if place_free(x,y+1) {
+        gravity = 0.8;
+        jump = true
+        footsteps_timer = -1
+            if D == "lef" {
+                if place_free(x-1,y) {
+                    if vspeed &lt;= 0 {
+                        sprite_index = moe_jump_l
+                    } else {sprite_index = moe_jump_descent_l}
+                } else if place_meeting(x-1,y,object_solid) {sprite_index = moe_wall_grab_l}
+            } else if D == "rig" {
+                if place_free(x+1,y) {
+                    if vspeed &lt;= 0 {
+                        sprite_index = moe_jump_r
+                    } else {sprite_index = moe_jump_descent_r}
+                } else if place_meeting(x+1,y,object_solid) {sprite_index = moe_wall_grab_r}
+            }
+        // If touching wall
+        if (!place_free(x+1,y) || !place_free(x-1,y)) &amp;&amp; (vspeed &gt; 0) {
+            gravity = 0.1;
+            // Wall grind
+            if !(wall_grind_start) {
+                // Audio
+                audio_play_sound(wall_grind, 1, false)
+                wall_grind_start = true
+            }
+            // Particles
+            if D == "rig" {
+                instance_create(bbox_right, bbox_bottom, object_wall_grind_dust_part)
+            } else if D == "lef" {
+                instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
+            }
+            // Stop fall sound
+             audio_stop_sound(wind_fall)
+        // If aerial and not touching wall
+        } else {
+            wall_grind_start = false
+            audio_stop_sound(wall_grind)
+            // Falling sound
+            if (vspeed &gt; 0) {
+                if (!audio_is_playing(wind_fall)) {
+                    audio_play_sound(wind_fall, 1, false)
+                }
+            }
+        }
+    // If touching ground
+    } else {
+        gravity = 0;
+        // Attack
+        aerial_attacks_completed = 0
+        attacks_left = true
+        // Jumping
+        if (jump) {
+            //Audio
+            audio_sound_pitch(floor_impact, random_range(1.0,1.2))
+            audio_play_sound(floor_impact, 1, false)
+            //Particles
+            instance_create(x, bbox_bottom, object_land_dust_part)
+        }
+        jump = false
+        wall_jump = false
+        // Wall grind
+        wall_grind_start = false
+        audio_stop_sound(wall_grind)
+        // Stop fall sound
+        audio_stop_sound(wind_fall)
+        // if player is moving
+        if (hspeed != 0) {
+            if footsteps_timer == -1 {
+                footsteps_timer = footsteps_interval
+            }
+        }
+        // If player is still
+        else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
+            sprite_index = moe_walk_r
+            footsteps_timer = -1
+        }
+        else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
+            sprite_index = moe_walk_l
+            footsteps_timer = -1
+        }
+    }
+    
     // descent animation stays around too long when attacking as soon as you hit ground
     if (!global.player_disable) { // Player disable (for cutscenes etc.)
     
@@ -171,62 +326,6 @@
     
         //--- DAMAGE ---
         damage = false
-        
-    
-        // --- ANIMATION ---
-    
-        // Idle/Fight Animation
-        if animation_change == true {
-            if (sleepy == true) {
-                moe_walk_r = moe_sleepy_still_right
-                moe_walk_l = moe_sleepy_still_left
-        
-                moe_run_r = moe_sleepy_walk_right
-                moe_run_l = moe_sleepy_walk_left
-        
-                moe_jump_r = moe_jump_right
-                moe_jump_l = moe_jump_left
-                moe_jump_descent_r = moe_jump_descent_right
-                moe_jump_descent_l = moe_jump_descent_left
-        
-                moe_wall_grab_r = moe_wall_grab_right
-                moe_wall_grab_l = moe_wall_grab_left  
-            }
-            else if (fight == false)  {
-                moe_walk_r = moe_walk_right
-                moe_walk_l = moe_walk_left
-        
-                moe_run_r = moe_run_right
-                moe_run_l = moe_run_left
-        
-                moe_jump_r = moe_jump_right
-                moe_jump_l = moe_jump_left
-                moe_jump_descent_r = moe_jump_descent_right
-                moe_jump_descent_l = moe_jump_descent_left
-        
-                moe_wall_grab_r = moe_wall_grab_right
-                moe_wall_grab_l = moe_wall_grab_left
-            } else {
-                moe_walk_r = moe_walk_sword_right
-                moe_walk_l = moe_walk_sword_left
-                //moe_walk_r = moe_sleepy_still_right
-                //moe_walk_l = moe_sleepy_still_left
-        
-                moe_run_r = moe_run_right_wood_sword
-                moe_run_l = moe_run_left_wood_sword
-                //moe_run_r = moe_sleepy_walk_right
-                //moe_run_l = moe_sleepy_walk_left
-        
-                moe_jump_r = moe_jump_right_wood_sword
-                moe_jump_l = moe_jump_left_wood_sword
-                moe_jump_descent_r = moe_jump_descent_right_wood_sword
-                moe_jump_descent_l = moe_jump_descent_left_wood_sword
-        
-                moe_wall_grab_r = moe_wall_grab_right_wood_sword
-                moe_wall_grab_l = moe_wall_grab_left_wood_sword
-            }
-            animation_change = false
-        }
     
         // Animation for jumping freeze
         if((sprite_index == moe_jump_r || sprite_index == moe_jump_l) &amp;&amp; (image_index == image_number - 1) ) {
@@ -280,20 +379,6 @@
              }
         }
         
-        // Footsteps
-        if (footsteps_timer == 0) {
-            footsteps_timer = footsteps_interval
-        } else if (footsteps_timer &gt; 0) {
-            if (footsteps_timer == footsteps_interval) {
-                //Audio
-                audio_sound_pitch(footstep, random_range(1.0,1.4))
-                audio_play_sound(footstep, 1, false)
-                //Particles
-                instance_create(x, bbox_bottom, object_walk_dust_part)
-            }
-            footsteps_timer -= 1
-        }
-        
         // Keep track of how many aerial attacks have elapsed
         if (aerial_attacks_completed == no_of_aerial_attacks) {
             attacks_left = false;
@@ -316,99 +401,6 @@
         //   sprite_index = moe_find_wood_sword
         //}
         // Moe is hurt
-        if hurt == true { //else
-            if (hurt_timer &lt; 0) {hurt_timer = 10}
-        }
-        // If attacking and not wall jump
-        else if (attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == false) {
-            gravity = 0
-            vspeed = 0
-            hspeed = 0
-        // If attacking and wall jump
-        } else if (attack == true &amp;&amp; attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == true) {
-            gravity = 0.8
-        // If attacking on ground
-        } else if (attack == true &amp;&amp; attack_timer != -1 &amp;&amp; !place_free(x,y+1)) {
-            gravity = 0
-            hspeed = 0
-        }
-        // If not touching ground
-        else if place_free(x,y+1) {
-            gravity = 0.8;
-            jump = true
-            footsteps_timer = -1
-                if D == "lef" {
-                    if place_free(x-1,y) {
-                        if vspeed &lt;= 0 {
-                            sprite_index = moe_jump_l
-                        } else {sprite_index = moe_jump_descent_l}
-                    } else if place_meeting(x-1,y,object_solid) {sprite_index = moe_wall_grab_l}
-                } else if D == "rig" {
-                    if place_free(x+1,y) {
-                        if vspeed &lt;= 0 {
-                            sprite_index = moe_jump_r
-                        } else {sprite_index = moe_jump_descent_r}
-                    } else if place_meeting(x+1,y,object_solid) {sprite_index = moe_wall_grab_r}
-                }
-            // If touching wall
-            if (!place_free(x+1,y) || !place_free(x-1,y)) &amp;&amp; (vspeed &gt; 0) {
-                gravity = 0.1;
-                // Wall grind
-                if !(wall_grind_start) {
-                    // Audio
-                    audio_play_sound(wall_grind, 1, false)
-                    wall_grind_start = true
-                }
-                // Particles
-                if D == "rig" {
-                    instance_create(bbox_right, bbox_bottom, object_wall_grind_dust_part)
-                } else if D == "lef" {
-                    instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
-                }
-                // Stop fall sound
-                 audio_stop_sound(wind_fall)
-            // If aerial and not touching wall
-            } else {
-                wall_grind_start = false
-                audio_stop_sound(wall_grind)
-                // Falling sound
-                if (vspeed &gt; 0) {
-                    if (!audio_is_playing(wind_fall)) {
-                        audio_play_sound(wind_fall, 1, false)
-                    }
-                }
-            }
-        // If touching ground
-        } else {
-            gravity = 0;
-            // Attack
-            aerial_attacks_completed = 0
-            attacks_left = true
-            // Jumping
-            if (jump) {
-                //Audio
-                audio_sound_pitch(floor_impact, random_range(1.0,1.2))
-                audio_play_sound(floor_impact, 1, false)
-                //Particles
-                instance_create(x, bbox_bottom, object_land_dust_part)
-            }
-            jump = false
-            wall_jump = false
-            // Wall grind
-            wall_grind_start = false
-            audio_stop_sound(wall_grind)
-            // Stop fall sound
-            audio_stop_sound(wind_fall)
-            // If player is still
-            if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
-                sprite_index = moe_walk_r
-                footsteps_timer = -1
-            }
-            else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; attack == false {
-                sprite_index = moe_walk_l
-                footsteps_timer = -1
-            }
-        }
     
         // L/R movement and jumping
         if keyboard_check(ord('D')) &amp;&amp; !keyboard_check(ord('A')) &amp;&amp; attack == false
@@ -425,9 +417,6 @@
                 } else {
                     hspeed = run_speed;
                     sprite_index = moe_run_r
-                    if footsteps_timer == -1 {
-                        footsteps_timer = footsteps_interval
-                    }
                 }
             } else if !place_free(x+1,y) &amp;&amp; !place_free(x,y+1) {
                 sprite_index = moe_walk_r
@@ -448,9 +437,6 @@
                 } else {
                     hspeed = -1 * run_speed;
                     sprite_index = moe_run_l
-                    if footsteps_timer == -1 {
-                        footsteps_timer = footsteps_interval
-                    }
                 }
             } else if !place_free(x-1,y) &amp;&amp; !place_free(x,y+1) {
                 sprite_index = moe_walk_l
@@ -641,6 +627,20 @@
         //platform_collisions_step(object_knight_boss)
         
     } // Player disable (for cutscenes etc.)
+    
+    // Footsteps
+    if (footsteps_timer == 0) {
+        footsteps_timer = footsteps_interval
+    } else if (footsteps_timer &gt; 0) {
+        if (footsteps_timer == footsteps_interval) {
+            //Audio
+            audio_sound_pitch(footstep, random_range(1.0,1.4))
+            audio_play_sound(footstep, 1, false)
+            //Particles
+            instance_create(x, bbox_bottom, object_walk_dust_part)
+        }
+        footsteps_timer -= 1
+    }
     
     // Camera movement
     if (sleepy == false) {
