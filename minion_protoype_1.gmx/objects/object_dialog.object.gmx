@@ -32,7 +32,6 @@ depth = depth - instance_number(object_dialog)
 trash = false
 global.completed_message = false
 margin = 4
-audio_play_sound(standard_speech,6,false)
 text_length_reached = false
 </string>
           </argument>

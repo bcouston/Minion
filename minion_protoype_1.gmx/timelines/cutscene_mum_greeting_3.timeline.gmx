@@ -21,11 +21,9 @@
             <kind>1</kind>
             <string>with (object_moe_mum) {
     hspeed = -2
-    sprite_index = moe_mum_walk_l
 }
 with (object_player) {
     hspeed = -2
-    sprite_index = moe_sleepy_walk_left
 }
 </string>
           </argument>
@@ -53,7 +51,66 @@ with (object_player) {
           <argument>
             <kind>1</kind>
             <string>with (object_moe_mum) {
-
+    hspeed = 0
+}
+with (object_player) {
+    hspeed = 0
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </entry>
+  <entry>
+    <step>110</step>
+    <event>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with (object_moe_mum) {
+    script_dialog("Today's a special day, isn't#that right Honey?",1,x,y-(sprite_height*1.5),"high")
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </entry>
+  <entry>
+    <step>120</step>
+    <event>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with (object_moe_mum) {
+    dialog_listener = 1
 }
 </string>
           </argument>

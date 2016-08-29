@@ -148,8 +148,11 @@
         <sprite>sprites\moe_dad_sit</sprite>
         <sprite>sprites\moe_dad_stand</sprite>
         <sprite>sprites\moe_mum_still_r</sprite>
+        <sprite>sprites\moe_mum_still_l</sprite>
         <sprite>sprites\moe_mum_walk_r</sprite>
         <sprite>sprites\moe_mum_walk_l</sprite>
+        <sprite>sprites\moe_dad_laughing</sprite>
+        <sprite>sprites\moe_mum_laughing</sprite>
       </sprites>
     </sprites>
     <sprites name="statics">
@@ -189,7 +192,7 @@
     <scripts name="camera">
       <script>scripts\camera_house_view_1.gml</script>
       <script>scripts\camera_house_view_2.gml</script>
-      <script>scripts\camera_house_view_mum.gml</script>
+      <script>scripts\camera_view.gml</script>
       <script>scripts\camera_movement.gml</script>
     </scripts>
   </scripts>
@@ -239,8 +242,24 @@
     <timeline>timelines\cutscene_moe_waking</timeline>
     <timeline>timelines\cutscene_moe_waking_dialog</timeline>
     <timeline>timelines\cutscene_mum_greeting</timeline>
+    <timeline>timelines\cutscene_mum_greeting_10</timeline>
+    <timeline>timelines\cutscene_mum_greeting_11</timeline>
+    <timeline>timelines\cutscene_mum_greeting_14</timeline>
+    <timeline>timelines\cutscene_mum_greeting_15</timeline>
     <timeline>timelines\cutscene_mum_greeting_2</timeline>
     <timeline>timelines\cutscene_mum_greeting_3</timeline>
+    <timeline>timelines\cutscene_mum_greeting_4</timeline>
+    <timeline>timelines\cutscene_mum_greeting_5</timeline>
+    <timeline>timelines\cutscene_mum_greeting_6</timeline>
+    <timeline>timelines\cutscene_mum_greeting_7</timeline>
+    <timeline>timelines\cutscene_mum_greeting_8</timeline>
+    <timeline>timelines\cutscene_mum_greeting_9</timeline>
+    <timeline>timelines\cutscene_mum_greeting_12</timeline>
+    <timeline>timelines\cutscene_mum_greeting_16</timeline>
+    <timeline>timelines\cutscene_mum_greeting_17</timeline>
+    <timeline>timelines\cutscene_mum_greeting_13</timeline>
+    <timeline>timelines\cutscene_mum_greeting_18</timeline>
+    <timeline>timelines\cutscene_mum_greeting_19</timeline>
   </timelines>
   <rooms name="rooms">
     <room>rooms\moe_house</room>

@@ -1,5 +1,13 @@
 //scr_text("Text,speed,x,y)
 txt = instance_create(argument2,argument3,object_dialog)
+//Sound (high,deep)
+if (argument4 == "high") {
+    audio_sound_pitch(standard_speech, 1.0)   
+    audio_play_sound(standard_speech,6,false)
+} else {
+    audio_sound_pitch(standard_speech, 0.7)   
+    audio_play_sound(standard_speech,6,false)
+}
 with (txt)
 {
     padding = 0

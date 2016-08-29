@@ -26,11 +26,19 @@
           <argument>
             <kind>1</kind>
             <string>player_arrived = false
+// cameras
 camera_mum = false
 camera_moe = false
+camera_dad = false
+camera_parents = false
+//
 dialog_listener = 0
 current_timeline_index = 0
 timeline_in_progress = false
+direc = "right"
+//Animation
+mum_laugh = false
+dad_laugh = false
 </string>
           </argument>
         </arguments>
@@ -53,7 +61,24 @@ timeline_in_progress = false
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (object_door_sensor.player_arrived) &amp;&amp; (!player_arrived) {
+            <string>// mum animation
+if (mum_laugh) {
+    sprite_index = moe_mum_laughing   
+} else if hspeed &gt; 0 {
+    sprite_index = moe_mum_walk_r
+    direc = "right"
+} else if hspeed &lt; 0 {
+    sprite_index = moe_mum_walk_l
+    direc = "left"
+} else if hspeed = 0 {
+    if (direc == "right") {
+        sprite_index = moe_mum_still_r
+    } else if (direc == "left") {
+        sprite_index = moe_mum_still_l
+    }
+}
+
+if (object_door_sensor.player_arrived) &amp;&amp; (!player_arrived) {
     player_arrived = true
     timeline_index = cutscene_mum_greeting;
     timeline_position = 0;
@@ -62,10 +87,13 @@ timeline_in_progress = false
 
 // Views
 if (camera_mum) {
-    camera_house_view_mum()
-}
-if (camera_moe) {
-    camera_house_view_2()
+    camera_view(-1,-1,object_moe_mum.x,0.1,0,0)
+} else if (camera_moe) {
+    camera_view(-1,-1,object_player.x,0.2,0,0)
+} else if (camera_dad) {
+    camera_view(-1,-1,object_moe_dad.x,0.1,0,0)
+} else if (camera_parents) {
+    camera_view(-1,-1,(object_moe_mum.x + object_moe_dad.x)/2,0.1,0,0)
 }
 
 // Move to next timeline after dialog completed
@@ -80,19 +108,53 @@ if (dialog_listener = 1) {
 
 // Start timelines in sequence
 if (!timeline_in_progress) {
+    timeline_running = false;
     if (current_timeline_index == 1) {
-        timeline_running = false;
         timeline_index = cutscene_mum_greeting_2;
-        timeline_position = 0;
-        timeline_running = true;
-        timeline_in_progress = true   
     } else if (current_timeline_index == 2) {
-        timeline_running = false;
         timeline_index = cutscene_mum_greeting_3;
+    } else if (current_timeline_index == 3) {
+        timeline_index = cutscene_mum_greeting_4;
+    } else if (current_timeline_index == 4) {
+        timeline_index = cutscene_mum_greeting_5;
+    } else if (current_timeline_index == 5) {
+        timeline_index = cutscene_mum_greeting_6;
+    } else if (current_timeline_index == 6) {
+        timeline_index = cutscene_mum_greeting_7;
+    } else if (current_timeline_index == 7) {
+        timeline_index = cutscene_mum_greeting_8;
+    } else if (current_timeline_index == 8) {
+        timeline_index = cutscene_mum_greeting_9;
+    } else if (current_timeline_index == 9) {
+        timeline_index = cutscene_mum_greeting_10;
+    } else if (current_timeline_index == 10) {
+        timeline_index = cutscene_mum_greeting_11;
+    } else if (current_timeline_index == 11) {
+        timeline_index = cutscene_mum_greeting_12;
+    } else if (current_timeline_index == 12) {
+        timeline_index = cutscene_mum_greeting_13;
+    } else if (current_timeline_index == 13) {
+        timeline_index = cutscene_mum_greeting_14;
+    } else if (current_timeline_index == 14) {
+        timeline_index = cutscene_mum_greeting_15;
+    } else if (current_timeline_index == 15) {
+        timeline_index = cutscene_mum_greeting_16;
+    } else if (current_timeline_index == 16) {
+        timeline_index = cutscene_mum_greeting_17;
+    } else if (current_timeline_index == 17) {
+        timeline_index = cutscene_mum_greeting_18;
+    } else if (current_timeline_index == 18) {
+        timeline_index = cutscene_mum_greeting_19;
+    } else if (current_timeline_index == 19) {
+        global.player_disable = false
+        camera_dad = false
+        camera_moe = true
+    }
+    if (current_timeline_index != 19) {
         timeline_position = 0;
         timeline_running = true;
-        timeline_in_progress = true   
-    }
+        timeline_in_progress = true
+    }   
 }
 </string>
           </argument>

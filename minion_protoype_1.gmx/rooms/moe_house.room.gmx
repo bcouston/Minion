@@ -198,6 +198,7 @@
     <instance objName="object_door_sensor" x="432" y="584" name="inst_27A0291F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_moe_mum" x="336" y="599" name="inst_527353CE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_player" x="512" y="585" name="inst_CD660E13" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_moe_dad" x="176" y="596" name="inst_724DD6C8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

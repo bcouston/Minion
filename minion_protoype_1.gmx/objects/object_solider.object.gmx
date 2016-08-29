@@ -51,7 +51,7 @@
             <string>{
     if ((distance_to_object(object_player) &lt; dialog_trigger_distance)) {
         if (dialog_triggered == false) {
-            script_dialog("Collect your sword from#the chest Minion 1024!",1,x,y-(1.5*sprite_height))
+            script_dialog("Collect your sword from#the chest Minion 1024!",1,x,y-(1.5*sprite_height),"low")
             dialog_triggered = true
         }
         sprite_index = minion_soldier_talk

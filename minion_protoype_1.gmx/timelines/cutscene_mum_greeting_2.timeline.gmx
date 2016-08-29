@@ -20,7 +20,7 @@
           <argument>
             <kind>1</kind>
             <string>with (object_moe_mum) {
-    script_dialog("Come and see the decorations!",1,x,y-(sprite_height)-4)
+    script_dialog("Come and see the decorations!",1,x,y-(sprite_height)-4,"high")
 }
 </string>
           </argument>

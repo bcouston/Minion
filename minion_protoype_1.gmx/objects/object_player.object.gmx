@@ -298,6 +298,11 @@
         audio_stop_sound(wind_fall)
         // if player is moving
         if (hspeed != 0) {
+            if (hspeed &gt; 0) {
+                sprite_index = moe_run_r
+            } else if (hspeed &lt; 0) {
+                sprite_index = moe_run_l
+            }
             if footsteps_timer == -1 {
                 footsteps_timer = footsteps_interval
             }
@@ -416,7 +421,6 @@
                 // Ground movement
                 } else {
                     hspeed = run_speed;
-                    sprite_index = moe_run_r
                 }
             } else if !place_free(x+1,y) &amp;&amp; !place_free(x,y+1) {
                 sprite_index = moe_walk_r
@@ -436,7 +440,6 @@
                 // Ground movement
                 } else {
                     hspeed = -1 * run_speed;
-                    sprite_index = moe_run_l
                 }
             } else if !place_free(x-1,y) &amp;&amp; !place_free(x,y+1) {
                 sprite_index = moe_walk_l

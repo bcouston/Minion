@@ -19,7 +19,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>script_dialog("Moe! Wake Up!",1,view_xview[0] + 48,view_yview[0] + (view_hview[0] / 2))
+            <string>script_dialog("Moe! Wake Up!",1,view_xview[0] + 48,view_yview[0] + (view_hview[0] / 2),"high")
 
 </string>
           </argument>
