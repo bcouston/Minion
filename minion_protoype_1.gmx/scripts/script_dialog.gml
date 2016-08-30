@@ -13,7 +13,7 @@ with (txt)
     padding = 0
     max_length = view_wview[0]
     text = argument0
-    spd = argument1
+    spd = argument1 + 1
     font = dialog
     
     text_length = string_length(text)

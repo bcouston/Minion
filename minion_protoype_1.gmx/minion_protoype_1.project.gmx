@@ -49,6 +49,9 @@
       <sound>sound\standard_speech</sound>
       <sound>sound\npc_alert</sound>
     </sounds>
+    <sounds name="actions">
+      <sound>sound\door_enter</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\sprite72</sprite>
@@ -173,10 +176,16 @@
     <sprites name="sensors">
       <sprite>sprites\room_drop_sensor</sprite>
       <sprite>sprites\door_enter_sensor</sprite>
+      <sprite>sprites\room_exit_sensor</sprite>
     </sprites>
     <sprites name="ui">
       <sprite>sprites\dialog_arrow</sprite>
       <sprite>sprites\exclamation</sprite>
+    </sprites>
+    <sprites name="non-visuals">
+      <sprite>sprites\camera</sprite>
+      <sprite>sprites\globals</sprite>
+      <sprite>sprites\player_detect</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -194,49 +203,82 @@
       <script>scripts\camera_house_view_2.gml</script>
       <script>scripts\camera_view.gml</script>
       <script>scripts\camera_movement.gml</script>
+      <script>scripts\set_camera.gml</script>
     </scripts>
+    <script>scripts\room_transition.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\dialog</font>
   </fonts>
   <objects name="objects">
-    <object>objects\object_player</object>
-    <object>objects\object_badguy1</object>
-    <object>objects\object_solid</object>
-    <object>objects\object_one_way</object>
-    <object>objects\object_dungeon_slant</object>
-    <object>objects\object_dungeon_slope_right</object>
-    <object>objects\object_dungeon_slope_left</object>
-    <object>objects\object_dungeon_stairs</object>
-    <object>objects\object_dungeon_ground</object>
-    <object>objects\object_dummy</object>
-    <object>objects\object_shield_dummy1</object>
-    <object>objects\object_shield_dummy2</object>
-    <object>objects\object_air_dummy</object>
-    <object>objects\object_swing_axe</object>
-    <object>objects\object_elevator</object>
-    <object>objects\object_chest_wood_sword</object>
-    <object>objects\object_gate</object>
-    <object>objects\object_solider</object>
-    <object>objects\object_dialog</object>
-    <object>objects\object_knight_boss</object>
-    <object>objects\object_sword_blast_r</object>
-    <object>objects\object_sword_blast_l</object>
-    <object>objects\object_boss_hp</object>
-    <object>objects\object_hit_part</object>
-    <object>objects\object_walk_dust_part</object>
-    <object>objects\object_land_dust_part</object>
-    <object>objects\object_wall_grind_dust_part</object>
-    <object>objects\object_player_combat_hitbox</object>
-    <object>objects\object_npc_merv</object>
-    <object>objects\object_moe_bed</object>
-    <object>objects\object_moe_house_cutscene</object>
-    <object>objects\object_moe_dad</object>
-    <object>objects\object_room_drop_sensor</object>
-    <object>objects\object_global_vars</object>
-    <object>objects\object_moe_mum</object>
-    <object>objects\object_exclamation</object>
-    <object>objects\object_door_sensor</object>
+    <objects name="enemies">
+      <object>objects\object_badguy1</object>
+      <objects name="training">
+        <object>objects\object_shield_dummy1</object>
+        <object>objects\object_dummy</object>
+        <object>objects\object_shield_dummy2</object>
+        <object>objects\object_air_dummy</object>
+      </objects>
+      <objects name="bosses">
+        <object>objects\object_knight_boss</object>
+      </objects>
+    </objects>
+    <objects name="essentials">
+      <object>objects\object_player_detect</object>
+      <object>objects\object_camera</object>
+      <object>objects\object_global_vars</object>
+    </objects>
+    <objects name="hazards">
+      <object>objects\object_swing_axe</object>
+      <object>objects\object_sword_blast_l</object>
+      <object>objects\object_sword_blast_r</object>
+    </objects>
+    <objects name="hud">
+      <object>objects\object_dialog</object>
+      <object>objects\object_boss_hp</object>
+      <object>objects\object_exclamation</object>
+    </objects>
+    <objects name="interactables">
+      <object>objects\object_chest_wood_sword</object>
+    </objects>
+    <objects name="npcs">
+      <object>objects\object_solider</object>
+      <object>objects\object_npc_merv</object>
+      <objects name="cutscenes">
+        <object>objects\object_moe_house_cutscene</object>
+      </objects>
+      <object>objects\object_moe_dad</object>
+      <object>objects\object_moe_mum</object>
+    </objects>
+    <objects name="particles">
+      <object>objects\object_wall_grind_dust_part</object>
+      <object>objects\object_land_dust_part</object>
+      <object>objects\object_walk_dust_part</object>
+      <object>objects\object_hit_part</object>
+    </objects>
+    <objects name="player">
+      <object>objects\object_player</object>
+      <object>objects\object_player_combat_hitbox</object>
+    </objects>
+    <objects name="scenery">
+      <object>objects\object_moe_bed</object>
+    </objects>
+    <objects name="sensors">
+      <object>objects\object_door_sensor</object>
+      <object>objects\object_room_drop_sensor</object>
+      <object>objects\object_room_exit_sensor</object>
+    </objects>
+    <objects name="solids">
+      <object>objects\object_gate</object>
+      <object>objects\object_solid</object>
+      <object>objects\object_one_way</object>
+      <object>objects\object_dungeon_slant</object>
+      <object>objects\object_dungeon_slope_right</object>
+      <object>objects\object_dungeon_slope_left</object>
+      <object>objects\object_dungeon_stairs</object>
+      <object>objects\object_dungeon_ground</object>
+      <object>objects\object_elevator</object>
+    </objects>
   </objects>
   <timelines name="timelines">
     <timeline>timelines\cutscene_moe_waking</timeline>
@@ -262,10 +304,11 @@
     <timeline>timelines\cutscene_mum_greeting_19</timeline>
   </timelines>
   <rooms name="rooms">
-    <room>rooms\moe_house</room>
+    <room>rooms\room_moe_house</room>
     <room>rooms\Level1_Combat</room>
     <room>rooms\room2</room>
     <room>rooms\room1</room>
+    <room>rooms\room_dungeon_overworld</room>
   </rooms>
   <constants number="1">
     <constant name="dialog_trigger_distance">16</constant>

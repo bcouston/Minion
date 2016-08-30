@@ -87,13 +87,13 @@ if (object_door_sensor.player_arrived) &amp;&amp; (!player_arrived) {
 
 // Views
 if (camera_mum) {
-    camera_view(-1,-1,object_moe_mum.x,0.1,0,0)
+    set_camera(-1,-1,object_moe_mum.x,0.1,0,0)
 } else if (camera_moe) {
-    camera_view(-1,-1,object_player.x,0.2,0,0)
+    set_camera(-1,-1,object_player.x,0.2,0,0)
 } else if (camera_dad) {
-    camera_view(-1,-1,object_moe_dad.x,0.1,0,0)
+    set_camera(-1,-1,object_moe_dad.x,0.1,0,0)
 } else if (camera_parents) {
-    camera_view(-1,-1,(object_moe_mum.x + object_moe_dad.x)/2,0.1,0,0)
+    set_camera(-1,-1,(object_moe_mum.x + object_moe_dad.x)/2,0.1,0,0)
 }
 
 // Move to next timeline after dialog completed
