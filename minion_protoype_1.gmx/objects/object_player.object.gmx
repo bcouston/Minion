@@ -90,6 +90,11 @@
     moe_run_r = moe_run_right
     moe_run_l = moe_run_left
     animation_change = true
+    // Freeze animation during room transition
+    room_transition_freeze = false
+    freeze_sprite = ""
+    freeze_image = 0
+    freeze_step = 0
 
     //Initialize attack animations array
     attack_ani[0] = moe_attack_wood_sword_right_1
@@ -650,12 +655,28 @@
         camera_movement()
     }
     
+    // Disable (e.g. during cutscene)
     if (global.player_disable) {
         if !disable {
             hspeed = 0
             disable = true
         }
-    } else {diable = false}
+    } else {disable = false}
+    
+    // Freeze (during room transition)
+    if (room_transition_freeze) {
+        image_speed = 0
+        hspeed = 0
+        vspeed = 0
+        // Set
+        if (freeze_step == 0) {
+            freeze_sprite = sprite_get_name(sprite_index)
+            freeze_index = image_index
+        }
+        sprite_index = asset_get_index(freeze_sprite)
+        image_index = freeze_index
+        freeze_step++
+    } else {freeze_step = 0}
     
 }
 </string>

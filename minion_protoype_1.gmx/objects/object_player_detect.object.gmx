@@ -25,14 +25,19 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.room_exit = true) {
+            <string>if ((global.room_exit = true) &amp;&amp; (!global.room_transition_in_progress)) {
     global.room_exit = false
     for (i = 0; i &lt; instance_number(object_room_exit_sensor); i += 1) {
         if (instance_find(object_room_exit_sensor,i).entrance_id == global.exit_id) {
             object_player.x = instance_find(object_room_exit_sensor,i).x + instance_find(object_room_exit_sensor,i).player_offset;
-            object_player.y = instance_find(object_room_exit_sensor,i).y 
+            object_player.y = instance_find(object_room_exit_sensor,i).y + (object_player.sprite_height/2); 
         }
     }
+    // Room transition exit aniamtion
+    timeline_running = false
+    timeline_index = room_transition_animation_exit;
+    timeline_position = 0;
+    timeline_running = true;
 }
 </string>
           </argument>

@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.view = 2
+            <string>// Camera views
+global.view = 2
 global.completed_message = false
 global.player_disable = false
 // Room transitions
@@ -33,13 +34,8 @@ global.map_coordinates_x = 0
 global.map_coordinates_y = 0 
 global.room_exit = false
 global.exit_id = -1
-// Camera views
-global.camera_y = 0
-global.camera_x = 0
-global.camera_pos_follow = 0
-global.camera_speed = 0.2
-global.camera_max_x = 0
-global.camera_min_x = 0
+global.room_transition_in_progress = false
+global.room_transition_dir = "left"
 </string>
           </argument>
         </arguments>

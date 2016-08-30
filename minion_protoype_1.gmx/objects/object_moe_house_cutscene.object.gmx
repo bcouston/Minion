@@ -26,7 +26,6 @@
           <argument>
             <kind>1</kind>
             <string>audio_play_sound(crash, 6, false)
-camera_house_view_2()
 cutscene_dialog_complete = true
 </string>
           </argument>

@@ -31,6 +31,7 @@ camera_mum = false
 camera_moe = false
 camera_dad = false
 camera_parents = false
+previous_camera = "camera_moe"
 //
 dialog_listener = 0
 current_timeline_index = 0
@@ -86,14 +87,14 @@ if (object_door_sensor.player_arrived) &amp;&amp; (!player_arrived) {
 }
 
 // Views
-if (camera_mum) {
-    set_camera(-1,-1,object_moe_mum.x,0.1,0,0)
-} else if (camera_moe) {
-    set_camera(-1,-1,object_player.x,0.2,0,0)
+if (camera_moe) {
+    view = 2
+} else if (camera_mum) {
+    view = 3
 } else if (camera_dad) {
-    set_camera(-1,-1,object_moe_dad.x,0.1,0,0)
+    view = 4
 } else if (camera_parents) {
-    set_camera(-1,-1,(object_moe_mum.x + object_moe_dad.x)/2,0.1,0,0)
+    view = 5
 }
 
 // Move to next timeline after dialog completed
@@ -146,6 +147,7 @@ if (!timeline_in_progress) {
     } else if (current_timeline_index == 18) {
         timeline_index = cutscene_mum_greeting_19;
     } else if (current_timeline_index == 19) {
+        timeline_running = false
         global.player_disable = false
         camera_dad = false
         camera_moe = true

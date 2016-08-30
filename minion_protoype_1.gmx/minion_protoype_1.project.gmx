@@ -193,24 +193,28 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\platform_collisions_create.gml</script>
-    <script>scripts\platform_collisions_step.gml</script>
-    <script>scripts\platform_friction.gml</script>
-    <script>scripts\platform_corner_check.gml</script>
-    <script>scripts\script_dialog.gml</script>
     <scripts name="camera">
       <script>scripts\camera_house_view_1.gml</script>
-      <script>scripts\camera_house_view_2.gml</script>
       <script>scripts\camera_view.gml</script>
       <script>scripts\camera_movement.gml</script>
-      <script>scripts\set_camera.gml</script>
+    </scripts>
+    <scripts name="platform">
+      <script>scripts\platform_collisions_create.gml</script>
+      <script>scripts\platform_collisions_step.gml</script>
+      <script>scripts\platform_friction.gml</script>
+      <script>scripts\platform_corner_check.gml</script>
     </scripts>
     <script>scripts\room_transition.gml</script>
+    <script>scripts\script_dialog.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\dialog</font>
   </fonts>
   <objects name="objects">
+    <objects name="0player">
+      <object>objects\object_player</object>
+      <object>objects\object_player_combat_hitbox</object>
+    </objects>
     <objects name="enemies">
       <object>objects\object_badguy1</object>
       <objects name="training">
@@ -234,9 +238,10 @@
       <object>objects\object_sword_blast_r</object>
     </objects>
     <objects name="hud">
-      <object>objects\object_dialog</object>
       <object>objects\object_boss_hp</object>
+      <object>objects\object_dialog</object>
       <object>objects\object_exclamation</object>
+      <object>objects\object_room_transition_animation</object>
     </objects>
     <objects name="interactables">
       <object>objects\object_chest_wood_sword</object>
@@ -255,10 +260,6 @@
       <object>objects\object_land_dust_part</object>
       <object>objects\object_walk_dust_part</object>
       <object>objects\object_hit_part</object>
-    </objects>
-    <objects name="player">
-      <object>objects\object_player</object>
-      <object>objects\object_player_combat_hitbox</object>
     </objects>
     <objects name="scenery">
       <object>objects\object_moe_bed</object>
@@ -281,27 +282,35 @@
     </objects>
   </objects>
   <timelines name="timelines">
-    <timeline>timelines\cutscene_moe_waking</timeline>
-    <timeline>timelines\cutscene_moe_waking_dialog</timeline>
-    <timeline>timelines\cutscene_mum_greeting</timeline>
-    <timeline>timelines\cutscene_mum_greeting_10</timeline>
-    <timeline>timelines\cutscene_mum_greeting_11</timeline>
-    <timeline>timelines\cutscene_mum_greeting_14</timeline>
-    <timeline>timelines\cutscene_mum_greeting_15</timeline>
-    <timeline>timelines\cutscene_mum_greeting_2</timeline>
-    <timeline>timelines\cutscene_mum_greeting_3</timeline>
-    <timeline>timelines\cutscene_mum_greeting_4</timeline>
-    <timeline>timelines\cutscene_mum_greeting_5</timeline>
-    <timeline>timelines\cutscene_mum_greeting_6</timeline>
-    <timeline>timelines\cutscene_mum_greeting_7</timeline>
-    <timeline>timelines\cutscene_mum_greeting_8</timeline>
-    <timeline>timelines\cutscene_mum_greeting_9</timeline>
-    <timeline>timelines\cutscene_mum_greeting_12</timeline>
-    <timeline>timelines\cutscene_mum_greeting_16</timeline>
-    <timeline>timelines\cutscene_mum_greeting_17</timeline>
-    <timeline>timelines\cutscene_mum_greeting_13</timeline>
-    <timeline>timelines\cutscene_mum_greeting_18</timeline>
-    <timeline>timelines\cutscene_mum_greeting_19</timeline>
+    <timelines name="cutscenes">
+      <timelines name="mum_greeting">
+        <timeline>timelines\cutscene_mum_greeting</timeline>
+        <timeline>timelines\cutscene_mum_greeting_10</timeline>
+        <timeline>timelines\cutscene_mum_greeting_11</timeline>
+        <timeline>timelines\cutscene_mum_greeting_12</timeline>
+        <timeline>timelines\cutscene_mum_greeting_13</timeline>
+        <timeline>timelines\cutscene_mum_greeting_14</timeline>
+        <timeline>timelines\cutscene_mum_greeting_15</timeline>
+        <timeline>timelines\cutscene_mum_greeting_16</timeline>
+        <timeline>timelines\cutscene_mum_greeting_17</timeline>
+        <timeline>timelines\cutscene_mum_greeting_18</timeline>
+        <timeline>timelines\cutscene_mum_greeting_19</timeline>
+        <timeline>timelines\cutscene_mum_greeting_2</timeline>
+        <timeline>timelines\cutscene_mum_greeting_3</timeline>
+        <timeline>timelines\cutscene_mum_greeting_4</timeline>
+        <timeline>timelines\cutscene_mum_greeting_5</timeline>
+        <timeline>timelines\cutscene_mum_greeting_6</timeline>
+        <timeline>timelines\cutscene_mum_greeting_7</timeline>
+        <timeline>timelines\cutscene_mum_greeting_8</timeline>
+        <timeline>timelines\cutscene_mum_greeting_9</timeline>
+      </timelines>
+      <timeline>timelines\cutscene_moe_waking</timeline>
+      <timelines name="moe_waking">
+        <timeline>timelines\cutscene_moe_waking_dialog</timeline>
+      </timelines>
+    </timelines>
+    <timeline>timelines\room_transition_animation_enter</timeline>
+    <timeline>timelines\room_transition_animation_exit</timeline>
   </timelines>
   <rooms name="rooms">
     <room>rooms\room_moe_house</room>

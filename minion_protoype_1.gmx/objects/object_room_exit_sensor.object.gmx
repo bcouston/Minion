@@ -2,7 +2,7 @@
 <object>
   <spriteName>room_exit_sensor</spriteName>
   <solid>0</solid>
-  <visible>-1</visible>
+  <visible>0</visible>
   <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
@@ -27,13 +27,19 @@
             <kind>1</kind>
             <string>if (place_meeting(x,y,object_player)) {
     if (!global.room_exit) {
+        // Set vars for next room
+        global.room_exit = true
         global.map_coordinates_x += room_nav_x
         global.map_coordinates_y += room_nav_y
         global.exit_id = exit_id
-        room_transition()
-        global.room_exit = true
-        audio_sound_pitch(door_enter, random_range(0.8,1.1))
+        global.room_transition_dir = room_nav_x
+        // Sound
+        audio_sound_pitch(door_enter, random_range(0.7,1.1))
         audio_play_sound(door_enter, 1, false)
+        // Room animation Transition enter
+        timeline_index = room_transition_animation_enter;
+        timeline_position = 0;
+        timeline_running = true;
     }
 }
 </string>
