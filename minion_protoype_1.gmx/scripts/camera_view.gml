@@ -26,28 +26,38 @@ if (argument1 != -1) {
 
 if (argument10 != -1) {
     if (view_wview[1] < argument10) {
+        next_width = view_wview[1] + ((argument10 - global.previous_wview)/argument12)
         if (next_width >= argument10) {
             view_wview[1] = argument10
+            global.previous_wview = view_wview[1]
         } else {view_wview[1] = next_width}
     } else if (view_wview[1] > argument10) {
+        next_width = view_wview[1] + ((argument10 - global.previous_wview)/argument12)
         if (next_width <= argument10) {
             view_wview[1] = argument10
+            global.previous_wview = view_wview[1]
         } else {view_wview[1] = next_width}
     }
 } else {
+    global.previous_wview = view_wview[1]
 }
 
 if (argument11 != -1) {
     if (view_hview[1] < argument11) {
+        next_height = view_hview[1] + ((argument11 - global.previous_hview)/argument12)
         if (next_height >= argument11) {
             view_hview[1] = argument11
+            global.previous_hview = view_hview[1]
         } else {view_hview[1] = next_height}
     } else if (view_hview[1] > argument11) {
+        next_height = view_hview[1] + ((argument11 - global.previous_hview)/argument12)
         if (next_height <= argument11) {
             view_hview[1] = argument11
+            global.previous_hview = view_hview[1]
         } else {view_hview[1] = next_height}
     }
 } else {
+    global.previous_hview = view_hview[1]
 }
 
 // X following
