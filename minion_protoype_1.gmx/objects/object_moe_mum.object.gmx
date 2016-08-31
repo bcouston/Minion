@@ -88,13 +88,25 @@ if (object_door_sensor.player_arrived) &amp;&amp; (!player_arrived) {
 
 // Views
 if (camera_moe) {
-    view = 2
+    if (previous_camera != "camera_moe") {
+        previous_camera = "camera_moe"
+        global.view = 2
+    }
 } else if (camera_mum) {
-    view = 3
+    if (previous_camera != "camera_mum") {
+        previous_camera = "camera_mum"
+        global.view = 3
+    }
 } else if (camera_dad) {
-    view = 4
+    if (previous_camera != "camera_dad") {
+        previous_camera = "camera_dad"
+        global.view = 4
+    }
 } else if (camera_parents) {
-    view = 5
+    if (previous_camera != "camera_parents") {
+        previous_camera = "camera_parents"
+        global.view = 5
+    }
 }
 
 // Move to next timeline after dialog completed

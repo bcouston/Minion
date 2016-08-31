@@ -38,6 +38,7 @@
     timeline_index = room_transition_animation_exit;
     timeline_position = 0;
     timeline_running = true;
+    global.view = default_view
 }
 </string>
           </argument>

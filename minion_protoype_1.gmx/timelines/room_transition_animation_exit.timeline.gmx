@@ -26,7 +26,6 @@ with (object_room_transition_animation) {
     a = 1
     fade = -0.05
 }
-global.view = 2
 </string>
           </argument>
         </arguments>
