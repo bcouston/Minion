@@ -196,7 +196,6 @@
     <scripts name="camera">
       <script>scripts\camera_house_view_1.gml</script>
       <script>scripts\camera_view.gml</script>
-      <script>scripts\camera_movement.gml</script>
     </scripts>
     <scripts name="platform">
       <script>scripts\platform_collisions_create.gml</script>
@@ -229,8 +228,8 @@
     </objects>
     <objects name="essentials">
       <object>objects\object_player_detect</object>
-      <object>objects\object_camera</object>
       <object>objects\object_global_vars</object>
+      <object>objects\object_camera</object>
     </objects>
     <objects name="hazards">
       <object>objects\object_swing_axe</object>
