@@ -8,6 +8,30 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>previous_wview = 0
+previous_hview = 0
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -31,7 +55,7 @@
             case 0: break;
             case 1: break;
             case 2: //Moe house interior
-                camera_view(-1,-1,object_player.x,0.2,object_room_exit_sensor.x,-1,object_player.y,0.2,0,0,272,192,1)
+                camera_view(-1,-1,object_player.x,0.2,object_room_exit_sensor.x,-1,object_player.y,1.0,0,0,-1,-1,-1)
                 break;
             case 3: //Mum house interior
                 camera_view(-1,-1,object_moe_mum.x,0.1,-1,-1,object_moe_mum.y,0.1,0,0,-1,-1,-1)
@@ -42,33 +66,25 @@
             case 5: //Parents house interior
                 camera_view(-1,-1,(object_moe_mum.x + object_moe_dad.x)/2,0.1,-1,-1,-1,0.1,0,0,-1,-1,-1)
                 break;
-            case 9: //Room transition - pos
+            case 10: //Room transition - pos
                 if (global.room_transition_dir == 1) {
-                    camera_view(-1,-1,(object_player.x - (view_wview[1]/2) + 32),0.2,-1,-1,object_player.y,0.2,0,0,-1,-1,-1)
-                } else if (global.room_transition_dir == -1){
-                    camera_view(-1,-1,(object_player.x + (view_wview[1]/2) - 32),0.2,-1,-1,object_player.y,0.2,0,0,-1,-1,-1)    
+                    wview = 544
+                    camera_view(-1,-1,(object_player.x - (wview/2)),0.1,-1,-1,object_player.y,1.0,0,0,wview,384,40)
                 }
-                break;  
-            case 10: //Room transition - zoom
-                camera_view(-1,-1,(object_player.x - (view_wview[1]/2) + 32),1.0,-1,-1,object_player.y,1.0,0,0,512,384,25);
                 break;
         }
         break;
     case "room_dungeon_overworld":
         switch (global.view) {
             case 0:
-                camera_view(-1,-1,object_player.x,0.2,-1,object_room_exit_sensor.x,object_player.y,0.2,0,0,-1,-1,-1)
+                camera_view(-1,-1,object_player.x,0.2,-1,object_room_exit_sensor.x,object_player.y,1.0,0,0,-1,-1,-1)
                 break;
-            case 9: //Room transition
-                if (global.room_transition_dir == 1) {
-                    camera_view(-1,-1,(object_player.x - (view_wview[1]/2) + 32),0.2,-1,-1,object_player.y,0.2,0,0,-1,-1,-1)
-                } else if (global.room_transition_dir == -1){
-                    camera_view(-1,-1,(object_player.x + (view_wview[1]/2) - 32),0.2,-1,-1,object_player.y,0.2,0,0,-1,-1,-1)    
+            case 10: //Room transition
+                if (global.room_transition_dir == -1) {
+                    wview = 272
+                    camera_view(-1,-1,(object_player.x + (wview/2)),0.1,-1,-1,object_player.y,1.0,0,0,wview,192,40)   
                 }
                 break;
-            case 10: //Room transition - zoom
-                camera_view(-1,-1,(object_player.x + (view_wview[1]/2) - 32),1.0,-1,-1,object_player.y,1.0,0,0,272,192,25)   
-                break; 
         }
         break;
 }

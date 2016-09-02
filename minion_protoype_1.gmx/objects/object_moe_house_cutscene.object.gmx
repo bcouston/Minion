@@ -25,8 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>audio_play_sound(vampire_killer, 6, false)
-cutscene_dialog_complete = true
+            <string>cutscene_dialog_complete = true
 </string>
           </argument>
         </arguments>

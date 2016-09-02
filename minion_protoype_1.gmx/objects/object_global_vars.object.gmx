@@ -27,8 +27,8 @@
             <kind>1</kind>
             <string>// Camera views
 global.view = 2
-global.previous_wview = 0
-global.previous_hview = 0
+global.previous_wview = 272
+global.previous_hview = 192
 //
 global.completed_message = false
 global.player_disable = false

@@ -237,7 +237,9 @@
     // If not touching ground
     else if place_free(x,y+1) {
         gravity = 0.8;
-        jump = true
+        if (global.room_exit == false) {
+            jump = true
+        }
         footsteps_timer = -1
             if D == "lef" {
                 if place_free(x-1,y) {
@@ -457,7 +459,7 @@
             if keyboard_check_pressed(ord('W')) &amp;&amp; attack == false {
                 // Wall jump
                 if place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
-                    if place_meeting(x+10,y,object_solid) { // Some tolerance for proximity to the wall
+                    if place_meeting(x+5,y,object_solid) { // Some tolerance for proximity to the wall
                         vspeed = -10
                         hspeed = -1 * wall_jump_speed
                         D = "lef"

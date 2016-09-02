@@ -51,6 +51,7 @@
     </sounds>
     <sounds name="actions">
       <sound>sound\door_enter</sound>
+      <sound>sound\door_exit</sound>
     </sounds>
   </sounds>
   <sprites name="sprites">
@@ -313,10 +314,10 @@
   </timelines>
   <rooms name="rooms">
     <room>rooms\room_moe_house</room>
+    <room>rooms\room_dungeon_overworld</room>
     <room>rooms\Level1_Combat</room>
     <room>rooms\room2</room>
     <room>rooms\room1</room>
-    <room>rooms\room_dungeon_overworld</room>
   </rooms>
   <constants number="1">
     <constant name="dialog_trigger_distance">16</constant>
