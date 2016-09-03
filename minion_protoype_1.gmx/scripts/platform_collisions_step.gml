@@ -57,6 +57,12 @@
         brr_x +=1;
     }
     brr_x -= 1; //1 pixel correction because of bbox
+       //Find the wall in the middle 
+    mrr_x = bbox_right;
+    while(!collision_point(mrr_x,y,argument0,true,true) && mrr_x < bbox_right+check_distance){
+        mrr_x +=1;
+    }
+    mrr_x -= 1;
     //------------------------------------------------------------------
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -78,6 +84,12 @@
         bll_x -=1;
     }
     bll_x += 1; //1 pixel correction because of bbox
+        //Find the wall in the middle
+    mll_x = bbox_left;
+    while(!collision_point(mll_x,y,argument0,true,true) && mll_x > bbox_left-check_distance){
+        mll_x -=1;
+    }
+    mll_x += 1;
     //------------------------------------------------------------------
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -129,15 +141,15 @@
     //                        COLLIDING RIGHT
     //==================================================================
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    if ((bbox_right <= min(trr_x,brr_x)) || (object_get_name(argument0) == "object_dungeon_slope_right")) {
-        if (point_distance(bbox_right,y,min(brr_x,trr_x),y) < hspeed) {
+    if ((bbox_right <= min(trr_x,brr_x,mrr_x)) || (object_get_name(argument0) == "object_dungeon_slope_right")) {
+        if (point_distance(bbox_right,y,min(brr_x,trr_x,mrr_x),y) < hspeed) {
             // Going up slope
             yplus = 0
             while (collision_point(bbox_right + hspeed,bbox_bottom - yplus,argument0,true,true) && yplus <= abs(1 * hspeed) ) {
                 yplus +=1
             }
             if yplus > abs(1 * hspeed) {
-                x=min(brr_x,trr_x)-(bbox_right-x);
+                x=min(brr_x,trr_x,mrr_x)-(bbox_right-x);
                 hspeed = 0;
             } else if (jump == false) {
                 y -= yplus
@@ -147,7 +159,7 @@
             //
         }
     } else if !(object_get_name(argument0) == "object_dungeon_slope_right") {
-        x=min(brr_x,trr_x)-(bbox_right-x);
+        x=min(brr_x,trr_x,mrr_x)-(bbox_right-x);
         hspeed = 0;
     }
     
@@ -160,15 +172,15 @@
     //                        COLLIDING LEFT
     //==================================================================
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    if ((bbox_left >= max(tll_x,bll_x)) || (object_get_name(argument0) == "object_dungeon_slope_left")) {
-        if ((point_distance(bbox_left,y,max(bll_x,tll_x),y)*-1) > hspeed) {
+    if ((bbox_left >= max(tll_x,bll_x,mll_x)) || (object_get_name(argument0) == "object_dungeon_slope_left")) {
+        if ((point_distance(bbox_left,y,max(bll_x,tll_x,mll_x),y)*-1) > hspeed) {
             // Going up slope
             yplus = 0
             while (collision_point(bbox_left + hspeed,bbox_bottom - yplus,argument0,true,true) && yplus <= abs(1 * hspeed) ) {
                yplus +=1
             }
             if yplus > abs(1 * hspeed) {
-                x=max(bll_x,tll_x)+(x-bbox_left);
+                x=max(bll_x,tll_x,mll_x)+(x-bbox_left);
                 hspeed = 0;
             } else if (jump == false) {
                 y -= yplus
@@ -178,7 +190,7 @@
             //
         }
     } else if !(object_get_name(argument0) == "object_dungeon_slope_left") {
-        x=max(bll_x,tll_x)+(x-bbox_left);
+        x=max(bll_x,tll_x,mll_x)+(x-bbox_left);
         hspeed = 0;
     }
     
@@ -220,14 +232,23 @@
     //------------------------------------------------------------------
     
     // Correction in case of collision into wall
-    if (collision_point(bbox_right,y,argument0,true,true)) {
+    while (collision_point(bbox_right,bbox_top,argument0,true,true)) {
         x -= 1
     }
-    if (collision_point(bbox_left,y,argument0,true,true)) {
+    while (collision_point(bbox_left,bbox_bottom,argument0,true,true)) {
         x += 1
     }
-    if (collision_point(x,bbox_bottom,argument0,true,true)) {
+    while (collision_point(bbox_right,bbox_bottom,argument0,true,true)) {
         y -= 1
     }
-    
+    while (collision_point(bbox_left,bbox_top,argument0,true,true)) {
+        y += 1
+    }
+    while (collision_point(bbox_right,y,argument0,true,true)) {
+        x -= 1
+    }
+    while (collision_point(bbox_left,y,argument0,true,true)) {
+        x += 1
+    }
+
 }
