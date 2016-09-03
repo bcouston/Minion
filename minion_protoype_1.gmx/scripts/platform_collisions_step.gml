@@ -232,17 +232,19 @@
     //------------------------------------------------------------------
     
     // Correction in case of collision into wall
-    while (collision_point(bbox_right,bbox_top,argument0,true,true)) {
-        x -= 1
-    }
-    while (collision_point(bbox_left,bbox_bottom,argument0,true,true)) {
-        x += 1
-    }
-    while (collision_point(bbox_right,bbox_bottom,argument0,true,true)) {
-        y -= 1
-    }
-    while (collision_point(bbox_left,bbox_top,argument0,true,true)) {
-        y += 1
+    if ((object_get_name(argument0) != "object_dungeon_slope_left") && (object_get_name(argument0) != "object_dungeon_slope_right")) {
+        while (collision_point(bbox_right,bbox_top,argument0,true,true)) {
+            x -= 1
+        }
+        while (collision_point(bbox_left,bbox_bottom,argument0,true,true)) {
+            x += 1
+        }
+        while (collision_point(bbox_right,bbox_bottom,argument0,true,true)) {
+            y -= 1
+        }
+        while (collision_point(bbox_left,bbox_top,argument0,true,true)) {
+            y += 1
+        }
     }
     while (collision_point(bbox_right,y,argument0,true,true)) {
         x -= 1
