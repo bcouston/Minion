@@ -53,6 +53,10 @@
       <sound>sound\door_enter</sound>
       <sound>sound\door_exit</sound>
     </sounds>
+    <sounds name="damage">
+      <sound>sound\moe_hurt</sound>
+      <sound>sound\moe_death</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\sprite72</sprite>
@@ -101,6 +105,15 @@
         <sprite>sprites\moe_waking</sprite>
         <sprite>sprites\moe_falling_bed</sprite>
         <sprite>sprites\moe_get_up</sprite>
+      </sprites>
+      <sprites name="damage">
+        <sprite>sprites\moe_pelvis</sprite>
+        <sprite>sprites\moe_l_leg</sprite>
+        <sprite>sprites\moe_r_leg</sprite>
+        <sprite>sprites\moe_ribs</sprite>
+        <sprite>sprites\moe_l_arm</sprite>
+        <sprite>sprites\moe_r_arm</sprite>
+        <sprite>sprites\moe_head</sprite>
       </sprites>
     </sprites>
     <sprites name="solids">
@@ -173,6 +186,8 @@
     </sprites>
     <sprites name="hazards">
       <sprite>sprites\swing_axe</sprite>
+      <sprite>sprites\spikes_up</sprite>
+      <sprite>sprites\spikes_right</sprite>
     </sprites>
     <sprites name="sensors">
       <sprite>sprites\room_drop_sensor</sprite>
@@ -236,6 +251,9 @@
       <object>objects\object_swing_axe</object>
       <object>objects\object_sword_blast_l</object>
       <object>objects\object_sword_blast_r</object>
+      <object>objects\object_spikes_up</object>
+      <object>objects\object_spikes_right</object>
+      <object>objects\object_player_damage_hitbox</object>
     </objects>
     <objects name="hud">
       <object>objects\object_boss_hp</object>
@@ -260,6 +278,10 @@
       <object>objects\object_land_dust_part</object>
       <object>objects\object_walk_dust_part</object>
       <object>objects\object_hit_part</object>
+      <objects name="pseudo_particles">
+        <object>objects\object_moe_death_part</object>
+        <object>objects\object_moe_body_part</object>
+      </objects>
     </objects>
     <objects name="scenery">
       <object>objects\object_moe_bed</object>
