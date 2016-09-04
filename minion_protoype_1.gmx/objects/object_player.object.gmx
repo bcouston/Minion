@@ -115,6 +115,7 @@
 
     //Health
     moe_health = 100
+    global.player_health = moe_health
 
     //Damage
     damage_object_pos[0] = 0
@@ -644,6 +645,7 @@
                     damage_object_pos[1] = damage_hitbox_inst.y
                     player_recoil = damage_hitbox_inst.player_recoil
                     moe_health -=  damage_hitbox_inst.player_damage
+                    global.player_health = moe_health
                     //Audio
                     audio_sound_pitch(moe_hurt, random_range(0.9,1.1))
                     audio_play_sound(moe_hurt, 1, false)

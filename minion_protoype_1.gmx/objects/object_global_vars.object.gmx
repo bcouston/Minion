@@ -39,6 +39,8 @@ global.room_exit = false
 global.exit_id = -1
 global.room_transition_in_progress = false
 global.room_transition_dir = "left"
+//Player
+global.player_health = 100
 </string>
           </argument>
         </arguments>

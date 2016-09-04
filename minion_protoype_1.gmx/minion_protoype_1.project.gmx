@@ -197,11 +197,13 @@
     <sprites name="ui">
       <sprite>sprites\dialog_arrow</sprite>
       <sprite>sprites\exclamation</sprite>
+      <sprite>sprites\moe_head_health</sprite>
     </sprites>
     <sprites name="non-visuals">
       <sprite>sprites\camera</sprite>
       <sprite>sprites\globals</sprite>
       <sprite>sprites\player_detect</sprite>
+      <sprite>sprites\health_bar</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -246,6 +248,7 @@
       <object>objects\object_player_detect</object>
       <object>objects\object_global_vars</object>
       <object>objects\object_camera</object>
+      <object>objects\object_health_bar</object>
     </objects>
     <objects name="hazards">
       <object>objects\object_swing_axe</object>
