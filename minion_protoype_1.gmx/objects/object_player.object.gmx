@@ -37,8 +37,8 @@
     player_damage_range = 24
     wall_jump_speed = 6
     wall_jump_interval = 15
-    hurt_interval = 10
-    hurt_disable = 7
+    hurt_interval = 20
+    hurt_disable = 18
     invulnerable_interval = 40
     sleepy = false
     if (!sleepy) {
@@ -229,6 +229,10 @@
     if (moe_health &lt;= 0) {
         instance_create(x,y,object_moe_death_part)
         global.view = 11
+        // Audio
+        audio_stop_sound(wind_fall)
+        audio_stop_sound(wall_grind)
+        //
         instance_destroy()
     }
     // if player is in midst of damage
@@ -237,15 +241,15 @@
             hurt_timer = -1;
         } else {
             hurt_timer -= 1;
-            player_direction = point_direction(x,y,damage_object_pos[0],damage_object_pos[1])
-            direction = (player_direction + 180)
+            gravity = 0.8
             if (hurt_timer &gt; hurt_disable) {
                 speed = player_recoil
+                player_direction = point_direction(x,y,damage_object_pos[0],damage_object_pos[1])
+                direction = (player_direction + 180)
             }
             if (direction &gt;= 90) &amp;&amp; (direction &lt;= 270) {
-                sprite_index = moe_damage_l
-            } else { sprite_index = moe_damage_r}
-            //if place_meeting(x-1,y,object_solid) || place_meeting(x+1,y,object_solid) {hspeed=0}
+                sprite_index = moe_damage_r
+            } else { sprite_index = moe_damage_l}
         }
     }
     // If attacking and not wall jump
@@ -264,40 +268,50 @@
     // If not touching ground
     else if place_free(x,y+1) {
         gravity = 0.8;
+        //Room transition handle
         if (global.room_exit == false) {
             jump = true
         }
         footsteps_timer = -1
-            if D == "lef" {
-                if place_free(x-1,y) {
-                    if vspeed &lt;= 0 {
-                        sprite_index = moe_jump_l
-                    } else {sprite_index = moe_jump_descent_l}
-                } else if place_meeting(x-1,y,object_solid) {sprite_index = moe_wall_grab_l}
-            } else if D == "rig" {
-                if place_free(x+1,y) {
-                    if vspeed &lt;= 0 {
-                        sprite_index = moe_jump_r
-                    } else {sprite_index = moe_jump_descent_r}
-                } else if place_meeting(x+1,y,object_solid) {sprite_index = moe_wall_grab_r}
+        //Sprite
+        if D == "lef" {
+            if place_free(x-1,y) {
+                if vspeed &lt;= 0 {
+                    sprite_index = moe_jump_l
+                } else {sprite_index = moe_jump_descent_l}
             }
+        } else if D == "rig" {
+            if place_free(x+1,y) {
+                if vspeed &lt;= 0 {
+                    sprite_index = moe_jump_r
+                } else {sprite_index = moe_jump_descent_r}
+            }
+        }
         // If touching wall
-        if (!place_free(x+1,y) || !place_free(x-1,y)) &amp;&amp; (vspeed &gt; 0) {
-            gravity = 0.1;
-            // Wall grind
-            if !(wall_grind_start) {
-                // Audio
-                audio_play_sound(wall_grind, 1, false)
-                wall_grind_start = true
-            }
-            // Particles
+        if (!place_free(x+1,y) || !place_free(x-1,y)) {
+            //Sprite
             if D == "rig" {
-                instance_create(bbox_right, bbox_bottom, object_wall_grind_dust_part)
+                sprite_index = moe_wall_grab_r
             } else if D == "lef" {
-                instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
+                sprite_index = moe_wall_grab_l
             }
-            // Stop fall sound
-             audio_stop_sound(wind_fall)
+            if (vspeed &gt; 0) {
+                gravity = 0.1;
+                // Wall grind
+                if !(wall_grind_start) {
+                    // Audio
+                    audio_play_sound(wall_grind, 1, false)
+                    wall_grind_start = true
+                }
+                // Particles
+                if D == "rig" {
+                    instance_create(bbox_right, bbox_bottom, object_wall_grind_dust_part)
+                } else if D == "lef" {
+                    instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
+                }
+                // Stop fall sound
+                 audio_stop_sound(wind_fall)
+            }
         // If aerial and not touching wall
         } else {
             wall_grind_start = false
@@ -649,6 +663,7 @@
                     //Audio
                     audio_sound_pitch(moe_hurt, random_range(0.9,1.1))
                     audio_play_sound(moe_hurt, 1, false)
+                    audio_stop_sound(wall_grind)
                 }
             }
         }
