@@ -29,8 +29,8 @@
     global.room_exit = false
     for (i = 0; i &lt; instance_number(object_room_exit_sensor); i += 1) {
         if (instance_find(object_room_exit_sensor,i).entrance_id == global.exit_id) {
-            object_player.x = instance_find(object_room_exit_sensor,i).x + instance_find(object_room_exit_sensor,i).player_offset;
-            object_player.y = instance_find(object_room_exit_sensor,i).y + (object_player.sprite_height/2) - 5; 
+            object_player.x = instance_find(object_room_exit_sensor,i).x + instance_find(object_room_exit_sensor,i).player_offset_x;
+            object_player.y = instance_find(object_room_exit_sensor,i).y + (object_player.sprite_height/2) - 5 + instance_find(object_room_exit_sensor,i).player_offset_y; 
         }
     }
     // Room transition exit aniamtion

@@ -67,10 +67,10 @@ previous_hview = 0
                 camera_view(-1,-1,(object_moe_mum.x + object_moe_dad.x)/2,0.1,-1,-1,-1,0.1,0,0,-1,-1,-1)
                 break;
             case 10: //Room transition - pos
-                if (global.room_transition_dir == 1) {
+                //if (global.room_transition_dir == 1) {
                     wview = 544
                     camera_view(-1,-1,(object_player.x - (wview/2)),0.1,-1,-1,object_player.y,1.0,0,0,wview,384,40)
-                }
+                //}
                 break;
         }
         break;
@@ -80,18 +80,30 @@ previous_hview = 0
                 wview = 544
                 camera_view(-1,-1,object_player.x,0.2,-1,object_room_exit_sensor.x,object_player.y,1.0,0,0,wview,384,10)
                 break;
-            case 10: //Room transition
-                if (global.room_transition_dir == -1) {
+            case 10: //Room transition horizontal
+                //if (global.room_transition_dir == -1) {
                     wview = 272
                     camera_view(-1,-1,(object_player.x + (wview/2)),0.1,-1,-1,object_player.y,1.0,0,0,wview,192,40)   
-                }
+                //}
                 break;
-            case 11: //Moe Death
+            case 11: //Room transition vertical
+                //if (global.room_transition_dir == -1) {
+                    hview = 288
+                    camera_view(-1,-1,object_player.x,1.0,-1,-1,(object_player.y - (hview/2) + (object_player.sprite_height)),0.1,0,0,408,hview,40)   
+                //}
+                break;
+            case 20: //Moe Death
                 wview = 408
                 camera_view(-1,-1,object_moe_death_part.x,1.0,-1,object_room_exit_sensor.x,object_moe_death_part.y,1.0,0,0,wview,288,5)
                 break;
         }
         break;
+    case "room_dungeon_street":
+        switch (global.view) {
+            case 0:
+                hview = 288
+                camera_view(-1,-1,object_player.x,0.2,-1,object_room_exit_sensor.x,object_player.y,1.0,0,0,408,hview,10)   
+        }
 }
 </string>
           </argument>

@@ -50,7 +50,7 @@ with (object_player) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.view = 10
+            <string>global.view = global.view_to_change_to
 </string>
           </argument>
         </arguments>

@@ -14,8 +14,11 @@ switch (global.map_coordinates_x) {
     case 1:
         switch (global.map_coordinates_y) {
             case 0:
-            room_goto(room_dungeon_overworld)
-            break;
+                room_goto(room_dungeon_overworld)
+                break;
+            case 1:
+                room_goto(room_dungeon_street)
+                break;
         }
         break;
 }

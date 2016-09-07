@@ -228,7 +228,7 @@
     // Player death
     if (moe_health &lt;= 0) {
         instance_create(x,y,object_moe_death_part)
-        global.view = 11
+        global.view = 20
         // Audio
         audio_stop_sound(wind_fall)
         audio_stop_sound(wall_grind)
@@ -728,6 +728,8 @@
         image_speed = 0
         hspeed = 0
         vspeed = 0
+        gravity = 0
+        audio_stop_sound(wind_fall)
         // Set
         if (freeze_step == 0) {
             freeze_sprite = sprite_get_name(sprite_index)
