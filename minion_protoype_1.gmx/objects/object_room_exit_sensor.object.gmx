@@ -27,7 +27,6 @@
             <kind>1</kind>
             <string>if (place_meeting(x,y,object_player)) {
     if (!global.room_exit) {
-        show_message("transition")
         // Set vars for next room
         global.room_exit = true
         global.map_coordinates_x += room_nav_x

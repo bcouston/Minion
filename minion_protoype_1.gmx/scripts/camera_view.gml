@@ -93,5 +93,15 @@ if (argument6 !=  -1) {
 }
 
 // Max + Min Y
-max_y = argument8
-min_y = argument9
+if (argument8 != -1) {
+    min_y = argument8
+    if ((view_yview[1]) < min_y) {
+        view_yview[1] = min_y
+    }
+}
+if (argument9 != -1) {
+    max_y = argument9
+    if ((view_yview[1] + view_hview[1]) > max_y) {
+        view_yview[1] = max_y - view_hview[1]
+    }
+}
