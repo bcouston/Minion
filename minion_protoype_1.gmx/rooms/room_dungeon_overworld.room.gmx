@@ -246,8 +246,8 @@
     <instance objName="object_solid" x="2592" y="1936" name="inst_058F663B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2464" y="1920" name="inst_CB6DF64F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2592" y="1920" name="inst_F8333E8F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_spikes_right" x="2480" y="2168" name="inst_7A663DE2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_spikes_right" x="2480" y="1984" name="inst_116B1811" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_spikes_right" x="2480" y="2176" name="inst_7A663DE2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_spikes_right" x="2480" y="1992" name="inst_116B1811" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2464" y="2160" name="inst_04E5C400" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2464" y="2176" name="inst_28C332C2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2464" y="1904" name="inst_89B43C55" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -267,7 +267,7 @@
     <instance objName="object_solid" x="2656" y="1920" name="inst_71169B67" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2688" y="1792" name="inst_9F986BB9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2688" y="1920" name="inst_8B241E8E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_spikes_left" x="2576" y="1928" name="inst_BB2A1E9D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_spikes_left" x="2576" y="1936" name="inst_BB2A1E9D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2720" y="1920" name="inst_74CF4130" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2752" y="1920" name="inst_9231996F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2784" y="1920" name="inst_CD0A3009" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -302,7 +302,13 @@
     <instance objName="object_one_way" x="2784" y="1736" name="inst_80B2B55D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2688" y="1664" name="inst_87C0F760" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2816" y="1664" name="inst_1A0B8D81" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_room_exit_sensor" x="2752" y="1640" name="inst_A9A22D75" locked="0" code="// Next room navigation&#xA;room_nav_x = 0&#xA;room_nav_y = 1&#xA;view_to_change_to = 11&#xA;// Where to spawn player in next room if multiple entrances&#xA;exit_id = 0&#xA;entrance_id = 1&#xA;// Spawn player just outside exit&#xA;player_offset_x = 0&#xA;player_offset_y = 33&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_room_exit_sensor" x="2752" y="1640" name="inst_A9A22D75" locked="0" code="// Next room navigation&#xA;room_nav_x = 0&#xA;room_nav_y = 1&#xA;view_to_change_to = 11&#xA;// Where to spawn player in next room if multiple entrances&#xA;exit_id = 0&#xA;entrance_id = 1&#xA;// Spawn player just outside exit&#xA;player_offset_x = 0&#xA;player_offset_y = 48&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_spikes_right" x="2480" y="2160" name="inst_624FB49B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_spikes_right" x="2480" y="1976" name="inst_56349565" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_solid" x="2688" y="1648" name="inst_B5952C51" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_solid" x="2720" y="1648" name="inst_E5A30305" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_solid" x="2784" y="1648" name="inst_9391A945" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_solid" x="2816" y="1648" name="inst_5FD3CF2C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
