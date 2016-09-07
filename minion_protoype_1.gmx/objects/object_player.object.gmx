@@ -74,7 +74,7 @@
     invulnerable_timer = -1
     
     // Music
-    //audio_play_sound(vampire_killer, 6, false)
+    audio_play_sound(spyro, 6, false)
 
     //Attacking
     attack = false

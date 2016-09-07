@@ -43,6 +43,7 @@
     <sounds name="Music">
       <sound>sound\vampire_killer</sound>
       <sound>sound\crash</sound>
+      <sound>sound\spyro</sound>
     </sounds>
     <sounds name="ui">
       <sound>sound\dialog_continue</sound>
@@ -173,8 +174,9 @@
         <sprite>sprites\moe_mum_laughing</sprite>
       </sprites>
     </sprites>
-    <sprites name="statics">
+    <sprites name="scenery">
       <sprite>sprites\moe_bed</sprite>
+      <sprite>sprites\street_house_placeholder</sprite>
     </sprites>
     <sprites name="interactables">
       <sprite>sprites\chest_just_open</sprite>
@@ -291,6 +293,9 @@
     </objects>
     <objects name="scenery">
       <object>objects\object_moe_bed</object>
+      <objects name="street">
+        <object>objects\object_house</object>
+      </objects>
     </objects>
     <objects name="sensors">
       <object>objects\object_door_sensor</object>
