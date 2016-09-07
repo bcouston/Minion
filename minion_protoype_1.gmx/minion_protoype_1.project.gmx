@@ -119,6 +119,7 @@
     <sprites name="solids">
       <sprite>sprites\elevator</sprite>
       <sprite>sprites\one_way_platform</sprite>
+      <sprite>sprites\one_way_solid</sprite>
       <sprite>sprites\sprite_floor_dungeon</sprite>
       <sprite>sprites\sprite_gate</sprite>
       <sprite>sprites\sprite_slant</sprite>
@@ -306,6 +307,7 @@
       <object>objects\object_dungeon_stairs</object>
       <object>objects\object_dungeon_ground</object>
       <object>objects\object_elevator</object>
+      <object>objects\object_solid_non_wj</object>
     </objects>
   </objects>
   <timelines name="timelines">

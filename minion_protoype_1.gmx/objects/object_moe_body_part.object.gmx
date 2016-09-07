@@ -56,7 +56,7 @@ gravity = 0.8;
             <kind>1</kind>
             <string>lifetime_timer--
 image_angle += image_angle_interval
-if (lifetime_timer == 20) {
+if (lifetime_timer == 15) {
     image_speed = 1
 }
 if (lifetime_timer &lt;= 0) {
