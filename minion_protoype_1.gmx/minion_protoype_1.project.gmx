@@ -173,6 +173,8 @@
         <sprite>sprites\moe_dad_laughing</sprite>
         <sprite>sprites\moe_mum_laughing</sprite>
       </sprites>
+      <sprite>sprites\cacademon</sprite>
+      <sprite>sprites\stitchhead</sprite>
     </sprites>
     <sprites name="scenery">
       <sprite>sprites\moe_bed</sprite>
@@ -280,6 +282,8 @@
       </objects>
       <object>objects\object_moe_dad</object>
       <object>objects\object_moe_mum</object>
+      <object>objects\object_cacademon</object>
+      <object>objects\object_stitchhead</object>
     </objects>
     <objects name="particles">
       <object>objects\object_wall_grind_dust_part</object>

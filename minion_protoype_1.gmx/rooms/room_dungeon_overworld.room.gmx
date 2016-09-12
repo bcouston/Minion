@@ -3,7 +3,7 @@
   <caption></caption>
   <width>6400</width>
   <height>3200</height>
-  <vsnap>8</vsnap>
+  <vsnap>1</vsnap>
   <hsnap>8</hsnap>
   <isometric>0</isometric>
   <speed>30</speed>
@@ -309,6 +309,8 @@
     <instance objName="object_solid" x="2720" y="1648" name="inst_E5A30305" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2784" y="1648" name="inst_9391A945" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="2816" y="1648" name="inst_5FD3CF2C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_cacademon" x="4392" y="2840" name="inst_183166E6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_stitchhead" x="4352" y="2861" name="inst_69163228" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
