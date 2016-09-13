@@ -1133,7 +1133,7 @@
     <instance objName="object_solid" x="3584" y="1440" name="inst_09C16249" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="3600" y="1440" name="inst_E6C5F804" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_dungeon_slope_right" x="3448" y="1496" name="inst_20873457" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_npc_merv" x="3304" y="1488" name="inst_C17F899D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_merv" x="3304" y="1488" name="inst_C17F899D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_global_vars" x="3416" y="1392" name="inst_B33AFFFA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>

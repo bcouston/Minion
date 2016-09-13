@@ -311,6 +311,8 @@
     <instance objName="object_solid" x="2816" y="1648" name="inst_5FD3CF2C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_cacademon" x="4392" y="2840" name="inst_183166E6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_stitchhead" x="4352" y="2861" name="inst_69163228" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_space_lobster" x="4320" y="2848" name="inst_11E991B1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_merv" x="4272" y="2856" name="inst_74F8B9C4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

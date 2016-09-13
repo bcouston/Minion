@@ -162,7 +162,7 @@
     <sprites name="npcs">
       <sprite>sprites\minion_soldier_stand</sprite>
       <sprite>sprites\minion_soldier_talk</sprite>
-      <sprite>sprites\merv_still</sprite>
+      <sprite>sprites\merv_still_l</sprite>
       <sprites name="family">
         <sprite>sprites\moe_dad_sit</sprite>
         <sprite>sprites\moe_dad_stand</sprite>
@@ -175,6 +175,7 @@
       </sprites>
       <sprite>sprites\cacademon</sprite>
       <sprite>sprites\stitchhead</sprite>
+      <sprite>sprites\space_lobster_idle_l</sprite>
     </sprites>
     <sprites name="scenery">
       <sprite>sprites\moe_bed</sprite>
@@ -276,14 +277,19 @@
     </objects>
     <objects name="npcs">
       <object>objects\object_solider</object>
-      <object>objects\object_npc_merv</object>
       <objects name="cutscenes">
         <object>objects\object_moe_house_cutscene</object>
       </objects>
       <object>objects\object_moe_dad</object>
       <object>objects\object_moe_mum</object>
-      <object>objects\object_cacademon</object>
-      <object>objects\object_stitchhead</object>
+      <objects name="merv">
+        <object>objects\object_merv</object>
+      </objects>
+      <objects name="other_npcs">
+        <object>objects\object_cacademon</object>
+        <object>objects\object_stitchhead</object>
+        <object>objects\object_space_lobster</object>
+      </objects>
     </objects>
     <objects name="particles">
       <object>objects\object_wall_grind_dust_part</object>
