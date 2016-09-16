@@ -162,7 +162,6 @@
     <sprites name="npcs">
       <sprite>sprites\minion_soldier_stand</sprite>
       <sprite>sprites\minion_soldier_talk</sprite>
-      <sprite>sprites\merv_still_l</sprite>
       <sprites name="family">
         <sprite>sprites\moe_dad_sit</sprite>
         <sprite>sprites\moe_dad_stand</sprite>
@@ -176,6 +175,15 @@
       <sprite>sprites\cacademon</sprite>
       <sprite>sprites\stitchhead</sprite>
       <sprite>sprites\space_lobster_idle_l</sprite>
+      <sprite>sprites\space_lobster_walk_l</sprite>
+      <sprite>sprites\cacademon_angry_l</sprite>
+      <sprites name="merv">
+        <sprite>sprites\merv_walk_r</sprite>
+        <sprite>sprites\merv_walk_l</sprite>
+        <sprite>sprites\merv_still_r</sprite>
+        <sprite>sprites\merv_still_l</sprite>
+        <sprite>sprites\merv_suprised_l</sprite>
+      </sprites>
     </sprites>
     <sprites name="scenery">
       <sprite>sprites\moe_bed</sprite>
@@ -292,13 +300,15 @@
       </objects>
     </objects>
     <objects name="particles">
-      <object>objects\object_wall_grind_dust_part</object>
-      <object>objects\object_land_dust_part</object>
-      <object>objects\object_walk_dust_part</object>
-      <object>objects\object_hit_part</object>
       <objects name="pseudo_particles">
         <object>objects\object_moe_death_part</object>
         <object>objects\object_moe_body_part</object>
+      </objects>
+      <objects name="player">
+        <object>objects\object_wall_grind_dust_part</object>
+        <object>objects\object_walk_dust_part</object>
+        <object>objects\object_land_dust_part</object>
+        <object>objects\object_hit_part</object>
       </objects>
     </objects>
     <objects name="scenery">
@@ -352,17 +362,58 @@
       <timelines name="moe_waking">
         <timeline>timelines\cutscene_moe_waking_dialog</timeline>
       </timelines>
+      <timelines name="minion_queue">
+        <timeline>timelines\cutscene_minion_queue_1</timeline>
+        <timeline>timelines\cutscene_minion_queue_2</timeline>
+        <timeline>timelines\queue_fill</timeline>
+        <timeline>timelines\cutscene_minion_queue_3</timeline>
+        <timeline>timelines\cutscene_minion_queue_4</timeline>
+        <timeline>timelines\cutscene_minion_queue_5</timeline>
+        <timeline>timelines\cutscene_minion_queue_6</timeline>
+        <timeline>timelines\cutscene_minion_queue_7</timeline>
+        <timeline>timelines\cutscene_minion_queue_8</timeline>
+        <timeline>timelines\cutscene_minion_queue_9</timeline>
+        <timeline>timelines\cutscene_minion_queue_10</timeline>
+        <timeline>timelines\cutscene_minion_queue_11</timeline>
+        <timeline>timelines\cutscene_minion_queue_12</timeline>
+        <timeline>timelines\cutscene_minion_queue_13</timeline>
+        <timeline>timelines\cutscene_minion_queue_14</timeline>
+        <timeline>timelines\cutscene_minion_queue_15</timeline>
+        <timeline>timelines\cutscene_minion_queue_16</timeline>
+        <timeline>timelines\cutscene_minion_queue_17</timeline>
+        <timeline>timelines\cutscene_minion_queue_18</timeline>
+        <timeline>timelines\cutscene_minion_queue_19</timeline>
+        <timeline>timelines\cutscene_minion_queue_21</timeline>
+        <timeline>timelines\cutscene_minion_queue_22</timeline>
+        <timeline>timelines\cutscene_minion_queue_20</timeline>
+        <timeline>timelines\cutscene_minion_queue_23</timeline>
+        <timeline>timelines\cutscene_minion_queue_24</timeline>
+        <timeline>timelines\cutscene_minion_queue_25</timeline>
+        <timeline>timelines\cutscene_minion_queue_26</timeline>
+        <timeline>timelines\cutscene_minion_queue_27</timeline>
+        <timeline>timelines\cutscene_minion_queue_28</timeline>
+        <timeline>timelines\cutscene_minion_queue_29</timeline>
+        <timeline>timelines\cutscene_minion_queue_30</timeline>
+      </timelines>
     </timelines>
-    <timeline>timelines\room_transition_animation_enter</timeline>
-    <timeline>timelines\room_transition_animation_exit</timeline>
+    <timelines name="animations">
+      <timelines name="room_transisition">
+        <timeline>timelines\room_transition_animation_enter</timeline>
+        <timeline>timelines\room_transition_animation_exit</timeline>
+      </timelines>
+      <timelines name="character">
+        <timeline>timelines\animation_cacademon</timeline>
+      </timelines>
+    </timelines>
   </timelines>
   <rooms name="rooms">
+    <room>rooms\room_dungeon_street</room>
     <room>rooms\room_moe_house</room>
     <room>rooms\room_dungeon_overworld</room>
-    <room>rooms\room_dungeon_street</room>
     <room>rooms\Level1_Combat</room>
     <room>rooms\room2</room>
     <room>rooms\room1</room>
+    <room>rooms\room_dungeon_training_course</room>
   </rooms>
   <constants number="1">
     <constant name="dialog_trigger_distance">16</constant>

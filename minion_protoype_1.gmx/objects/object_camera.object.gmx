@@ -106,6 +106,22 @@ previous_hview = 0
                 hview = 288
                 lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)
                 camera_view(-1,-1,object_player.x,0.2,-1,lowest_exit.x + lowest_exit.sprite_width/2 + 96,object_player.y,1.0,-1,lowest_exit.y - 32,408,hview,10)   
+                break;
+            case 1: //Soldier
+                hview = 288
+                soldier = instance_find(object_solider,0)
+                camera_view(-1,-1,soldier.x,0.1,-1,-1,soldier.y,1.0,-1,-1,-1,-1,-1)   
+                break;
+            case 2: //Cacademon
+                hview = 288
+                demon = instance_find(object_cacademon,0)
+                camera_view(-1,-1,demon.x,0.1,-1,-1,demon.y,0,-1,-1,-1,-1,-1)   
+                break;
+            case 3: //Merv
+                hview = 288
+                merv = instance_find(object_merv,0)
+                camera_view(-1,-1,merv.x,0.1,-1,-1,merv.y,1.0,-1,-1,-1,-1,-1)   
+                break;
         }
 }
 </string>
