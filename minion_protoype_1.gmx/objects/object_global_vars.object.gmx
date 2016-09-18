@@ -29,6 +29,7 @@
 global.view = 0
 global.previous_wview = 272
 global.previous_hview = 192
+global.gates_passed = 0
 //
 global.completed_message = false
 global.player_disable = false

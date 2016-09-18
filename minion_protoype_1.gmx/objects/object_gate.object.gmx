@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>{
     open = false
+    gate_passed = false
 }
 </string>
           </argument>
@@ -53,6 +54,10 @@
             <string>{
     if open == true {
         move_towards_point(x, self.y -64, 4 )
+    }
+    if ((object_player.x &lt; (x - sprite_width/2)) &amp;&amp; (!gate_passed)) {
+        gate_passed = true
+        global.gates_passed += 1
     }
 }
 </string>

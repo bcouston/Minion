@@ -64,9 +64,9 @@ text_length_reached = false
     
     //Manual destroy
     
-    //if trash {
-    //    instance_destroy()    
-    //}
+    if trash {
+        instance_destroy()    
+    }
     
 }
 </string>

@@ -74,7 +74,7 @@
     invulnerable_timer = -1
     
     // Music
-    audio_play_sound(spyro, 6, false)
+    //audio_play_sound(spyro, 6, false)
 
     //Attacking
     attack = false
@@ -88,8 +88,8 @@
     
 
     //Actions
-
     action = false
+    item_gain = false
 
     //Animation
     moe_run_r = moe_run_right
@@ -225,8 +225,15 @@
         animation_change = false
     }
     
+    // Item gain
+    if (item_gain) {
+        sprite_index = moe_find_item
+        if (image_index == image_number - 1) {
+            image_speed = 0
+        }
+    }
     // Player death
-    if (moe_health &lt;= 0) {
+    else if (moe_health &lt;= 0) {
         instance_create(x,y,object_moe_death_part)
         global.view = 20
         // Audio

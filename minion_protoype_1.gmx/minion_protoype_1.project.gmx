@@ -75,7 +75,7 @@
       <sprite>sprites\moe_attack_wood_sword_up</sprite>
       <sprite>sprites\moe_damage_l</sprite>
       <sprite>sprites\moe_damage_r</sprite>
-      <sprite>sprites\moe_find_wood_sword</sprite>
+      <sprite>sprites\moe_find_item</sprite>
       <sprite>sprites\moe_jump_descent_left</sprite>
       <sprite>sprites\moe_jump_descent_left_wood_sword</sprite>
       <sprite>sprites\moe_jump_descent_right</sprite>
@@ -192,7 +192,7 @@
     <sprites name="interactables">
       <sprite>sprites\chest_just_open</sprite>
       <sprite>sprites\chest_open</sprite>
-      <sprite>sprites\chest</sprite>
+      <sprite>sprites\chest_closed</sprite>
     </sprites>
     <sprites name="projectiles">
       <sprite>sprites\sword_blast_l</sprite>
@@ -201,6 +201,7 @@
     <sprites name="hazards">
       <sprite>sprites\swing_axe</sprite>
       <sprite>sprites\spikes_up</sprite>
+      <sprite>sprites\spike_compacter_up</sprite>
       <sprite>sprites\spikes_right</sprite>
       <sprite>sprites\spikes_left</sprite>
     </sprites>
@@ -241,6 +242,7 @@
   </scripts>
   <fonts name="fonts">
     <font>fonts\dialog</font>
+    <font>fonts\trial_timer</font>
   </fonts>
   <objects name="objects">
     <objects name="0player">
@@ -273,18 +275,21 @@
       <object>objects\object_spikes_right</object>
       <object>objects\object_spikes_left</object>
       <object>objects\object_player_damage_hitbox</object>
+      <object>objects\object_spike_compacter_up</object>
     </objects>
     <objects name="hud">
       <object>objects\object_boss_hp</object>
       <object>objects\object_dialog</object>
       <object>objects\object_exclamation</object>
       <object>objects\object_room_transition_animation</object>
+      <object>objects\object_trial_timer</object>
     </objects>
     <objects name="interactables">
       <object>objects\object_chest_wood_sword</object>
     </objects>
     <objects name="npcs">
       <object>objects\object_solider</object>
+      <object>objects\object_soldier_training</object>
       <objects name="cutscenes">
         <object>objects\object_moe_house_cutscene</object>
       </objects>
@@ -395,6 +400,15 @@
         <timeline>timelines\cutscene_minion_queue_29</timeline>
         <timeline>timelines\cutscene_minion_queue_30</timeline>
       </timelines>
+      <timelines name="time_trial_ent">
+        <timeline>timelines\cutscene_time_trial_ent_1</timeline>
+        <timeline>timelines\cutscene_time_trial_ent_2</timeline>
+        <timeline>timelines\cutscene_time_trial_ent_3</timeline>
+        <timeline>timelines\cutscene_time_trial_ent_4</timeline>
+        <timeline>timelines\cutscene_time_trial_ent_5</timeline>
+        <timeline>timelines\cutscene_time_trial_ent_6</timeline>
+        <timeline>timelines\cutscene_time_trial_ent_7</timeline>
+      </timelines>
     </timelines>
     <timelines name="animations">
       <timelines name="room_transisition">
@@ -407,13 +421,13 @@
     </timelines>
   </timelines>
   <rooms name="rooms">
+    <room>rooms\room_dungeon_training_course</room>
     <room>rooms\room_dungeon_street</room>
     <room>rooms\room_moe_house</room>
     <room>rooms\room_dungeon_overworld</room>
     <room>rooms\Level1_Combat</room>
     <room>rooms\room2</room>
     <room>rooms\room1</room>
-    <room>rooms\room_dungeon_training_course</room>
   </rooms>
   <constants number="1">
     <constant name="dialog_trigger_distance">16</constant>

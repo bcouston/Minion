@@ -123,6 +123,21 @@ previous_hview = 0
                 camera_view(-1,-1,merv.x,0.1,-1,-1,merv.y,1.0,-1,-1,-1,-1,-1)   
                 break;
         }
+        break;
+    case "room_dungeon_training_course":
+        switch (global.view) {
+            case 0: //Moe
+                hview = 288
+                lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)
+                camera_view(-1,-1,object_player.x,0.2,instance_find(object_gate,global.gates_passed).x,(lowest_exit.x - lowest_exit.sprite_width/2),object_player.y,1.0,-1,-1,408,hview,10)   
+                break;
+            case 1: //Soldier
+                hview = 288
+                soldier = instance_find(object_soldier_training,1)
+                camera_view(-1,-1,soldier.x,0.1,instance_find(object_gate,global.gates_passed).x,-1,soldier.y,1.0,-1,-1,-1,-1,-1)   
+                break;
+        }
+        break;
 }
 </string>
           </argument>
