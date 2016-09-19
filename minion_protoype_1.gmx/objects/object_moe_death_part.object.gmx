@@ -64,6 +64,10 @@ player_spawn_timer = 60
 
 // Destroy
 //instance_destroy();
+
+//view maintain
+previous_view = global.view
+global.view = 20
 </string>
           </argument>
         </arguments>
@@ -92,7 +96,7 @@ if (player_spawn_timer &lt;= 0) {
     with (player_inst) {
         invulnerable_timer = invulnerable_interval
     }
-    global.view = 0
+    global.view = previous_view
     instance_destroy()
 }
 </string>

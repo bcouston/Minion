@@ -235,7 +235,6 @@
     // Player death
     else if (moe_health &lt;= 0) {
         instance_create(x,y,object_moe_death_part)
-        global.view = 20
         // Audio
         audio_stop_sound(wind_fall)
         audio_stop_sound(wall_grind)

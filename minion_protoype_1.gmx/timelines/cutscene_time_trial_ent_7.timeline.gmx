@@ -77,6 +77,7 @@ instance_create(x,y,object_trial_timer)
           <argument>
             <kind>1</kind>
             <string>global.player_disable = false
+global.view = 2
 if (instance_exists(object_dialog)) {
     object_dialog.trash = true
 }

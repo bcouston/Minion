@@ -136,6 +136,16 @@ previous_hview = 0
                 soldier = instance_find(object_soldier_training,1)
                 camera_view(-1,-1,soldier.x,0.1,instance_find(object_gate,global.gates_passed).x,-1,soldier.y,1.0,-1,-1,-1,-1,-1)   
                 break;
+            case 2: //Moe - training course
+                hview = 336
+                lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)
+                camera_view(-1,-1,object_player.x - view_hview[1]/10,0.2,instance_find(object_gate,global.gates_passed).x,(lowest_exit.x - lowest_exit.sprite_width/2),object_player.y,1.0,-1,-1,476,hview,10)   
+                break;
+            case 20: //Moe Death
+                hview = 288
+                lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)
+                camera_view(-1,-1,object_moe_death_part.x,1.0,instance_find(object_gate,global.gates_passed).x,(lowest_exit.x - lowest_exit.sprite_width/2),object_moe_death_part.y,1.0,-1,-1,408,hview,10)   
+                break;
         }
         break;
 }
