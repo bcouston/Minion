@@ -25,12 +25,36 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>full_pull_y = y
-full_push_y = y - sprite_height + 8
-default_x = x
+            <string>///DAMAGE
+player_recoil = 10
+player_damage = 100
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///MOVEMENT
+full_pull_y = y
+full_push_y = y - sprite_height
+default_x = self.x
 full = true
-safe_interval_up = 50
-safe_interval_down = 100
+safe_interval_up = 15
+safe_interval_down = 30
 safe_timer = 0
 up = true
 </string>
@@ -55,11 +79,11 @@ up = true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (self.y == full_push_y) &amp;&amp; full &amp;&amp; (safe_timer == 0) {
+            <string>if (y &lt;= full_push_y) &amp;&amp; full &amp;&amp; (safe_timer == 0) {
     safe_timer = safe_interval_up
     up = false
     full = false
-} else if (self.y == full_pull_y) &amp;&amp; full &amp;&amp; (safe_timer == 0) {
+} else if (y &gt;= full_pull_y) &amp;&amp; full &amp;&amp; (safe_timer == 0) {
     safe_timer = safe_interval_down
     up = true
     full = false
@@ -71,13 +95,19 @@ if (safe_timer != 0) {
 
 if (safe_timer == 0) {
     if (up) {
-        move_towards_point(x,full_push_y,6)
-        if (self.y == full_push_y) {
+        move_towards_point(default_x,full_push_y,12)
+        hspeed = 0
+        if (y &lt;= full_push_y) {
+            y = full_push_y
+            vspeed = 0
             full = true
         }
     } else {
-        move_towards_point(x,full_pull_y,4)
-        if (self.y == full_pull_y) {
+        move_towards_point(default_x,full_pull_y,6)
+        hspeed = 0
+        if (y &gt;= full_pull_y) {
+            y = full_pull_y
+            vspeed = 0
             full = true
         }
     }

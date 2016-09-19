@@ -275,7 +275,10 @@
       <object>objects\object_spikes_right</object>
       <object>objects\object_spikes_left</object>
       <object>objects\object_player_damage_hitbox</object>
-      <object>objects\object_spike_compacter_up</object>
+      <objects name="compacter">
+        <object>objects\object_compacter_up</object>
+        <object>objects\object_spikes_compacter_up</object>
+      </objects>
     </objects>
     <objects name="hud">
       <object>objects\object_boss_hp</object>

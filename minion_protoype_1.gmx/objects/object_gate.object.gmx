@@ -55,9 +55,11 @@
     if open == true {
         move_towards_point(x, self.y -64, 4 )
     }
-    if ((object_player.x &lt; (x - sprite_width/2)) &amp;&amp; (!gate_passed)) {
-        gate_passed = true
-        global.gates_passed += 1
+    if (instance_exists(object_player)) {
+        if ((object_player.x &lt; (x - sprite_width/2)) &amp;&amp; (!gate_passed)) {
+            gate_passed = true
+            global.gates_passed += 1
+        }
     }
 }
 </string>
