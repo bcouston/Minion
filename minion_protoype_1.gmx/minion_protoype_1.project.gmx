@@ -201,6 +201,7 @@
     <sprites name="hazards">
       <sprite>sprites\swing_axe</sprite>
       <sprite>sprites\spikes_up</sprite>
+      <sprite>sprites\spikes_down</sprite>
       <sprite>sprites\spike_compacter_up</sprite>
       <sprite>sprites\spikes_right</sprite>
       <sprite>sprites\spikes_left</sprite>
@@ -272,6 +273,7 @@
       <object>objects\object_sword_blast_l</object>
       <object>objects\object_sword_blast_r</object>
       <object>objects\object_spikes_up</object>
+      <object>objects\object_spikes_down</object>
       <object>objects\object_spikes_right</object>
       <object>objects\object_spikes_left</object>
       <object>objects\object_player_damage_hitbox</object>

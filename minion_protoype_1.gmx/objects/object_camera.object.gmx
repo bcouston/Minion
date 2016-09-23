@@ -144,7 +144,7 @@ previous_hview = 0
             case 20: //Moe Death
                 hview = 288
                 lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)
-                camera_view(-1,-1,object_moe_death_part.x,1.0,instance_find(object_gate,global.gates_passed).x,(lowest_exit.x - lowest_exit.sprite_width/2),object_moe_death_part.y,1.0,-1,-1,408,hview,10)   
+                camera_view(-1,-1,object_moe_death_part.x - view_hview[1]/10,1.0,instance_find(object_gate,global.gates_passed).x,(lowest_exit.x - lowest_exit.sprite_width/2),object_moe_death_part.y,1.0,-1,-1,408,hview,20)   
                 break;
         }
         break;
