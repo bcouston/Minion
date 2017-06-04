@@ -96,6 +96,8 @@
       <sprite>sprites\moe_walk_right</sprite>
       <sprite>sprites\moe_walk_sword_left</sprite>
       <sprite>sprites\moe_walk_sword_right</sprite>
+      <sprite>sprites\moe_attack_ready_right</sprite>
+      <sprite>sprites\moe_attack_ready_left</sprite>
       <sprite>sprites\moe_wall_grab_left</sprite>
       <sprite>sprites\moe_wall_grab_left_wood_sword</sprite>
       <sprite>sprites\moe_wall_grab_right</sprite>
@@ -427,8 +429,8 @@
   </timelines>
   <rooms name="rooms">
     <room>rooms\room_dungeon_training_course</room>
-    <room>rooms\room_dungeon_street</room>
     <room>rooms\room_moe_house</room>
+    <room>rooms\room_dungeon_street</room>
     <room>rooms\room_dungeon_overworld</room>
     <room>rooms\Level1_Combat</room>
     <room>rooms\room2</room>

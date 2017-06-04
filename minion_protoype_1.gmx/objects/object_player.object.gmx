@@ -33,6 +33,7 @@
     fight = true
     attack_interval = 10
     attack_a_interval = 15
+    attack_phase = false
     no_of_aerial_attacks = 2
     player_damage_range = 24
     wall_jump_speed = 6
@@ -216,11 +217,15 @@
     
             moe_jump_r = moe_jump_right_wood_sword
             moe_jump_l = moe_jump_left_wood_sword
-            moe_jump_descent_r = moe_jump_descent_right_wood_sword
-            moe_jump_descent_l = moe_jump_descent_left_wood_sword
+            moe_jump_descent_r = moe_jump_descent_right
+            moe_jump_descent_l = moe_jump_descent_left
     
             moe_wall_grab_r = moe_wall_grab_right_wood_sword
             moe_wall_grab_l = moe_wall_grab_left_wood_sword
+            
+            moe_attack_ready_r = moe_attack_ready_right
+            moe_attack_ready_l = moe_attack_ready_left
+            
         }
         animation_change = false
     }
@@ -363,11 +368,19 @@
         }
         // If player is still
         else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false {
-            sprite_index = moe_walk_r
-            footsteps_timer = -1
+            if (!attack_phase) {
+                sprite_index = moe_walk_r
+            } else {
+                sprite_index = moe_attack_ready_r
+            }
+            footsteps_timer = -1;
         }
         else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false {
-            sprite_index = moe_walk_l
+            if (!attack_phase) {
+                sprite_index = moe_walk_l
+            } else {
+                sprite_index = moe_attack_ready_l
+            }
             footsteps_timer = -1
         }
     }
@@ -479,6 +492,8 @@
             } else if !place_free(x+1,y) &amp;&amp; !place_free(x,y+1) {
                 sprite_index = moe_walk_r
             }
+            // Cancel attack ready stance
+            attack_phase = false;
         }
     
         if keyboard_check(ord('A')) &amp;&amp; !keyboard_check(ord('D')) &amp;&amp; attack == false &amp;&amp; (hurt_timer &lt;= hurt_disable)
@@ -498,6 +513,8 @@
             } else if !place_free(x-1,y) &amp;&amp; !place_free(x,y+1) {
                 sprite_index = moe_walk_l
             }
+            // Cancel attack ready stance
+            attack_phase = false;
         }
         
         if (!sleepy) { //Sleepy
@@ -560,6 +577,7 @@
                         // Spawn combat invisible hitbox
                         instance_create(x + attack_range, y, object_player_combat_hitbox)
                         attack_timer = attack_interval
+                        attack_phase = true
                         attack_animation++
                         // Audio
                         audio_sound_pitch(swoosh_1, random_range(0.9,1.1))
@@ -598,6 +616,7 @@
                         // Spawn combat invisible hitbox
                         instance_create(x - attack_range, y, object_player_combat_hitbox)
                         attack_timer = attack_interval
+                        attack_phase = true
                         attack_animation++
                         // Audio
                         audio_sound_pitch(swoosh_1, random_range(0.9,1.1))

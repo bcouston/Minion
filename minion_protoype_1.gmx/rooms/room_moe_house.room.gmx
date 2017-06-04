@@ -41,8 +41,8 @@
     <background visible="0" foreground="0" name="" x="0" y="0" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
   </backgrounds>
   <views>
-    <view visible="0" objName="&lt;undefined&gt;" xview="432" yview="104" wview="272" hview="192" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
-    <view visible="-1" objName="&lt;undefined&gt;" xview="350" yview="450" wview="272" hview="192" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
+    <view visible="0" objName="&lt;undefined&gt;" xview="770" yview="104" wview="272" hview="192" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
+    <view visible="-1" objName="&lt;undefined&gt;" xview="770" yview="104" wview="272" hview="192" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
     <view visible="0" objName="&lt;undefined&gt;" xview="0" yview="0" wview="1320" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
     <view visible="0" objName="&lt;undefined&gt;" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
     <view visible="0" objName="&lt;undefined&gt;" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
@@ -197,9 +197,8 @@
     <instance objName="object_solid" x="336" y="625" name="inst_E076C969" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_door_sensor" x="752" y="585" name="inst_27A0291F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_moe_mum" x="656" y="600" name="inst_527353CE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_player" x="400" y="560" name="inst_CD660E13" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_moe_dad" x="496" y="597" name="inst_724DD6C8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_room_exit_sensor" x="336" y="585" name="inst_1C18F956" locked="0" code="// Next room navigation&#xA;room_nav_x = 1&#xA;room_nav_y = 0&#xA;view_to_change_to = 10&#xA;// Where to spawn player in next room if multiple entrances&#xA;exit_id = 0&#xA;entrance_id = 0&#xA;// Spawn player just outside exit&#xA;player_offset_x = 33&#xA;player_offset_y = 0&#xA;&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_room_exit_sensor" x="336" y="585" name="inst_1C18F956" locked="0" code="// Next room navigation&#xA;room_nav_x = 1&#xA;room_nav_y = 0&#xA;view_to_change_to = 10&#xA;// Where to spawn player in next room if multiple entrances&#xA;exit_id = 0&#xA;entrance_id = 0&#xA;// Spawn player just outside exit&#xA;player_offset_x = 33&#xA;player_offset_y = 0" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_camera" x="960" y="96" name="inst_B7771010" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_player_detect" x="928" y="134" name="inst_B8347205" locked="0" code="default_view = 2&#xA;default_wview = 272&#xA;default_hview = 192&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_health_bar" x="928" y="96" name="inst_7462E654" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
