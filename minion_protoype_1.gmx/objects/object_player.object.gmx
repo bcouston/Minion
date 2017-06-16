@@ -44,6 +44,7 @@
     wall_jump_interval = 15
     hurt_interval = 20
     hurt_disable = 18
+    h_slide_speed = 0
     invulnerable_interval = 40
     sleepy = false
     if (!sleepy) {
@@ -317,11 +318,11 @@
             }
         }
         // If touching wall
-        if (place_meeting(x+1,y,object_solid) || place_meeting(x-1,y,object_solid)) {
+        if (place_meeting(x+2,y,object_solid) || place_meeting(x-2,y,object_solid)) {
             //Sprite
-            if place_meeting(x+1,y,object_solid) {
+            if place_meeting(x+2,y,object_solid) {
                 sprite_index = moe_wall_grab_r
-            } else if place_meeting(x-1,y,object_solid) {
+            } else if place_meeting(x-2,y,object_solid) {
                 sprite_index = moe_wall_grab_l
             }
             if (vspeed &gt; 0) {
@@ -339,7 +340,7 @@
                     instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
                 }
                 // Stop fall sound
-                 audio_stop_sound(wind_fall)
+                audio_stop_sound(wind_fall)
             }
         // If aerial and not touching wall
         } else {
@@ -374,7 +375,7 @@
         // Stop fall sound
         audio_stop_sound(wind_fall)
         // if player is moving
-        if (hspeed != 0) {
+        if (hspeed != 0) &amp;&amp; (h_slide_speed == 0) {
             if (hspeed &gt; 0) {
                 sprite_index = moe_run_r
             } else if (hspeed &lt; 0) {
@@ -537,7 +538,7 @@
         // Moe is hurt
     
         // L/R movement and jumping
-        if keyboard_check(ord('D')) &amp;&amp; !keyboard_check(ord('A')) &amp;&amp; attack == false &amp;&amp; (hurt_timer &lt;= hurt_disable)
+        if keyboard_check(ord('D')) &amp;&amp; !keyboard_check(ord('A')) &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; (hurt_timer &lt;= hurt_disable)
              {
              D = "rig"
                                     // Additional check for sloped surface
@@ -558,7 +559,7 @@
             attack_phase = false;
         }
     
-        if keyboard_check(ord('A')) &amp;&amp; !keyboard_check(ord('D')) &amp;&amp; attack == false &amp;&amp; (hurt_timer &lt;= hurt_disable)
+        if keyboard_check(ord('A')) &amp;&amp; !keyboard_check(ord('D')) &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; (hurt_timer &lt;= hurt_disable)
              {
              D = "lef"
                                     // Additional check for sloped surface
@@ -582,7 +583,7 @@
         if (!sleepy) { //Sleepy
     
             // Jump
-            if keyboard_check_pressed(ord('W')) &amp;&amp; attack == false {
+            if keyboard_check_pressed(ord('W')) &amp;&amp; attack == false &amp;&amp; !uppercut {
                 // Wall jump
                 if place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
                     if place_meeting(x+5,y,object_solid) { // Some tolerance for proximity to the wall
@@ -618,7 +619,7 @@
                     }
                 }
             // Analog jump - method sourced from info.sonicretro.org/SPG:Jumping
-            } else if keyboard_check_released(ord('W')) &amp;&amp; attack == false {
+            } else if keyboard_check_released(ord('W')) &amp;&amp; attack == false &amp;&amp; !uppercut {
                 if place_free(x,y+1) &amp;&amp; vspeed &lt; -7 {
                     vspeed = -7
                 }
@@ -630,10 +631,11 @@
         
                 // Right
                 if keyboard_check_pressed(vk_right) {
-                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; place_free(x+1,y) &amp;&amp; attacks_left == true) {
+                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; place_free(x+1,y) &amp;&amp; attacks_left == true) {
                         D = "rig"
                         attack = true
                         damage = true
+                        moe_damage = 10
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox
@@ -669,10 +671,11 @@
         
                 // Left
                 if keyboard_check_pressed(vk_left) {
-                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; place_free(x-1,y) &amp;&amp; attacks_left == true) {
+                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; place_free(x-1,y) &amp;&amp; attacks_left == true) {
                         D = "lef"
                         attack = true
                         damage = true
+                        moe_damage = 10
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox
@@ -713,6 +716,8 @@
                         upcut_ready_timer = upcut_ready_interval
                         upcut_swipe_interval = 1
                         uppercut = true
+                        attack_phase = true
+                        footsteps_timer = -1
                         //damage = true
                         //attack_timer = attack_interval
                         if (D == "lef") {
@@ -723,6 +728,7 @@
                             moe_upcut_swipe_2 = moe_uppercut_swipe_2_l
                             moe_upcut_swipe_3 = moe_uppercut_swipe_3_l
                             upcut_swipe_part = object_upcut_swipe_part_l
+                            h_slide_speed = 0.25
                         } else if (D == "rig") {
                             moe_upcut_ready = moe_uppercut_ready_right
                             moe_upcut_charge = moe_uppercut_charge_right
@@ -731,6 +737,7 @@
                             moe_upcut_swipe_2 = moe_uppercut_swipe_2_r
                             moe_upcut_swipe_3 = moe_uppercut_swipe_3_r
                             upcut_swipe_part = object_upcut_swipe_part_r
+                            h_slide_speed = -0.25
                         }
                         sprite_index = moe_upcut_ready
                         audio_play_sound(upcut_ready, 10, false)
@@ -738,7 +745,7 @@
                 }
             
             // If Up key has been released
-                if keyboard_check_released(vk_up) {
+                if keyboard_check_released(vk_up) &amp;&amp; uppercut {
                     // if uppercut has achieved full charge
                     if (upcut_ready_timer == -2) {
                         upcut_charge_timer = -1 
@@ -767,10 +774,17 @@
                     // If swipe timer for animation 2 is complete go onto swipe animation 3
                     if (upcut_swipe_timer == -2) {
                         upcut_swipe_timer = -1
+                        if (D == "lef") {
+                            instance_create(x - attack_range, y, object_player_combat_hitbox)
+                        } else if (D == "rig") {
+                            instance_create(x + attack_range, y, object_player_combat_hitbox)
+                        }
                         audio_stop_sound(upcut_swipe_1)
                         if (upcut_swipe_interval == 20) {
+                            moe_damage = 20
                             audio_play_sound(upcut_swipe_2, 1, false)
                         } else {
+                            moe_damage = 10 + (0.5 * upcut_swipe_interval)
                             audio_sound_pitch(swoosh_1, random_range(0.8,1.0))
                             audio_play_sound(swoosh_1, 10, false)
                         }
@@ -836,6 +850,15 @@
             platform_friction(1,true);
         } else {
             platform_friction(1,false);
+        }
+        
+        // Horizontal slide
+        
+        if (h_slide_speed != 0) {
+            if (hspeed == 0) {
+                h_slide_speed = 0
+            }
+            hspeed += h_slide_speed
         }
     
         // Collisions
