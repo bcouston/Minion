@@ -756,6 +756,7 @@
                         audio_play_sound(swoosh_1, 10, false)
                     } else {
                         uppercut = false
+                        h_slide_speed = 0
                         upcut_ready_timer = -1
                         audio_play_sound(swing_cancel, 10, false)
                         audio_stop_sound(upcut_charge)
