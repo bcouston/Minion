@@ -338,6 +338,8 @@
         <object>objects\object_wall_grind_dust_part</object>
         <object>objects\object_walk_dust_part</object>
         <object>objects\object_land_dust_part</object>
+        <object>objects\object_upcut_swipe_part_l</object>
+        <object>objects\object_upcut_swipe_part_r</object>
         <object>objects\object_hit_part</object>
       </objects>
     </objects>

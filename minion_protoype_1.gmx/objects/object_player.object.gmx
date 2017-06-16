@@ -37,6 +37,7 @@
     upcut_ready_interval = 10
     upcut_charge_interval = 30
     upcut_swipe_interval = 1
+    upcut_swipe_part = object_upcut_swipe_part_l
     no_of_aerial_attacks = 2
     player_damage_range = 24
     wall_jump_speed = 6
@@ -507,6 +508,9 @@
             image_index = 0
         } else if (upcut_swipe_timer &gt; 0) {
             upcut_swipe_timer -= 1;
+            if (upcut_swipe_timer mod 2 == 0) {
+                instance_create(x, bbox_bottom, upcut_swipe_part)
+            }
         }
         
         // Keep track of how many aerial attacks have elapsed
@@ -718,6 +722,7 @@
                             moe_upcut_swipe_1 = moe_uppercut_swipe_1_l
                             moe_upcut_swipe_2 = moe_uppercut_swipe_2_l
                             moe_upcut_swipe_3 = moe_uppercut_swipe_3_l
+                            upcut_swipe_part = object_upcut_swipe_part_l
                         } else if (D == "rig") {
                             moe_upcut_ready = moe_uppercut_ready_right
                             moe_upcut_charge = moe_uppercut_charge_right
@@ -725,6 +730,7 @@
                             moe_upcut_swipe_1 = moe_uppercut_swipe_1_r
                             moe_upcut_swipe_2 = moe_uppercut_swipe_2_r
                             moe_upcut_swipe_3 = moe_uppercut_swipe_3_r
+                            upcut_swipe_part = object_upcut_swipe_part_r
                         }
                         sprite_index = moe_upcut_ready
                         audio_play_sound(upcut_ready, 10, false)
@@ -737,6 +743,7 @@
                     if (upcut_ready_timer == -2) {
                         upcut_charge_timer = -1 
                         sprite_index = moe_upcut_swipe_1
+                        image_index = 0
                         audio_stop_sound(upcut_charge)
                         audio_sound_pitch(swoosh_1, random_range(0.7,0.9))
                         audio_play_sound(swoosh_1, 10, false)
@@ -764,7 +771,7 @@
                         if (upcut_swipe_interval == 20) {
                             audio_play_sound(upcut_swipe_2, 1, false)
                         } else {
-                            audio_sound_pitch(swoosh_1, random_range(0.7,0.9))
+                            audio_sound_pitch(swoosh_1, random_range(0.8,1.0))
                             audio_play_sound(swoosh_1, 10, false)
                         }
                     }
