@@ -11,14 +11,14 @@
       <sound>sound\dummy_hurt</sound>
       <sound>sound\dummy_die</sound>
     </sounds>
-    <sound>sound\get_item</sound>
-    <sound>sound\chest_open_sound</sound>
     <sounds name="Sword">
       <sound>sound\swoosh_1</sound>
       <sound>sound\swoosh_2</sound>
       <sound>sound\sword_impact_1</sound>
       <sound>sound\shield_impact_1</sound>
       <sound>sound\beam_1</sound>
+      <sound>sound\swing_cancel</sound>
+      <sound>sound\upcut_swipe</sound>
     </sounds>
     <sounds name="Moe">
       <sound>sound\footstep</sound>
@@ -26,10 +26,11 @@
       <sound>sound\floor_impact</sound>
       <sound>sound\wind_fall</sound>
       <sound>sound\fall_bed</sound>
+      <sound>sound\moe_jump</sound>
+      <sound>sound\upcut_charge</sound>
+      <sound>sound\upcut_ready</sound>
     </sounds>
-    <sound>sound\moe_jump</sound>
     <sound>sound\boss</sound>
-    <sound>sound\get_item_2</sound>
     <sounds name="Vox">
       <sound>sound\boss_grunt_1</sound>
       <sound>sound\boss_grunt_2</sound>
@@ -53,6 +54,9 @@
     <sounds name="actions">
       <sound>sound\door_enter</sound>
       <sound>sound\door_exit</sound>
+      <sound>sound\get_item</sound>
+      <sound>sound\get_item_2</sound>
+      <sound>sound\chest_open_sound</sound>
     </sounds>
     <sounds name="damage">
       <sound>sound\moe_hurt</sound>
@@ -118,6 +122,15 @@
         <sprite>sprites\moe_r_arm</sprite>
         <sprite>sprites\moe_head</sprite>
       </sprites>
+      <sprite>sprites\moe_uppercut_charge_right</sprite>
+      <sprite>sprites\moe_uppercut_charge_left</sprite>
+      <sprite>sprites\moe_uppercut_ready_right</sprite>
+      <sprite>sprites\moe_uppercut_ready_left</sprite>
+      <sprite>sprites\moe_uppercut_charged_right</sprite>
+      <sprite>sprites\moe_uppercut_charged_left</sprite>
+      <sprite>sprites\moe_uppercut_swipe_1_r</sprite>
+      <sprite>sprites\moe_uppercut_swipe_2_r</sprite>
+      <sprite>sprites\moe_uppercut_swipe_3_r</sprite>
     </sprites>
     <sprites name="solids">
       <sprite>sprites\elevator</sprite>

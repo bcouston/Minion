@@ -34,6 +34,9 @@
     attack_interval = 10
     attack_a_interval = 15
     attack_phase = false
+    upcut_ready_interval = 20
+    upcut_charge_interval = 30
+    upcut_swipe_interval = 20
     no_of_aerial_attacks = 2
     player_damage_range = 24
     wall_jump_speed = 6
@@ -70,6 +73,10 @@
     attack_timer = -1
     attack_a_timer = -1;
     
+    upcut_ready_timer = -1
+    upcut_charge_timer = -1
+    upcut_swipe_timer = -1
+    
     footsteps_timer = -1
     
     invulnerable_timer = -1
@@ -79,6 +86,7 @@
 
     //Attacking
     attack = false
+    uppercut = false
     attack_animation = 2
     moe_damage = 10
     attack_range = 16
@@ -95,6 +103,9 @@
     //Animation
     moe_run_r = moe_run_right
     moe_run_l = moe_run_left
+    moe_upcut_ready = moe_uppercut_ready_left
+    moe_upcut_charge = moe_uppercut_charge_left
+    moe_upcut_charged = moe_uppercut_charged_left
     animation_change = true
     // Freeze animation during room transition
     room_transition_freeze = false
@@ -123,6 +134,8 @@
     damage_object_pos[1] = 0
     hurt_timer = -1
     player_recoil = 6
+    
+    texture_set_interpolation(false);
     
 }
 </string>
@@ -367,7 +380,7 @@
             }
         }
         // If player is still
-        else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false {
+        else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
             if (!attack_phase) {
                 sprite_index = moe_walk_r
             } else {
@@ -375,7 +388,7 @@
             }
             footsteps_timer = -1;
         }
-        else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false {
+        else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
             if (!attack_phase) {
                 sprite_index = moe_walk_l
             } else {
@@ -410,7 +423,7 @@
                 image_speed = 0
              }
              // Attack timer has depleted and on last frame of attack animation
-             if (attack_timer == -1 &amp;&amp; image_index == image_number - 1) {
+             if (attack_timer == -1 &amp;&amp; !uppercut &amp;&amp; image_index == image_number - 1) {
                 attack = false
                 image_speed = 1
              }
@@ -448,7 +461,41 @@
             attack_a_timer -= 1;
             if (image_index == image_number - 1) {
                 image_speed = 0
-             }
+            }
+        }
+        
+        // Uppercut
+        
+        // Uppercut ready timer
+        
+        if (upcut_ready_timer == 0) {
+            upcut_ready_timer = -1;
+            sprite_index = moe_upcut_charge
+            audio_play_sound(upcut_charge, 10, false)
+            upcut_charge_timer = upcut_charge_interval;
+        } else if (upcut_ready_timer &gt; 0) {
+            upcut_ready_timer -= 1;
+        }
+        
+        // Uppercut charge timer
+        
+        if (upcut_charge_timer == 0) {
+            upcut_charge_timer = -2;
+            sprite_index = moe_upcut_charged
+        } else if (upcut_charge_timer &gt; 0) {
+            upcut_charge_timer -= 1;
+            if (image_index == image_number - 1) {
+                image_speed = 0
+            }
+        }
+        
+        // Uppercut swipe timer
+        
+        if (upcut_swipe_timer == 0) {
+            upcut_swipe_timer = -2;
+            sprite_index = moe_uppercut_swipe_3_r
+        } else if (upcut_swipe_timer &gt; 0) {
+            upcut_swipe_timer -= 1;
         }
         
         // Keep track of how many aerial attacks have elapsed
@@ -646,13 +693,62 @@
                 }
         
                 // Up
-                if keyboard_check_pressed(vk_up) {
-                    if (attack_timer &lt;= 1 &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1) ) {
-                        attack = true
-                        damage = true
-                        attack_timer = attack_interval
-                        sprite_index = moe_attack_wood_sword_up
+                if keyboard_check(vk_up) {
+                    if (attack_timer &lt;= 1 &amp;&amp; upcut_ready_timer &lt;= -1 &amp;&amp; upcut_charge_timer &lt;= -1 &amp;&amp; upcut_swipe_timer &lt;= -1 &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1) &amp;&amp; uppercut == false ) {
+                        upcut_ready_timer = upcut_ready_interval
+                        uppercut = true
+                        //damage = true
+                        //attack_timer = attack_interval
+                        if (D == "lef") {
+                            moe_upcut_ready = moe_uppercut_ready_left
+                            moe_upcut_charge = moe_uppercut_charge_left
+                            moe_upcut_charged = moe_uppercut_charged_left
+                        } else if (D == "rig") {
+                            moe_upcut_ready = moe_uppercut_ready_right
+                            moe_upcut_charge = moe_uppercut_charge_right
+                            moe_upcut_charged = moe_uppercut_charged_right
+                        }
+                        sprite_index = moe_upcut_ready
+                        audio_play_sound(upcut_ready, 10, false)
+                    }
+                }
+            
+            // If Up key has been released
+                if keyboard_check_released(vk_up) {
+                    // if uppercut has achieved full charge
+                    if (upcut_charge_timer == -2) {
+                        sprite_index = moe_uppercut_swipe_1_r
+                        audio_sound_pitch(swoosh_1, random_range(0.7,0.9))
                         audio_play_sound(swoosh_1, 10, false)
+                    } else {
+                        uppercut = false
+                        upcut_ready_timer = -1
+                        if upcut_charge_timer != -1 {
+                            audio_play_sound(swing_cancel, 10, false)   
+                        }
+                        upcut_charge_timer = -1
+                        audio_stop_sound(upcut_charge)
+                    }
+                }
+                
+                // If uppercut has achieved full charge
+                if (upcut_charge_timer == -2) {
+                    // If swipe animation 1 is complete go onto swipe animation 2
+                    if ((sprite_index == moe_uppercut_swipe_1_r) &amp;&amp; (image_index == image_number - 1)) {
+                        sprite_index = moe_uppercut_swipe_2_r
+                        audio_play_sound(upcut_swipe, 1, false)
+                        upcut_swipe_timer = upcut_swipe_interval    
+                    }
+                    
+                    // If swipe timer for animation 2 is complete go onto swipe animation 3
+                    if (upcut_swipe_timer == -2) {
+                        sprite_index = moe_uppercut_swipe_3_r
+                        if ((sprite_index == moe_uppercut_swipe_3_r) &amp;&amp; (image_index == image_number - 1)) {
+                            uppercut = false
+                            upcut_ready_timer = -1
+                            upcut_charge_timer = -1
+                            upcut_swipe_timer = -1
+                        }
                     }
                 }
             }
