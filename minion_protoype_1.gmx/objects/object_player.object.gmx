@@ -34,9 +34,9 @@
     attack_interval = 10
     attack_a_interval = 15
     attack_phase = false
-    upcut_ready_interval = 20
+    upcut_ready_interval = 10
     upcut_charge_interval = 30
-    upcut_swipe_interval = 20
+    upcut_swipe_interval = 1
     no_of_aerial_attacks = 2
     player_damage_range = 24
     wall_jump_speed = 6
@@ -106,6 +106,10 @@
     moe_upcut_ready = moe_uppercut_ready_left
     moe_upcut_charge = moe_uppercut_charge_left
     moe_upcut_charged = moe_uppercut_charged_left
+    moe_upcut_swipe_1 = moe_uppercut_swipe_1_l
+    moe_upcut_swipe_2 = moe_uppercut_swipe_2_l
+    moe_upcut_swipe_3 = moe_uppercut_swipe_3_l
+        
     animation_change = true
     // Freeze animation during room transition
     room_transition_freeze = false
@@ -469,7 +473,7 @@
         // Uppercut ready timer
         
         if (upcut_ready_timer == 0) {
-            upcut_ready_timer = -1;
+            upcut_ready_timer = -2;
             sprite_index = moe_upcut_charge
             audio_play_sound(upcut_charge, 10, false)
             upcut_charge_timer = upcut_charge_interval;
@@ -484,6 +488,12 @@
             sprite_index = moe_upcut_charged
         } else if (upcut_charge_timer &gt; 0) {
             upcut_charge_timer -= 1;
+            if (upcut_charge_timer &lt;= 20) {
+                // Build up number of frames swipe animation takes
+                if (upcut_swipe_interval &lt; 20) {
+                    upcut_swipe_interval += 1
+                }
+            }
             if (image_index == image_number - 1) {
                 image_speed = 0
             }
@@ -493,7 +503,8 @@
         
         if (upcut_swipe_timer == 0) {
             upcut_swipe_timer = -2;
-            sprite_index = moe_uppercut_swipe_3_r
+            sprite_index = moe_upcut_swipe_3
+            image_index = 0
         } else if (upcut_swipe_timer &gt; 0) {
             upcut_swipe_timer -= 1;
         }
@@ -694,8 +705,9 @@
         
                 // Up
                 if keyboard_check(vk_up) {
-                    if (attack_timer &lt;= 1 &amp;&amp; upcut_ready_timer &lt;= -1 &amp;&amp; upcut_charge_timer &lt;= -1 &amp;&amp; upcut_swipe_timer &lt;= -1 &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1) &amp;&amp; uppercut == false ) {
+                    if (attack_timer &lt;= 1 &amp;&amp; upcut_ready_timer &lt;= -1 &amp;&amp; upcut_charge_timer &lt;= -1 &amp;&amp; upcut_swipe_timer &lt;= -1 &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1) &amp;&amp; !uppercut) {
                         upcut_ready_timer = upcut_ready_interval
+                        upcut_swipe_interval = 1
                         uppercut = true
                         //damage = true
                         //attack_timer = attack_interval
@@ -703,10 +715,16 @@
                             moe_upcut_ready = moe_uppercut_ready_left
                             moe_upcut_charge = moe_uppercut_charge_left
                             moe_upcut_charged = moe_uppercut_charged_left
+                            moe_upcut_swipe_1 = moe_uppercut_swipe_1_l
+                            moe_upcut_swipe_2 = moe_uppercut_swipe_2_l
+                            moe_upcut_swipe_3 = moe_uppercut_swipe_3_l
                         } else if (D == "rig") {
                             moe_upcut_ready = moe_uppercut_ready_right
                             moe_upcut_charge = moe_uppercut_charge_right
                             moe_upcut_charged = moe_uppercut_charged_right
+                            moe_upcut_swipe_1 = moe_uppercut_swipe_1_r
+                            moe_upcut_swipe_2 = moe_uppercut_swipe_2_r
+                            moe_upcut_swipe_3 = moe_uppercut_swipe_3_r
                         }
                         sprite_index = moe_upcut_ready
                         audio_play_sound(upcut_ready, 10, false)
@@ -716,40 +734,49 @@
             // If Up key has been released
                 if keyboard_check_released(vk_up) {
                     // if uppercut has achieved full charge
-                    if (upcut_charge_timer == -2) {
-                        sprite_index = moe_uppercut_swipe_1_r
+                    if (upcut_ready_timer == -2) {
+                        upcut_charge_timer = -1 
+                        sprite_index = moe_upcut_swipe_1
+                        audio_stop_sound(upcut_charge)
                         audio_sound_pitch(swoosh_1, random_range(0.7,0.9))
                         audio_play_sound(swoosh_1, 10, false)
                     } else {
                         uppercut = false
                         upcut_ready_timer = -1
-                        if upcut_charge_timer != -1 {
-                            audio_play_sound(swing_cancel, 10, false)   
-                        }
-                        upcut_charge_timer = -1
+                        audio_play_sound(swing_cancel, 10, false)
                         audio_stop_sound(upcut_charge)
                     }
                 }
                 
                 // If uppercut has achieved full charge
-                if (upcut_charge_timer == -2) {
+                if (upcut_ready_timer == -2) {
                     // If swipe animation 1 is complete go onto swipe animation 2
-                    if ((sprite_index == moe_uppercut_swipe_1_r) &amp;&amp; (image_index == image_number - 1)) {
-                        sprite_index = moe_uppercut_swipe_2_r
-                        audio_play_sound(upcut_swipe, 1, false)
+                    if ((sprite_index == moe_upcut_swipe_1) &amp;&amp; (image_index == image_number - 1)) {
+                        sprite_index = moe_upcut_swipe_2
+                        audio_play_sound(upcut_swipe_1, 1, false)
                         upcut_swipe_timer = upcut_swipe_interval    
                     }
                     
                     // If swipe timer for animation 2 is complete go onto swipe animation 3
                     if (upcut_swipe_timer == -2) {
-                        sprite_index = moe_uppercut_swipe_3_r
-                        if ((sprite_index == moe_uppercut_swipe_3_r) &amp;&amp; (image_index == image_number - 1)) {
+                        upcut_swipe_timer = -1
+                        audio_stop_sound(upcut_swipe_1)
+                        if (upcut_swipe_interval == 20) {
+                            audio_play_sound(upcut_swipe_2, 1, false)
+                        } else {
+                            audio_sound_pitch(swoosh_1, random_range(0.7,0.9))
+                            audio_play_sound(swoosh_1, 10, false)
+                        }
+                    }
+                    
+                    // Reset at the end of swipe 3 animation
+                    if ((sprite_index == moe_upcut_swipe_3) &amp;&amp; (image_index == image_number - 1)) {
                             uppercut = false
                             upcut_ready_timer = -1
                             upcut_charge_timer = -1
                             upcut_swipe_timer = -1
-                        }
                     }
+                    
                 }
             }
             

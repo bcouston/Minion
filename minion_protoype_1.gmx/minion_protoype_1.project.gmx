@@ -18,7 +18,9 @@
       <sound>sound\shield_impact_1</sound>
       <sound>sound\beam_1</sound>
       <sound>sound\swing_cancel</sound>
-      <sound>sound\upcut_swipe</sound>
+      <sound>sound\upcut_swipe_1</sound>
+      <sound>sound\upcut_swipe_2</sound>
+      <sound>sound\upcut_swipe_3</sound>
     </sounds>
     <sounds name="Moe">
       <sound>sound\footstep</sound>
@@ -129,8 +131,11 @@
       <sprite>sprites\moe_uppercut_charged_right</sprite>
       <sprite>sprites\moe_uppercut_charged_left</sprite>
       <sprite>sprites\moe_uppercut_swipe_1_r</sprite>
+      <sprite>sprites\moe_uppercut_swipe_1_l</sprite>
       <sprite>sprites\moe_uppercut_swipe_2_r</sprite>
+      <sprite>sprites\moe_uppercut_swipe_2_l</sprite>
       <sprite>sprites\moe_uppercut_swipe_3_r</sprite>
+      <sprite>sprites\moe_uppercut_swipe_3_l</sprite>
     </sprites>
     <sprites name="solids">
       <sprite>sprites\elevator</sprite>
