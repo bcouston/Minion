@@ -31,6 +31,7 @@
       <sound>sound\moe_jump</sound>
       <sound>sound\upcut_charge</sound>
       <sound>sound\upcut_ready</sound>
+      <sound>sound\ground_slide</sound>
     </sounds>
     <sound>sound\boss</sound>
     <sounds name="Vox">
@@ -339,7 +340,9 @@
         <object>objects\object_walk_dust_part</object>
         <object>objects\object_land_dust_part</object>
         <object>objects\object_upcut_swipe_part_l</object>
+        <object>objects\h_slide_part_l</object>
         <object>objects\object_upcut_swipe_part_r</object>
+        <object>objects\h_slide_part_r</object>
         <object>objects\object_hit_part</object>
       </objects>
     </objects>

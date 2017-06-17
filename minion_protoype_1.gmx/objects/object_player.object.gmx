@@ -38,6 +38,7 @@
     upcut_charge_interval = 30
     upcut_swipe_interval = 1
     upcut_swipe_part = object_upcut_swipe_part_l
+    slide = false
     no_of_aerial_attacks = 2
     player_damage_range = 24
     wall_jump_speed = 6
@@ -856,10 +857,21 @@
         // Horizontal slide
         
         if (h_slide_speed != 0) {
-            if (hspeed == 0) {
+            if !slide {
+                slide = true
+                audio_sound_pitch(ground_slide, random_range(0.9,1.1))
+                audio_play_sound(ground_slide, 1, false)    
+            }
+            if (hspeed == 0) || (!place_free(x - (h_slide_speed * 30), y)) {
                 h_slide_speed = 0
+                hspeed = 0
+                slide = false
             }
             hspeed += h_slide_speed
+            if (hspeed &gt; 0) {
+                instance_create(x - 4, bbox_bottom, h_slide_part_r)
+            } else {instance_create(x + 4, bbox_bottom, h_slide_part_l)}
+            
         }
     
         // Collisions
