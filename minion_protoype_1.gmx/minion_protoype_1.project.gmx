@@ -150,6 +150,9 @@
       <sprite>sprites\sprite_solid</sprite>
       <sprite>sprites\sprite_stairs</sprite>
       <sprite>sprites\solid_floor</sprite>
+      <sprite>sprites\solid_large_button</sprite>
+      <sprite>sprites\solid_large_button_pressing</sprite>
+      <sprite>sprites\solid_large_button_pressed</sprite>
       <sprite>sprites\solid_stairs_r</sprite>
       <sprite>sprites\solid_stairs_l</sprite>
     </sprites>
@@ -360,6 +363,7 @@
     <objects name="solids">
       <object>objects\object_gate</object>
       <object>objects\object_solid</object>
+      <object>objects\object_large_button</object>
       <object>objects\object_one_way</object>
       <object>objects\object_dungeon_slant</object>
       <object>objects\object_dungeon_slope_right</object>
