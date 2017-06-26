@@ -882,7 +882,7 @@
         //platform_collisions_step(object_dungeon_slant)
         platform_collisions_step(object_dungeon_slope_right)
         platform_collisions_step(object_dungeon_slope_left)
-        platform_collisions_step(object_large_button)
+        //platform_collisions_step(object_large_button)
         //platform_collisions_step(object_gate)
         //platform_collisions_step(object_shield_dummy1)
         //platform_collisions_step(object_knight_boss)

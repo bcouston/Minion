@@ -60,6 +60,8 @@
       <sound>sound\get_item</sound>
       <sound>sound\get_item_2</sound>
       <sound>sound\chest_open_sound</sound>
+      <sound>sound\button_down</sound>
+      <sound>sound\button_up</sound>
     </sounds>
     <sounds name="damage">
       <sound>sound\moe_hurt</sound>
@@ -151,7 +153,6 @@
       <sprite>sprites\sprite_stairs</sprite>
       <sprite>sprites\solid_floor</sprite>
       <sprite>sprites\solid_large_button</sprite>
-      <sprite>sprites\solid_large_button_pressing</sprite>
       <sprite>sprites\solid_large_button_pressed</sprite>
       <sprite>sprites\solid_stairs_r</sprite>
       <sprite>sprites\solid_stairs_l</sprite>
