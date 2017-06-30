@@ -46,6 +46,9 @@
     hurt_interval = 20
     hurt_disable = 18
     h_slide_speed = 0
+    // stun
+    stunned = "none"
+    stun_speed = 0
     invulnerable_interval = 40
     sleepy = false
     if (!sleepy) {
@@ -283,8 +286,24 @@
             } else { sprite_index = moe_damage_l}
         }
     }
+    // if player is shield stunned
+    else if (stunned == "left") {
+        sprite_index = moe_stunned_r
+        //y = y - 8
+        hspeed = 8
+        vspeed = -4
+        stun_speed = 0.05
+        stunned = "active left"
+    } else if (stunned == "right") {
+        sprite_index = moe_stunned_l
+        //y = y - 8
+        hspeed = -8
+        vspeed = -4
+        stun_speed = -0.05
+        stunned = "active right"
+    }
     // If attacking and not wall jump
-    else if (attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == false) {
+    if (attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == false) {
         gravity = 0
         vspeed = 0
         hspeed = 0
@@ -304,44 +323,48 @@
             jump = true
         }
         footsteps_timer = -1
-        //Sprite
-        if D == "lef" {
-            if place_free(x-1,y) {
-                if vspeed &lt;= 0 {
-                    sprite_index = moe_jump_l
-                } else {sprite_index = moe_jump_descent_l}
-            }
-        } else if D == "rig" {
-            if place_free(x+1,y) {
-                if vspeed &lt;= 0 {
-                    sprite_index = moe_jump_r
-                } else {sprite_index = moe_jump_descent_r}
+        //Sprite change if not stunned
+        if (stunned == "none") {
+            if D == "lef" {
+                if place_free(x-1,y) {
+                    if vspeed &lt;= 0 {
+                        sprite_index = moe_jump_l
+                    } else {sprite_index = moe_jump_descent_l}
+                }
+            } else if D == "rig" {
+                if place_free(x+1,y) {
+                    if vspeed &lt;= 0 {
+                        sprite_index = moe_jump_r
+                    } else {sprite_index = moe_jump_descent_r}
+                }
             }
         }
         // If touching wall
         if (place_meeting(x+2,y,object_solid) || place_meeting(x-2,y,object_solid)) {
-            //Sprite
-            if place_meeting(x+2,y,object_solid) {
-                sprite_index = moe_wall_grab_r
-            } else if place_meeting(x-2,y,object_solid) {
-                sprite_index = moe_wall_grab_l
-            }
-            if (vspeed &gt; 0) {
-                gravity = 0.1;
-                // Wall grind
-                if !(wall_grind_start) {
-                    // Audio
-                    audio_play_sound(wall_grind, 1, false)
-                    wall_grind_start = true
+            //Sprite change if not stunned
+            if (stunned == "none") {
+                if place_meeting(x+2,y,object_solid) {
+                    sprite_index = moe_wall_grab_r
+                } else if place_meeting(x-2,y,object_solid) {
+                    sprite_index = moe_wall_grab_l
                 }
-                // Particles
-                if D == "rig" {
-                    instance_create(bbox_right, bbox_bottom, object_wall_grind_dust_part)
-                } else if D == "lef" {
-                    instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
+                if (vspeed &gt; 0) {
+                    gravity = 0.1;
+                    // Wall grind
+                    if !(wall_grind_start) {
+                        // Audio
+                        audio_play_sound(wall_grind, 1, false)
+                        wall_grind_start = true
+                    }
+                    // Particles
+                    if D == "rig" {
+                        instance_create(bbox_right, bbox_bottom, object_wall_grind_dust_part)
+                    } else if D == "lef" {
+                        instance_create(bbox_left, bbox_bottom, object_wall_grind_dust_part)
+                    }
+                    // Stop fall sound
+                    audio_stop_sound(wind_fall)
                 }
-                // Stop fall sound
-                audio_stop_sound(wind_fall)
             }
         // If aerial and not touching wall
         } else {
@@ -368,6 +391,14 @@
             //Particles
             instance_create(x, bbox_bottom, object_land_dust_part)
         }
+        // Increase friction if stunned and sliding on ground
+        if (stunned == "active left") {
+            stun_speed = 0.2
+            stunned = "ground slide"   
+        } else if (stunned == "active right") {
+            stun_speed = -0.2
+            stunned = "ground slide"
+        }
         jump = false
         wall_jump = false
         // Wall grind
@@ -376,32 +407,34 @@
         // Stop fall sound
         audio_stop_sound(wind_fall)
         // if player is moving
-        if (hspeed != 0) &amp;&amp; (h_slide_speed == 0) {
-            if (hspeed &gt; 0) {
-                sprite_index = moe_run_r
-            } else if (hspeed &lt; 0) {
-                sprite_index = moe_run_l
+        if (stunned == "none") {
+            if (hspeed != 0) &amp;&amp; (h_slide_speed == 0) {
+                if (hspeed &gt; 0) {
+                    sprite_index = moe_run_r
+                } else if (hspeed &lt; 0) {
+                    sprite_index = moe_run_l
+                }
+                if footsteps_timer == -1 {
+                    footsteps_timer = footsteps_interval
+                }
             }
-            if footsteps_timer == -1 {
-                footsteps_timer = footsteps_interval
+            // If player is still
+            else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
+                if (!attack_phase) {
+                    sprite_index = moe_walk_r
+                } else {
+                    sprite_index = moe_attack_ready_r
+                }
+                footsteps_timer = -1;
             }
-        }
-        // If player is still
-        else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
-            if (!attack_phase) {
-                sprite_index = moe_walk_r
-            } else {
-                sprite_index = moe_attack_ready_r
+            else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
+                if (!attack_phase) {
+                    sprite_index = moe_walk_l
+                } else {
+                    sprite_index = moe_attack_ready_l
+                }
+                footsteps_timer = -1
             }
-            footsteps_timer = -1;
-        }
-        else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
-            if (!attack_phase) {
-                sprite_index = moe_walk_l
-            } else {
-                sprite_index = moe_attack_ready_l
-            }
-            footsteps_timer = -1
         }
     }
     
@@ -854,7 +887,7 @@
             platform_friction(1,false);
         }
         
-        // Horizontal slide
+        // Horizontal slide decelerate
         
         if (h_slide_speed != 0) {
             if !slide {
@@ -873,7 +906,12 @@
             } else {instance_create(x + 4, bbox_bottom, h_slide_part_l)}
             
         }
+        
+    } // Player disable (for cutscenes etc.)
     
+    // Disable collisions in cutscenes but enable when player is stunned
+    
+    if (!global.player_disable) || (stunned != "none") {
         // Collisions
         platform_collisions_step(object_solid)
         platform_collisions_step(object_solid_non_wj)
@@ -886,8 +924,19 @@
         //platform_collisions_step(object_gate)
         //platform_collisions_step(object_shield_dummy1)
         //platform_collisions_step(object_knight_boss)
-        
-    } // Player disable (for cutscenes etc.)
+    }
+    
+    // Stun decelerate     
+    if (stun_speed != 0) {
+        if (hspeed == 0) || (!place_free(x + hspeed, y)) {
+            stun_speed = 0
+            hspeed = 0
+            stunned = "none"
+            global.player_disable = false
+        } else {
+            hspeed -= stun_speed
+        }
+    }
     
     // Footsteps
     if (footsteps_timer == 0) {
@@ -907,8 +956,8 @@
         sleepy = false
     }
     
-    // Disable (e.g. during cutscene)
-    if (global.player_disable) {
+    // Disable (e.g. during cutscene) but not stunned
+    if (global.player_disable) &amp;&amp; (stunned == "none") {
         if !disable {
             hspeed = 0
             disable = true

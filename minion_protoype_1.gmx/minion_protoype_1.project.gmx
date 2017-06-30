@@ -67,6 +67,9 @@
       <sound>sound\moe_hurt</sound>
       <sound>sound\moe_death</sound>
     </sounds>
+    <sounds name="Shield">
+      <sound>sound\shield_bash</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\sprite72</sprite>
@@ -139,6 +142,8 @@
       <sprite>sprites\moe_uppercut_swipe_2_l</sprite>
       <sprite>sprites\moe_uppercut_swipe_3_r</sprite>
       <sprite>sprites\moe_uppercut_swipe_3_l</sprite>
+      <sprite>sprites\moe_stunned_l</sprite>
+      <sprite>sprites\moe_stunned_r</sprite>
     </sprites>
     <sprites name="solids">
       <sprite>sprites\elevator</sprite>
@@ -156,6 +161,9 @@
       <sprite>sprites\solid_large_button_pressed</sprite>
       <sprite>sprites\solid_stairs_r</sprite>
       <sprite>sprites\solid_stairs_l</sprite>
+      <sprite>sprites\dummy_shield</sprite>
+      <sprite>sprites\dummy_shield_push_r</sprite>
+      <sprite>sprites\dummy_shield_push_l</sprite>
     </sprites>
     <sprites name="enemies">
       <sprites name="bosses">
@@ -373,6 +381,7 @@
       <object>objects\object_dungeon_ground</object>
       <object>objects\object_elevator</object>
       <object>objects\object_solid_non_wj</object>
+      <object>objects\object_solid_dummy_shield</object>
     </objects>
   </objects>
   <timelines name="timelines">
