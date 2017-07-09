@@ -915,6 +915,7 @@
         // Collisions
         platform_collisions_step(object_solid)
         platform_collisions_step(object_solid_non_wj)
+        platform_collisions_step(object_solid_dummy_shield)
         //platform_collisions_step(object_dungeon_ground)
         //platform_collisions_step(object_dungeon_stairs)
         //platform_collisions_step(object_dungeon_slant)

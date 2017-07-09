@@ -69,6 +69,7 @@
     </sounds>
     <sounds name="Shield">
       <sound>sound\shield_bash</sound>
+      <sound>sound\shield_bash_wind_up</sound>
     </sounds>
   </sounds>
   <sprites name="sprites">
@@ -162,6 +163,8 @@
       <sprite>sprites\solid_stairs_r</sprite>
       <sprite>sprites\solid_stairs_l</sprite>
       <sprite>sprites\dummy_shield</sprite>
+      <sprite>sprites\dummy_shield_charge_r</sprite>
+      <sprite>sprites\dummy_shield_charge_l</sprite>
       <sprite>sprites\dummy_shield_push_r</sprite>
       <sprite>sprites\dummy_shield_push_l</sprite>
     </sprites>
