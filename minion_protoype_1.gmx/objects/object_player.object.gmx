@@ -672,8 +672,12 @@
                         moe_damage = 10
                         // Reset image speed if not already
                         image_speed = 1
-                        // Spawn combat invisible hitbox
-                        instance_create(x + attack_range, y, object_player_combat_hitbox)
+                        // Spawn combat invisible hitbox if not facing shield
+                        if (instance_position( x + attack_range + 12, y, object_solid_dummy_shield) != noone) {
+                            
+                        } else {
+                            instance_create(x + attack_range, y, object_player_combat_hitbox)
+                        }
                         attack_timer = attack_interval
                         attack_phase = true
                         attack_animation++
@@ -713,7 +717,11 @@
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox
-                        instance_create(x - attack_range, y, object_player_combat_hitbox)
+                        if (instance_position( x - attack_range - 12, y, object_solid_dummy_shield) != noone) {
+                            
+                        } else {
+                            instance_create(x - attack_range, y, object_player_combat_hitbox)
+                        }
                         attack_timer = attack_interval
                         attack_phase = true
                         attack_animation++

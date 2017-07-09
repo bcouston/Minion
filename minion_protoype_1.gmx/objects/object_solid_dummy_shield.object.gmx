@@ -25,7 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>triggered = false
+            <string>// btn_instance is a creation code variable - determines which buttons the dummy shields are linked to
+// stun_shield is a creation code variable - determines whether a shield can bash/stun the player
+// inverted is a creation code variable - determines which side shield face when button pressed
+
+triggered = false
 shield_orient = "set"
 rotation_interval = 30
 shield_stun_timer = -1
@@ -57,12 +61,16 @@ shield_stun_timer = -1
     shield_stun_timer -= 1;
 }
 
-if object_large_button.pressed {
+if (instance_find(object_large_button, btn_instance).pressed) {
     triggered = true
-    shield_orient = "right"
-} else {
+    if (!inverted) {
+        shield_orient = "right"
+    } else {shield_orient = "left"}
+} else if (instance_find(object_large_button, btn_instance + 1).pressed){
     triggered = false
-    shield_orient = "left"
+    if (!inverted) {
+        shield_orient = "left"
+    } else {shield_orient = "right"}
 }
 
 if (sprite_index == dummy_shield) &amp;&amp; (shield_orient == "right") {
@@ -83,46 +91,50 @@ if (sprite_index == dummy_shield) &amp;&amp; (shield_orient == "left") {
     image_angle = 180
 }
 
-if ((sprite_index == dummy_shield_push_r) || (sprite_index == dummy_shield_push_l)) &amp;&amp; (image_index == image_number - 1) {
-    sprite_index = dummy_shield
-}
 
-if ((sprite_index == dummy_shield) || (sprite_index == dummy_shield_charge_r) || (sprite_index == dummy_shield_charge_l)) &amp;&amp; ((object_player.bbox_bottom &lt;= bbox_bottom) &amp;&amp; (object_player.bbox_bottom &gt;= bbox_top)) {
-    if ((object_player.x - x) &lt;= 30) &amp;&amp; ((object_player.x - x) &gt;= 0){
-        if (shield_stun_timer == -1) {
-            shield_stun_timer = 70
+if (stun_shield) {
+
+    if ((sprite_index == dummy_shield_push_r) || (sprite_index == dummy_shield_push_l)) &amp;&amp; (image_index == image_number - 1) {
+        sprite_index = dummy_shield
+    }
+    
+    if ((sprite_index == dummy_shield) || (sprite_index == dummy_shield_charge_r) || (sprite_index == dummy_shield_charge_l)) &amp;&amp; ((object_player.bbox_bottom &lt;= bbox_bottom) &amp;&amp; (object_player.bbox_bottom &gt;= bbox_top)) {
+        if ((object_player.x - x) &lt;= 30) &amp;&amp; ((object_player.x - x) &gt;= 0){
+            if (shield_stun_timer == -1) {
+                shield_stun_timer = 70
+            }
+            if (shield_stun_timer == 30) {
+                sprite_index = dummy_shield_charge_r
+                audio_play_sound(shield_bash_wind_up, 1, false)
+            }
+            if (shield_stun_timer == 1) {
+                image_angle = 0
+                sprite_index = dummy_shield_push_r
+                object_player.stunned = "left"
+                global.player_disable = true
+                audio_play_sound(shield_bash,1,false)
+            }
+        } else if ((object_player.x - x) &gt;= -30) &amp;&amp; ((object_player.x - x) &lt;= 0) {
+            if (shield_stun_timer == -1) {
+                shield_stun_timer = 70
+            }
+            if (shield_stun_timer == 30) {
+                sprite_index = dummy_shield_charge_r
+            }
+            if (shield_stun_timer == 1) {
+                image_angle = 0
+                sprite_index = dummy_shield_push_l
+                object_player.stunned = "right"
+                global.player_disable = true
+                audio_play_sound(shield_bash,1,false)
+            }
+        } else {
+            //shield_stun_timer = -1
         }
-        if (shield_stun_timer == 30) {
-            sprite_index = dummy_shield_charge_r
-            audio_play_sound(shield_bash_wind_up, 1, false)
-        }
-        if (shield_stun_timer == 1) {
-            image_angle = 0
-            sprite_index = dummy_shield_push_r
-            object_player.stunned = "left"
-            global.player_disable = true
-            audio_play_sound(shield_bash,1,false)
-        }
-    } else if ((object_player.x - x) &gt;= -30) &amp;&amp; ((object_player.x - x) &lt;= 0) {
-        if (shield_stun_timer == -1) {
-            shield_stun_timer = 70
-        }
-        if (shield_stun_timer == 30) {
-            sprite_index = dummy_shield_charge_r
-        }
-        if (shield_stun_timer == 1) {
-            image_angle = 0
-            sprite_index = dummy_shield_push_l
-            object_player.stunned = "right"
-            global.player_disable = true
-            audio_play_sound(shield_bash,1,false)
-        }
+        //((object_player.x - x) &gt;= -50) &amp;&amp; 
     } else {
         //shield_stun_timer = -1
     }
-    //((object_player.x - x) &gt;= -50) &amp;&amp; 
-} else {
-    //shield_stun_timer = -1
 }
 </string>
           </argument>
