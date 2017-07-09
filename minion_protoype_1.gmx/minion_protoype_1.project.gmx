@@ -163,6 +163,8 @@
       <sprite>sprites\solid_stairs_r</sprite>
       <sprite>sprites\solid_stairs_l</sprite>
       <sprite>sprites\dummy_shield</sprite>
+      <sprite>sprites\dummy_shield_collision</sprite>
+      <sprite>sprites\dummy_shield_collision_stunned</sprite>
       <sprite>sprites\dummy_shield_charge_r</sprite>
       <sprite>sprites\dummy_shield_charge_l</sprite>
       <sprite>sprites\dummy_shield_push_r</sprite>
@@ -384,7 +386,10 @@
       <object>objects\object_dungeon_ground</object>
       <object>objects\object_elevator</object>
       <object>objects\object_solid_non_wj</object>
-      <object>objects\object_solid_dummy_shield</object>
+      <objects name="shield">
+        <object>objects\object_solid_dummy_shield</object>
+        <object>objects\object_dummy_shield_collision</object>
+      </objects>
     </objects>
   </objects>
   <timelines name="timelines">

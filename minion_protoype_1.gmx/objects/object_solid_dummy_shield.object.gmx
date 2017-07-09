@@ -31,8 +31,10 @@
 
 triggered = false
 shield_orient = "set"
+prev_shield_orient = "right"
 rotation_interval = 30
 shield_stun_timer = -1
+upcut_stun_timer = -1
 </string>
           </argument>
         </arguments>
@@ -61,12 +63,22 @@ shield_stun_timer = -1
     shield_stun_timer -= 1;
 }
 
-if (instance_find(object_large_button, btn_instance).pressed) {
+if (upcut_stun_timer &gt;= 0) {
+    upcut_stun_timer -= 1
+} else {
+    upcut_stun_timer = -1
+    shield_orient = prev_shield_orient
+    with (instance_nearest(x, y, object_dummy_shield_collision)) {
+        mask_index = dummy_shield_collision 
+    }
+}
+
+if ((instance_find(object_large_button, btn_instance).pressed) &amp;&amp; (shield_orient != "up")) {
     triggered = true
     if (!inverted) {
         shield_orient = "right"
     } else {shield_orient = "left"}
-} else if (instance_find(object_large_button, btn_instance + 1).pressed){
+} else if ((instance_find(object_large_button, btn_instance + 1).pressed) &amp;&amp; (shield_orient != "up")) {
     triggered = false
     if (!inverted) {
         shield_orient = "left"
@@ -134,6 +146,19 @@ if (stun_shield) {
         //((object_player.x - x) &gt;= -50) &amp;&amp; 
     } else {
         //shield_stun_timer = -1
+    }
+}
+
+// fully charged uppercut - break shield
+if (object_player.full_uppercut == 1) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox))  {
+    instance_destroy()
+} else if (object_player.full_uppercut == 0) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox)) &amp;&amp; (upcut_stun_timer == -1) {
+    image_angle = 90
+    prev_shield_orient = shield_orient
+    shield_orient = "up"
+    upcut_stun_timer = 80
+    with (instance_nearest(x, y, object_dummy_shield_collision)) {
+        mask_index = dummy_shield_collision_stunned  
     }
 }
 </string>

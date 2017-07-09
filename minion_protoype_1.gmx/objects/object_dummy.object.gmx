@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>{
 
+    // is_shield_dummy - creation code variable - boolean denoting whether dummy has a shield
+
     //Damage stuff currently redundant but could be useful later
     
     //Constants
@@ -71,6 +73,13 @@
         audio_sound_pitch(dummy_die, random_range(0.8,1.2))
         audio_play_sound(dummy_die, 10, false)
         instance_destroy()
+        
+        // Shield dummy
+        if (is_shield_dummy) {
+            with (instance_nearest(x, y, object_solid_dummy_shield)) {
+                instance_destroy()
+            }
+        }
     }
     
     if baddie_health &lt;= 0 {
@@ -92,7 +101,7 @@
         audio_sound_pitch(sword_impact_1, random_range(0.95,1.05))
         audio_play_sound(sword_impact_1, 10, false)
         instance_create(x + 16, y + 16, object_hit_part)
-    }   
+    }
 
 }
 </string>

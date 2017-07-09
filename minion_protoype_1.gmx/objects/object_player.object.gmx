@@ -34,6 +34,7 @@
     attack_interval = 10
     attack_a_interval = 15
     attack_phase = false
+    full_uppercut = -1
     upcut_ready_interval = 10
     upcut_charge_interval = 30
     upcut_swipe_interval = 1
@@ -673,8 +674,8 @@
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox if not facing shield
-                        if (instance_position( x + attack_range + 12, y, object_solid_dummy_shield) != noone) {
-                            
+                        if (instance_position( x + attack_range + 12, y, object_dummy_shield_collision) != noone) {
+
                         } else {
                             instance_create(x + attack_range, y, object_player_combat_hitbox)
                         }
@@ -717,8 +718,8 @@
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox
-                        if (instance_position( x - attack_range - 12, y, object_solid_dummy_shield) != noone) {
-                            
+                        if (instance_position( x - attack_range - 12, y, object_dummy_shield_collision) != noone) {
+
                         } else {
                             instance_create(x - attack_range, y, object_player_combat_hitbox)
                         }
@@ -753,7 +754,7 @@
                 }
         
                 // Up
-                if keyboard_check(vk_up) {
+                if keyboard_check_pressed(vk_up) {
                     if (attack_timer &lt;= 1 &amp;&amp; upcut_ready_timer &lt;= -1 &amp;&amp; upcut_charge_timer &lt;= -1 &amp;&amp; upcut_swipe_timer &lt;= -1 &amp;&amp; !place_free(x,y+1) &amp;&amp; place_free(x,y-1) &amp;&amp; !uppercut) {
                         upcut_ready_timer = upcut_ready_interval
                         upcut_swipe_interval = 1
@@ -770,7 +771,7 @@
                             moe_upcut_swipe_2 = moe_uppercut_swipe_2_l
                             moe_upcut_swipe_3 = moe_uppercut_swipe_3_l
                             upcut_swipe_part = object_upcut_swipe_part_l
-                            h_slide_speed = 0.25
+                            h_slide_speed = 0.15
                         } else if (D == "rig") {
                             moe_upcut_ready = moe_uppercut_ready_right
                             moe_upcut_charge = moe_uppercut_charge_right
@@ -779,13 +780,22 @@
                             moe_upcut_swipe_2 = moe_uppercut_swipe_2_r
                             moe_upcut_swipe_3 = moe_uppercut_swipe_3_r
                             upcut_swipe_part = object_upcut_swipe_part_r
-                            h_slide_speed = -0.25
+                            h_slide_speed = -0.15
                         }
                         sprite_index = moe_upcut_ready
                         audio_play_sound(upcut_ready, 10, false)
                     }
                 }
             
+                //If Down key has been pressed to cancel uppercut
+                if keyboard_check_pressed(vk_down) &amp;&amp; uppercut {
+                    uppercut = false
+                    h_slide_speed = 0
+                    upcut_ready_timer = -1
+                    audio_play_sound(swing_cancel, 10, false)
+                    audio_stop_sound(upcut_charge)    
+                }
+                
             // If Up key has been released
                 if keyboard_check_released(vk_up) &amp;&amp; uppercut {
                     // if uppercut has achieved full charge
@@ -823,11 +833,16 @@
                             instance_create(x + attack_range, y, object_player_combat_hitbox)
                         }
                         audio_stop_sound(upcut_swipe_1)
+                        // fully charged
                         if (upcut_swipe_interval == 20) {
                             moe_damage = 20
+                            // fully charged uppercut - break shield if near by
+                            full_uppercut = 1
                             audio_play_sound(upcut_swipe_2, 1, false)
                         } else {
                             moe_damage = 10 + (0.5 * upcut_swipe_interval)
+                            // partially charged uppercut - stun enemy
+                            full_uppercut = 0
                             audio_sound_pitch(swoosh_1, random_range(0.8,1.0))
                             audio_play_sound(swoosh_1, 10, false)
                         }
@@ -836,6 +851,7 @@
                     // Reset at the end of swipe 3 animation
                     if ((sprite_index == moe_upcut_swipe_3) &amp;&amp; (image_index == image_number - 1)) {
                             uppercut = false
+                            full_uppercut = -1
                             upcut_ready_timer = -1
                             upcut_charge_timer = -1
                             upcut_swipe_timer = -1
@@ -903,7 +919,7 @@
                 audio_sound_pitch(ground_slide, random_range(0.9,1.1))
                 audio_play_sound(ground_slide, 1, false)    
             }
-            if (hspeed == 0) || (!place_free(x - (h_slide_speed * 30), y)) {
+            if ((hspeed &lt;= 0.05) &amp;&amp; (hspeed &gt;= -0.05))  || (!place_free(x - (h_slide_speed * 30), y)) {
                 h_slide_speed = 0
                 hspeed = 0
                 slide = false
