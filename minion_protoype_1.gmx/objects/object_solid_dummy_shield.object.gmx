@@ -63,13 +63,13 @@ upcut_stun_timer = -1
     shield_stun_timer -= 1;
 }
 
-if (upcut_stun_timer &gt;= 0) {
+if (upcut_stun_timer &gt; 0) {
     upcut_stun_timer -= 1
-} else {
+} else if (upcut_stun_timer != -1) {
     upcut_stun_timer = -1
     shield_orient = prev_shield_orient
     with (instance_nearest(x, y, object_dummy_shield_collision)) {
-        mask_index = dummy_shield_collision 
+        mask_index = dummy_shield_collision
     }
 }
 

@@ -39,6 +39,7 @@
     
     //Health
     baddie_health = 20
+
 }
 </string>
           </argument>
@@ -71,15 +72,17 @@
     //Dead
     if sprite_index == dummy_dead &amp;&amp; image_index = image_number - 1 {
         audio_sound_pitch(dummy_die, random_range(0.8,1.2))
-        audio_play_sound(dummy_die, 10, false)
-        instance_destroy()
-        
+        audio_play_sound(dummy_die, 10, false)       
         // Shield dummy
         if (is_shield_dummy) {
-            with (instance_nearest(x, y, object_solid_dummy_shield)) {
-                instance_destroy()
+            if (distance_to_object(object_solid_dummy_shield) &lt; 30) {
+                nearest_shield = instance_nearest(x, y, object_solid_dummy_shield)
+                with (nearest_shield) {
+                    instance_destroy()
+                }
             }
         }
+        instance_destroy()
     }
     
     if baddie_health &lt;= 0 {

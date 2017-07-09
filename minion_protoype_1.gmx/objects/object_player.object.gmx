@@ -919,7 +919,7 @@
                 audio_sound_pitch(ground_slide, random_range(0.9,1.1))
                 audio_play_sound(ground_slide, 1, false)    
             }
-            if ((hspeed &lt;= 0.05) &amp;&amp; (hspeed &gt;= -0.05))  || (!place_free(x - (h_slide_speed * 30), y)) {
+            if ((hspeed &lt;= 0.05) &amp;&amp; (hspeed &gt;= -0.05))  || (!place_free(x - (h_slide_speed * 40), y)) {
                 h_slide_speed = 0
                 hspeed = 0
                 slide = false
