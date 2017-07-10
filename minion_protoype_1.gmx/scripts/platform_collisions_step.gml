@@ -5,6 +5,10 @@
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         //Find the floor on the left
     bld_y = bbox_bottom;
+    // ADDED BY BEN - check collision in middle of sprite - important when platform is less than the sprite width
+    //while(!collision_point(x,bld_y,argument0,true,true) && bld_y < bbox_bottom+check_distance){
+    //   bld_y += 1
+    //}
     while(!collision_point(bbox_left,bld_y,argument0,true,true) && bld_y < bbox_bottom+check_distance){
         bld_y +=1;
     }

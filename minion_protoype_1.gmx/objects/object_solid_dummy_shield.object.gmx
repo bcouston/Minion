@@ -30,7 +30,7 @@
 // inverted is a creation code variable - determines which side shield face when button pressed
 
 triggered = false
-shield_orient = "set"
+shield_orient = "right"
 prev_shield_orient = "right"
 rotation_interval = 30
 shield_stun_timer = -1
@@ -73,17 +73,21 @@ if (upcut_stun_timer &gt; 0) {
     }
 }
 
-if ((instance_find(object_large_button, btn_instance).pressed) &amp;&amp; (shield_orient != "up")) {
-    triggered = true
-    if (!inverted) {
-        shield_orient = "right"
-    } else {shield_orient = "left"}
-} else if ((instance_find(object_large_button, btn_instance + 1).pressed) &amp;&amp; (shield_orient != "up")) {
-    triggered = false
-    if (!inverted) {
-        shield_orient = "left"
-    } else {shield_orient = "right"}
-}
+if (btn_instance != -1) {
+    if ((instance_find(object_large_button, btn_instance).pressed) &amp;&amp; (shield_orient != "up")) {
+        triggered = true
+        if (!inverted) {
+            shield_orient = "right"
+        } else {shield_orient = "left"}
+    } else if ((instance_find(object_large_button, btn_instance + 1).pressed) &amp;&amp; (shield_orient != "up")) {
+        triggered = false
+        if (!inverted) {
+            shield_orient = "left"
+        } else {shield_orient = "right"}
+    }
+} else if (!inverted) &amp;&amp; (shield_orient != "up") {
+    shield_orient = "right"
+} else if (shield_orient != "up") {shield_orient = "left"}
 
 if (sprite_index == dummy_shield) &amp;&amp; (shield_orient == "right") {
     //if (image_angle == 0) {

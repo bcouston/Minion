@@ -615,6 +615,19 @@
             attack_phase = false;
         }
         
+        /// DEBUGGING -------------------------------------
+        
+        // Teleport left or right in case of collision bug
+        if keyboard_check_pressed(ord('K')) {
+            x -= 10
+        }
+        
+        if keyboard_check_pressed(ord('L')) {
+            x += 10
+        }
+        
+        // ------------------------------------------------
+        
         if (!sleepy) { //Sleepy
     
             // Jump
