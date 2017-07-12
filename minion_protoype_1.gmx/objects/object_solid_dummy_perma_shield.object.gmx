@@ -35,6 +35,7 @@ prev_shield_orient = "right"
 rotation_interval = 30
 shield_stun_timer = -1
 upcut_stun_timer = -1
+btn_instance = -1
 </string>
           </argument>
         </arguments>
@@ -68,7 +69,6 @@ if (upcut_stun_timer &gt; 0) {
 } else if (upcut_stun_timer != -1) {
     upcut_stun_timer = -1
     shield_orient = prev_shield_orient
-    mask_index = dummy_shield
 }
 
 if (btn_instance != -1) {
@@ -155,13 +155,12 @@ if (stun_shield) {
 
 // fully charged uppercut - break shield
 if (object_player.full_uppercut == 1) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox))  {
-    instance_destroy()
+    //instance_destroy()
 } else if (object_player.full_uppercut == 0) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox)) &amp;&amp; (upcut_stun_timer == -1) {
     image_angle = 90
     prev_shield_orient = shield_orient
     shield_orient = "up"
     upcut_stun_timer = 80
-    mask_index = dummy_shield_collision
     with (instance_nearest(x, y, object_dummy_shield_collision)) {
         mask_index = dummy_shield_collision_stunned  
     }

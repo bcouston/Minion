@@ -50,6 +50,7 @@
     // stun
     stunned = "none"
     stun_speed = 0
+    shield_contact = true
     invulnerable_interval = 40
     sleepy = false
     if (!sleepy) {
@@ -378,63 +379,81 @@
                 }
             }
         }
-    // If touching ground
     } else {
-        gravity = 0;
-        // Attack
-        aerial_attacks_completed = 0
-        attacks_left = true
-        // Jumping
-        if (jump) {
-            //Audio
-            audio_sound_pitch(floor_impact, random_range(1.0,1.2))
-            audio_play_sound(floor_impact, 1, false)
-            //Particles
-            instance_create(x, bbox_bottom, object_land_dust_part)
-        }
-        // Increase friction if stunned and sliding on ground
-        if (stunned == "active left") {
-            stun_speed = 0.2
-            stunned = "ground slide"   
-        } else if (stunned == "active right") {
-            stun_speed = -0.2
-            stunned = "ground slide"
-        }
-        jump = false
-        wall_jump = false
-        // Wall grind
-        wall_grind_start = false
-        audio_stop_sound(wall_grind)
-        // Stop fall sound
-        audio_stop_sound(wind_fall)
-        // if player is moving
-        if (stunned == "none") {
-            if (hspeed != 0) &amp;&amp; (h_slide_speed == 0) {
-                if (hspeed &gt; 0) {
-                    sprite_index = moe_run_r
-                } else if (hspeed &lt; 0) {
-                    sprite_index = moe_run_l
-                }
-                if footsteps_timer == -1 {
-                    footsteps_timer = footsteps_interval
+        // If on top of shield but the shield is not facing upwards
+        shield = instance_place(x,y+2,object_solid_dummy_shield)
+        if (shield == noone) {
+            shield = instance_place(x,y+2,object_solid_dummy_perma_shield)
+        } 
+        if (shield != noone) {
+            shield_contact = true
+            if (shield.shield_orient != "up") {
+                gravity = 0.0;
+                if (shield.shield_orient == "right") { 
+                    hspeed = 8
+                } else {
+                    hspeed = -8
                 }
             }
-            // If player is still
-            else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
-                if (!attack_phase) {
-                    sprite_index = moe_walk_r
-                } else {
-                    sprite_index = moe_attack_ready_r
-                }
-                footsteps_timer = -1;
+        // If touching ground
+        } if (shield == noone) || (shield.shield_orient == "up") {
+            shield_contact = false
+            gravity = 0;
+            // Attack
+            aerial_attacks_completed = 0
+            attacks_left = true
+            // Jumping
+            if (jump) {
+                //Audio
+                audio_sound_pitch(floor_impact, random_range(1.0,1.2))
+                audio_play_sound(floor_impact, 1, false)
+                //Particles
+                instance_create(x, bbox_bottom, object_land_dust_part)
             }
-            else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
-                if (!attack_phase) {
-                    sprite_index = moe_walk_l
-                } else {
-                    sprite_index = moe_attack_ready_l
+            // Increase friction if stunned and sliding on ground
+            if (stunned == "active left") {
+                stun_speed = 0.2
+                stunned = "ground slide"   
+            } else if (stunned == "active right") {
+                stun_speed = -0.2
+                stunned = "ground slide"
+            }
+            jump = false
+            wall_jump = false
+            // Wall grind
+            wall_grind_start = false
+            audio_stop_sound(wall_grind)
+            // Stop fall sound
+            audio_stop_sound(wind_fall)
+            // if player is moving
+            if (stunned == "none") {
+                if (hspeed != 0) &amp;&amp; (h_slide_speed == 0) {
+                    if (hspeed &gt; 0) {
+                        sprite_index = moe_run_r
+                    } else if (hspeed &lt; 0) {
+                        sprite_index = moe_run_l
+                    }
+                    if footsteps_timer == -1 {
+                        footsteps_timer = footsteps_interval
+                    }
                 }
-                footsteps_timer = -1
+                // If player is still
+                else if D == "rig" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
+                    if (!attack_phase) {
+                        sprite_index = moe_walk_r
+                    } else {
+                        sprite_index = moe_attack_ready_r
+                    }
+                    footsteps_timer = -1;
+                }
+                else if D == "lef" &amp;&amp; hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; attack == false &amp;&amp; !uppercut {
+                    if (!attack_phase) {
+                        sprite_index = moe_walk_l
+                    } else {
+                        sprite_index = moe_attack_ready_l
+                    }
+                    footsteps_timer = -1
+                }
             }
         }
     }
@@ -579,12 +598,12 @@
                                     // Additional check for sloped surface
              if place_free(x+1,y) || place_meeting(x+1,y+1,object_dungeon_slope_right) || place_meeting(x-1,y+1,object_dungeon_slope_left) {
                 // Air movement
-                if place_free(x,y+1) {
+                if place_free(x,y+1) &amp;&amp; !shield_contact {
                     if hspeed &lt;= run_speed {
                         hspeed += 1
                     }
                 // Ground movement
-                } else {
+                } else if !shield_contact {
                     hspeed = run_speed;
                 }
             } else if !place_free(x+1,y) &amp;&amp; !place_free(x,y+1) {
@@ -600,12 +619,12 @@
                                     // Additional check for sloped surface
              if place_free(x-1,y) || place_meeting(x-1,y+1,object_dungeon_slope_left) || place_meeting(x+1,y+1,object_dungeon_slope_right) {
                  // Air movement
-                if place_free(x,y+1) {
+                if place_free(x,y+1) &amp;&amp; !shield_contact {
                     if hspeed &gt;= -1 * run_speed {
                         hspeed -= 1;
                     }
                 // Ground movement
-                } else {
+                } else if !shield_contact {
                     hspeed = -1 * run_speed;
                 }
             } else if !place_free(x-1,y) &amp;&amp; !place_free(x,y+1) {
@@ -658,7 +677,7 @@
                     }
                     // Normal jump
                 } else {
-                    if !place_free(x,y+1) &amp;&amp; place_free(x,y-1) {
+                    if !place_free(x,y+1) &amp;&amp; place_free(x,y-1) &amp;&amp; !shield_contact {
                         vspeed = -10
                         jump = true
                         //Audio
@@ -953,6 +972,7 @@
         platform_collisions_step(object_solid)
         platform_collisions_step(object_solid_non_wj)
         platform_collisions_step(object_solid_dummy_shield)
+        platform_collisions_step(object_solid_dummy_perma_shield)
         //platform_collisions_step(object_dungeon_ground)
         //platform_collisions_step(object_dungeon_stairs)
         //platform_collisions_step(object_dungeon_slant)

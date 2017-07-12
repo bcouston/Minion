@@ -159,6 +159,7 @@
       <sprite>sprites\sprite_stairs</sprite>
       <sprite>sprites\solid_floor</sprite>
       <sprite>sprites\solid_large_button</sprite>
+      <sprite>sprites\solid_large_button_extended</sprite>
       <sprite>sprites\solid_large_button_pressed</sprite>
       <sprite>sprites\solid_stairs_r</sprite>
       <sprite>sprites\solid_stairs_l</sprite>
@@ -226,6 +227,7 @@
     <sprites name="scenery">
       <sprite>sprites\moe_bed</sprite>
       <sprite>sprites\street_house_placeholder</sprite>
+      <sprite>sprites\slide_signs</sprite>
     </sprites>
     <sprites name="interactables">
       <sprite>sprites\chest_just_open</sprite>
@@ -293,6 +295,7 @@
       <objects name="training">
         <object>objects\object_shield_dummy1</object>
         <object>objects\object_dummy</object>
+        <object>objects\object_perma_shield_dummy</object>
         <object>objects\object_shield_dummy2</object>
         <object>objects\object_air_dummy</object>
       </objects>
@@ -388,8 +391,12 @@
       <object>objects\object_solid_non_wj</object>
       <objects name="shield">
         <object>objects\object_solid_dummy_shield</object>
+        <object>objects\object_solid_dummy_perma_shield</object>
         <object>objects\object_dummy_shield_collision</object>
       </objects>
+    </objects>
+    <objects name="misc">
+      <object>objects\object_slide_signs</object>
     </objects>
   </objects>
   <timelines name="timelines">
