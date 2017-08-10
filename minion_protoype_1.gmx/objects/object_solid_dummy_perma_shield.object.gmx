@@ -69,6 +69,7 @@ if (upcut_stun_timer &gt; 0) {
 } else if (upcut_stun_timer != -1) {
     upcut_stun_timer = -1
     shield_orient = prev_shield_orient
+    mask_index = dummy_shield
 }
 
 if (btn_instance != -1) {
@@ -105,73 +106,86 @@ if (sprite_index == dummy_shield) &amp;&amp; (shield_orient == "left") {
     image_angle = 180
 }
 
+if (instance_exists(object_player)) {
 
-if (stun_shield) {
-
-    if ((sprite_index == dummy_shield_push_r) || (sprite_index == dummy_shield_push_l)) &amp;&amp; (image_index == image_number - 1) {
-        sprite_index = dummy_shield
-    } else if (shield_stun_timer == -1) {
-        sprite_index = dummy_shield
+    if (stun_shield) {
+    
+        if ((sprite_index == dummy_shield_push_r) || (sprite_index == dummy_shield_push_l)) &amp;&amp; (image_index == image_number - 1) {
+            sprite_index = dummy_shield
+        } else if (shield_stun_timer == -1) {
+            sprite_index = dummy_shield
+        }
+        
+        if ((sprite_index == dummy_shield) || (sprite_index == dummy_shield_charge_r) || (sprite_index == dummy_shield_charge_l)) &amp;&amp; ((object_player.bbox_bottom &lt;= bbox_bottom) &amp;&amp; (object_player.bbox_bottom &gt;= bbox_top)) {
+            if ((object_player.x - x) &lt;= 40) &amp;&amp; ((object_player.x - x) &gt;= 0){
+                if (shield_stun_timer == -1) {
+                    shield_stun_timer = 70
+                }
+                if (shield_stun_timer == 30) {
+                    sprite_index = dummy_shield_charge_r
+                    audio_play_sound(shield_bash_wind_up, 1, false)
+                }
+                if (shield_stun_timer == 1) {
+                    image_angle = 0
+                    sprite_index = dummy_shield_push_r
+                    object_player.stunned = "left"
+                    global.player_disable = true
+                    audio_play_sound(shield_bash,1,false)
+                }
+            } else if ((object_player.x - x) &gt;= -40) &amp;&amp; ((object_player.x - x) &lt;= 0) {
+                if (shield_stun_timer == -1) {
+                    shield_stun_timer = 70
+                }
+                if (shield_stun_timer == 30) {
+                    sprite_index = dummy_shield_charge_r
+                }
+                if (shield_stun_timer == 1) {
+                    image_angle = 0
+                    sprite_index = dummy_shield_push_l
+                    object_player.stunned = "right"
+                    global.player_disable = true
+                    audio_play_sound(shield_bash,1,false)
+                }
+            } else {
+                shield_stun_timer = -1
+            }
+            //((object_player.x - x) &gt;= -50) &amp;&amp; 
+        } else {
+            //shield_stun_timer = -1
+        }
     }
     
-    if ((sprite_index == dummy_shield) || (sprite_index == dummy_shield_charge_r) || (sprite_index == dummy_shield_charge_l)) &amp;&amp; ((object_player.bbox_bottom &lt;= bbox_bottom) &amp;&amp; (object_player.bbox_bottom &gt;= bbox_top)) {
-        if ((object_player.x - x) &lt;= 30) &amp;&amp; ((object_player.x - x) &gt;= 0){
-            if (shield_stun_timer == -1) {
-                shield_stun_timer = 70
-            }
-            if (shield_stun_timer == 30) {
-                sprite_index = dummy_shield_charge_r
-                audio_play_sound(shield_bash_wind_up, 1, false)
-            }
-            if (shield_stun_timer == 1) {
-                image_angle = 0
-                sprite_index = dummy_shield_push_r
-                object_player.stunned = "left"
-                global.player_disable = true
-                audio_play_sound(shield_bash,1,false)
-            }
-        } else if ((object_player.x - x) &gt;= -30) &amp;&amp; ((object_player.x - x) &lt;= 0) {
-            if (shield_stun_timer == -1) {
-                shield_stun_timer = 70
-            }
-            if (shield_stun_timer == 30) {
-                sprite_index = dummy_shield_charge_r
-            }
-            if (shield_stun_timer == 1) {
-                image_angle = 0
-                sprite_index = dummy_shield_push_l
-                object_player.stunned = "right"
-                global.player_disable = true
-                audio_play_sound(shield_bash,1,false)
-            }
-        } else {
-            shield_stun_timer = -1
+    // fully charged uppercut - break shield
+    if (object_player.full_uppercut == 1) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox))  {
+        //instance_destroy()
+        //with (instance_nearest(x, y, object_dummy_shield_collision)) {
+        //    instance_destroy()
+        //}
+        audio_play_sound(shield_smash, 20, false)
+    } else if (object_player.full_uppercut == 0) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox)) &amp;&amp; (upcut_stun_timer == -1) {
+        image_angle = 90
+        prev_shield_orient = shield_orient
+        shield_orient = "up"
+        upcut_stun_timer = 80
+        mask_index = dummy_shield_collision
+        with (instance_nearest(x, y, object_dummy_shield_collision)) {
+            mask_index = dummy_shield_collision_stunned  
         }
-        //((object_player.x - x) &gt;= -50) &amp;&amp; 
-    } else {
-        //shield_stun_timer = -1
+        audio_play_sound(shield_hit, 20, false)
+    } else if ((object_player.x &gt; x) &amp;&amp; (shield_orient == "left")) || ((object_player.x &lt; x) &amp;&amp; (shield_orient == "right")) {
+        with (instance_nearest(x, y, object_dummy_shield_collision)) {
+            mask_index = dummy_shield_collision_stunned  
+        }    
+    } else if (upcut_stun_timer == -1) {
+        with (instance_nearest(x, y, object_dummy_shield_collision)) {
+            mask_index = dummy_shield_collision
+        }
     }
+
 }
 
-// fully charged uppercut - break shield
-if (object_player.full_uppercut == 1) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox))  {
-    //instance_destroy()
-} else if (object_player.full_uppercut == 0) &amp;&amp; (place_meeting(x, y, object_player_combat_hitbox)) &amp;&amp; (upcut_stun_timer == -1) {
-    image_angle = 90
-    prev_shield_orient = shield_orient
-    shield_orient = "up"
-    upcut_stun_timer = 80
-    with (instance_nearest(x, y, object_dummy_shield_collision)) {
-        mask_index = dummy_shield_collision_stunned  
-    }
-} else if ((object_player.x &gt; x) &amp;&amp; (shield_orient == "left")) || ((object_player.x &lt; x) &amp;&amp; (shield_orient == "right")) {
-    with (instance_nearest(x, y, object_dummy_shield_collision)) {
-        mask_index = dummy_shield_collision_stunned  
-    }    
-} else if (upcut_stun_timer == -1) {
-    with (instance_nearest(x, y, object_dummy_shield_collision)) {
-        mask_index = dummy_shield_collision
-    }   
+if (sprite_index == dummy_shield_block) &amp;&amp; (image_index == image_number - 1) {
+    sprite_index = dummy_shield
 }
 </string>
           </argument>

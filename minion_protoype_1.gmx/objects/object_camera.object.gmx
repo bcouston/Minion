@@ -141,6 +141,11 @@ previous_hview = 0
                 lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)
                 camera_view(-1,-1,object_player.x - view_hview[1]/10,0.2,instance_find(object_gate,global.gates_passed).x,(lowest_exit.x - lowest_exit.sprite_width/2),object_player.y,1.0,-1,-1,476,hview,10)   
                 break;
+            case 3: //Moe - training course
+                wview = 544
+                lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)
+                camera_view(-1,-1,object_player.x,0.2,instance_find(object_gate,global.gates_passed).x,(lowest_exit.x - lowest_exit.sprite_width/2),object_player.y,1.0,-1,-1,wview,384,10)
+                break;
             case 20: //Moe Death
                 hview = 288
                 lowest_exit = instance_nearest(room_width,room_height,object_room_exit_sensor)

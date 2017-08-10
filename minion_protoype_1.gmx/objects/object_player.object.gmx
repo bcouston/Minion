@@ -296,6 +296,16 @@
         vspeed = -4
         stun_speed = 0.05
         stunned = "active left"
+        // Cancel uppercut
+        if uppercut {
+            uppercut = false
+            h_slide_speed = 0
+            upcut_ready_timer = -1
+            upcut_charge_timer = -1
+            upcut_swipe_timer = -1
+            audio_play_sound(swing_cancel, 10, false)
+            audio_stop_sound(upcut_charge)
+        }
     } else if (stunned == "right") {
         sprite_index = moe_stunned_l
         //y = y - 8
@@ -303,6 +313,16 @@
         vspeed = -4
         stun_speed = -0.05
         stunned = "active right"
+        // Cancel uppercut
+        if uppercut {
+            uppercut = false
+            h_slide_speed = 0
+            upcut_ready_timer = -1
+            upcut_charge_timer = -1
+            upcut_swipe_timer = -1
+            audio_play_sound(swing_cancel, 10, false)
+            audio_stop_sound(upcut_charge)
+        }
     }
     // If attacking and not wall jump
     if (attack_a_timer != -1 &amp;&amp; place_free(x,y+1) &amp;&amp; wall_jump == false) {
@@ -698,7 +718,7 @@
         
                 // Right
                 if keyboard_check_pressed(vk_right) {
-                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; place_free(x+1,y) &amp;&amp; attacks_left == true) {
+                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; attacks_left == true) {
                         D = "rig"
                         attack = true
                         damage = true
@@ -706,8 +726,12 @@
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox if not facing shield
-                        if (instance_position( x + attack_range + 12, y, object_dummy_shield_collision) != noone) {
-
+                        if (instance_position( x + attack_range + 12, y, object_dummy_shield_collision)!= noone) {
+                            audio_sound_pitch(shield_blocked, random_range(0.8,1.2))
+                            audio_play_sound(shield_blocked, 20, false)
+                            with (instance_nearest(x, y, object_solid_dummy_shield)) {
+                                sprite_index = dummy_shield_block
+                            }
                         } else {
                             instance_create(x + attack_range, y, object_player_combat_hitbox)
                         }
@@ -742,16 +766,20 @@
         
                 // Left
                 if keyboard_check_pressed(vk_left) {
-                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; place_free(x-1,y) &amp;&amp; attacks_left == true) {
+                    if (attack_timer &lt;= 1 &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; attacks_left == true) {
                         D = "lef"
                         attack = true
                         damage = true
                         moe_damage = 10
                         // Reset image speed if not already
                         image_speed = 1
-                        // Spawn combat invisible hitbox
+                        // Spawn combat invisible hitbox if not facing shield
                         if (instance_position( x - attack_range - 12, y, object_dummy_shield_collision) != noone) {
-
+                            audio_sound_pitch(shield_blocked, random_range(0.8,1.2))
+                            audio_play_sound(shield_blocked, 20, false)
+                            with (instance_nearest(x, y, object_solid_dummy_shield)) {
+                                sprite_index = dummy_shield_block
+                            }
                         } else {
                             instance_create(x - attack_range, y, object_player_combat_hitbox)
                         }
@@ -824,6 +852,8 @@
                     uppercut = false
                     h_slide_speed = 0
                     upcut_ready_timer = -1
+                    upcut_charge_timer = -1
+                    upcut_swipe_timer = -1
                     audio_play_sound(swing_cancel, 10, false)
                     audio_stop_sound(upcut_charge)    
                 }

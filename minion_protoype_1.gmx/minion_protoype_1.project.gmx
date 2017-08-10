@@ -66,10 +66,13 @@
     <sounds name="damage">
       <sound>sound\moe_hurt</sound>
       <sound>sound\moe_death</sound>
+      <sound>sound\shield_blocked</sound>
     </sounds>
     <sounds name="Shield">
       <sound>sound\shield_bash</sound>
       <sound>sound\shield_bash_wind_up</sound>
+      <sound>sound\shield_hit</sound>
+      <sound>sound\shield_smash</sound>
     </sounds>
   </sounds>
   <sprites name="sprites">
@@ -164,6 +167,7 @@
       <sprite>sprites\solid_stairs_r</sprite>
       <sprite>sprites\solid_stairs_l</sprite>
       <sprite>sprites\dummy_shield</sprite>
+      <sprite>sprites\dummy_shield_block</sprite>
       <sprite>sprites\dummy_shield_collision</sprite>
       <sprite>sprites\dummy_shield_collision_stunned</sprite>
       <sprite>sprites\dummy_shield_charge_r</sprite>
@@ -295,6 +299,7 @@
       <objects name="training">
         <object>objects\object_shield_dummy1</object>
         <object>objects\object_dummy</object>
+        <object>objects\object_shield_dummy</object>
         <object>objects\object_perma_shield_dummy</object>
         <object>objects\object_shield_dummy2</object>
         <object>objects\object_air_dummy</object>

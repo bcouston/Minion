@@ -27,8 +27,6 @@
             <kind>1</kind>
             <string>{
 
-    // is_shield_dummy - creation code variable - boolean denoting whether dummy has a shield
-
     //Damage stuff currently redundant but could be useful later
     
     //Constants
