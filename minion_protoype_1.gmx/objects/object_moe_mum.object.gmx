@@ -161,10 +161,13 @@ if (!timeline_in_progress) {
     } else if (current_timeline_index == 19) {
         timeline_running = false
         global.player_disable = false
+        object_player.sleepy = false
+        object_player.animation_change = true
         camera_dad = false
         camera_moe = true
+        current_timeline_index = 20
     }
-    if (current_timeline_index != 19) {
+    if (current_timeline_index &lt; 19) {
         timeline_position = 0;
         timeline_running = true;
         timeline_in_progress = true

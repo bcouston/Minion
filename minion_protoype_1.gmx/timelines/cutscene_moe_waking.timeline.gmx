@@ -172,10 +172,14 @@
           <argument>
             <kind>1</kind>
             <string>with(object_moe_house_cutscene) {
-    
-    instance_create(x,y,object_player)
+    global.view = 0
+    instance_create(x,y-32,object_player)
     instance_destroy()
 
+}
+with(object_player) {
+    sleepy = true
+    animation_change = true
 }
 </string>
           </argument>

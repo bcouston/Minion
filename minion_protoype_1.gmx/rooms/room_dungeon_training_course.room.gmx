@@ -61,16 +61,13 @@
     <instance objName="object_solid" x="5508" y="3312" name="inst_F9834CC9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5476" y="3312" name="inst_E48FDEE9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5476" y="3200" name="inst_58FEC096" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_player" x="3128" y="2896" name="inst_7C8F3D27" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5444" y="3200" name="inst_E3785EFD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5444" y="3312" name="inst_7AAF7971" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5412" y="3200" name="inst_2C98E90F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5412" y="3312" name="inst_23DBE024" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_player_detect" x="5636" y="3168" name="inst_FAE0CE16" locked="0" code="default_view = 0&#xA;default_wview = 408&#xA;default_hview = 288" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_global_vars" x="5620" y="3112" name="inst_20C6498C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_camera" x="5636" y="3096" name="inst_F4533C27" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_health_bar" x="5636" y="3064" name="inst_8A6D759E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="object_room_exit_sensor" x="5700" y="3272" name="inst_AAA032B0" locked="0" code="// Next room navigation&#xA;room_nav_x = -1&#xA;room_nav_y = 0&#xA;view_to_change_to = 10&#xA;// Where to spawn player in next room if multiple entrances&#xA;exit_id = 1&#xA;entrance_id = 0&#xA;// Spawn player just outside exit&#xA;player_offset_x = -33&#xA;player_offset_y = -87&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_camera" x="5672" y="3168" name="inst_F4533C27" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_room_exit_sensor" x="5592" y="3272" name="inst_AAA032B0" locked="0" code="// Next room navigation&#xA;room_nav_x = -1&#xA;room_nav_y = 0&#xA;view_to_change_to = 10&#xA;// Where to spawn player in next room if multiple entrances&#xA;exit_id = 1&#xA;entrance_id = 0&#xA;// Spawn player just outside exit&#xA;player_offset_x = -33&#xA;player_offset_y = 0&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_soldier_training" x="5476" y="3288" name="inst_BDE57BE4" locked="0" code="dialog_choice = 0&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5380" y="3200" name="inst_1E3536DE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="5380" y="3312" name="inst_CC1400C4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>

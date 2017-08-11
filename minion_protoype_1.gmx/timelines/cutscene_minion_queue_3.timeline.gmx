@@ -21,7 +21,7 @@
             <kind>1</kind>
             <string>global.view = 1
 with (instance_find(object_solider,1)) {
-    script_dialog("Priority is not authorised! All#Minions are treated the same!",1,x,y-(1.5*sprite_height),"low")
+    script_dialog("Stand down citizen! Wait#your moovafookin turn",1,x,y-(1.5*sprite_height),"low")
 }
 </string>
           </argument>

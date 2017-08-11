@@ -51,7 +51,7 @@ with (object_moe_mum) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>with (object_merv) {
+            <string>with (object_moe_mum) {
     dialog_listener = 1
 }
 </string>

@@ -201,6 +201,10 @@
     // Idle/Fight Animation
     if animation_change == true {
         if (sleepy == true) {
+            // Sleepy physics
+            run_speed = 2
+            footsteps_interval = 20
+            //
             moe_walk_r = moe_sleepy_still_right
             moe_walk_l = moe_sleepy_still_left
     
@@ -230,6 +234,10 @@
             moe_wall_grab_r = moe_wall_grab_right
             moe_wall_grab_l = moe_wall_grab_left
         } else {
+            // Normal physics
+            run_speed = 5
+            footsteps_interval = 8
+            //
             moe_walk_r = moe_walk_sword_right
             moe_walk_l = moe_walk_sword_left
             //moe_walk_r = moe_sleepy_still_right
@@ -1040,9 +1048,9 @@
         footsteps_timer -= 1
     }
     
-    if (room_get_name(room) == "room_dungeon_overworld") {
-        sleepy = false
-    }
+    //if (room_get_name(room) == "room_dungeon_overworld") {
+    //    sleepy = false
+    //}
     
     // Disable (e.g. during cutscene) but not stunned
     if (global.player_disable) &amp;&amp; (stunned == "none") {

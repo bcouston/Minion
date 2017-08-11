@@ -427,9 +427,9 @@
         <timeline>timelines\cutscene_mum_greeting_8</timeline>
         <timeline>timelines\cutscene_mum_greeting_9</timeline>
       </timelines>
-      <timeline>timelines\cutscene_moe_waking</timeline>
       <timelines name="moe_waking">
         <timeline>timelines\cutscene_moe_waking_dialog</timeline>
+        <timeline>timelines\cutscene_moe_waking</timeline>
       </timelines>
       <timelines name="minion_queue">
         <timeline>timelines\cutscene_minion_queue_1</timeline>
@@ -485,10 +485,10 @@
     </timelines>
   </timelines>
   <rooms name="rooms">
-    <room>rooms\room_dungeon_training_course</room>
     <room>rooms\room_moe_house</room>
-    <room>rooms\room_dungeon_street</room>
     <room>rooms\room_dungeon_overworld</room>
+    <room>rooms\room_dungeon_street</room>
+    <room>rooms\room_dungeon_training_course</room>
     <room>rooms\Level1_Combat</room>
     <room>rooms\room2</room>
     <room>rooms\room1</room>

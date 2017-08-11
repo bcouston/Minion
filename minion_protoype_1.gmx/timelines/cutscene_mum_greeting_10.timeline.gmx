@@ -20,7 +20,7 @@
           <argument>
             <kind>1</kind>
             <string>with (object_moe_dad) {
-    script_dialog("Don't worry Son, most Minions don't#see any action during their service.",1,x,y-(sprite_height*1.4),"deep")
+    script_dialog("Don't worry Son, most Minions don't#see any action in their service.",1,x,y-(sprite_height*1.4),"deep")
 }
 with (object_moe_mum) {
     camera_mum = false

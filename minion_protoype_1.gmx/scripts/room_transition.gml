@@ -21,4 +21,10 @@ switch (global.map_coordinates_x) {
                 break;
         }
         break;
+    case 2:
+        switch (global.map_coordinates_y) {
+            case 1:
+                room_goto(room_dungeon_training_course);
+                break;
+        }
 }

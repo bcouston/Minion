@@ -57,11 +57,11 @@
     }
 } else {triggered = false}
 
-if (global.view == 1) {
+/*if (global.view == 1) {
     camera_house_view_1()
 } else if (global.view == 2) {
     //global.view = 3
-}
+}*/
 </string>
           </argument>
         </arguments>
