@@ -43,11 +43,14 @@
     <sounds name="Energy">
       <sound>sound\stage_charge</sound>
       <sound>sound\power_beam</sound>
+      <sound>sound\beam_fire</sound>
+      <sound>sound\beam_explode</sound>
     </sounds>
     <sounds name="Music">
       <sound>sound\vampire_killer</sound>
       <sound>sound\crash</sound>
       <sound>sound\spyro</sound>
+      <sound>sound\boss_music</sound>
     </sounds>
     <sounds name="ui">
       <sound>sound\dialog_continue</sound>
@@ -191,6 +194,9 @@
         <sprite>sprites\knight_prone_move_r</sprite>
         <sprite>sprites\knight_prone_still_l</sprite>
         <sprite>sprites\knight_prone_still_r</sprite>
+        <sprites name="Murray">
+          <sprite>sprites\murray_idle_r</sprite>
+        </sprites>
       </sprites>
       <sprite>sprites\dummy_damage</sprite>
       <sprite>sprites\dummy_damage_2</sprite>
@@ -266,6 +272,8 @@
       <sprite>sprites\player_detect</sprite>
       <sprite>sprites\health_bar</sprite>
     </sprites>
+    <sprite>sprites\sprite_beam</sprite>
+    <sprite>sprites\boss_room_bound</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -306,6 +314,7 @@
       </objects>
       <objects name="bosses">
         <object>objects\object_knight_boss</object>
+        <object>objects\object_murray_boss</object>
       </objects>
     </objects>
     <objects name="essentials">
@@ -326,6 +335,11 @@
       <objects name="compacter">
         <object>objects\object_compacter_up</object>
         <object>objects\object_spikes_compacter_up</object>
+      </objects>
+      <objects name="bosses">
+        <objects name="murray">
+          <object>objects\object_sword_beam</object>
+        </objects>
       </objects>
     </objects>
     <objects name="hud">
@@ -402,6 +416,7 @@
     </objects>
     <objects name="misc">
       <object>objects\object_slide_signs</object>
+      <object>objects\object_boss_room_boundary</object>
     </objects>
   </objects>
   <timelines name="timelines">
@@ -485,6 +500,7 @@
     </timelines>
   </timelines>
   <rooms name="rooms">
+    <room>rooms\room_boss_1</room>
     <room>rooms\room_moe_house</room>
     <room>rooms\room_dungeon_overworld</room>
     <room>rooms\room_dungeon_street</room>
