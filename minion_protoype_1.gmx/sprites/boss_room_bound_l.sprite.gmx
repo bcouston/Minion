@@ -20,6 +20,6 @@
   <width>32</width>
   <height>32</height>
   <frames>
-    <frame index="0">images\boss_room_bound_0.png</frame>
+    <frame index="0">images\boss_room_bound_l_0.png</frame>
   </frames>
 </sprite>

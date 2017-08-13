@@ -218,8 +218,8 @@
     
             moe_wall_grab_r = moe_wall_grab_right
             moe_wall_grab_l = moe_wall_grab_left  
-        }
-        else if (fight == false)  {
+        //}
+        /*else if (fight == false)  {
             moe_walk_r = moe_walk_right
             moe_walk_l = moe_walk_left
     
@@ -232,7 +232,7 @@
             moe_jump_descent_l = moe_jump_descent_left
     
             moe_wall_grab_r = moe_wall_grab_right
-            moe_wall_grab_l = moe_wall_grab_left
+            moe_wall_grab_l = moe_wall_grab_left*/
         } else {
             // Normal physics
             run_speed = 5

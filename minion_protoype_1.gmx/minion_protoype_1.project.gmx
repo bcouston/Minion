@@ -255,6 +255,9 @@
       <sprite>sprites\spike_compacter_up</sprite>
       <sprite>sprites\spikes_right</sprite>
       <sprite>sprites\spikes_left</sprite>
+      <sprites name="boss_1">
+        <sprite>sprites\sprite_beam</sprite>
+      </sprites>
     </sprites>
     <sprites name="sensors">
       <sprite>sprites\room_drop_sensor</sprite>
@@ -272,8 +275,8 @@
       <sprite>sprites\player_detect</sprite>
       <sprite>sprites\health_bar</sprite>
     </sprites>
-    <sprite>sprites\sprite_beam</sprite>
-    <sprite>sprites\boss_room_bound</sprite>
+    <sprite>sprites\boss_room_bound_r</sprite>
+    <sprite>sprites\boss_room_bound_l</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -416,7 +419,8 @@
     </objects>
     <objects name="misc">
       <object>objects\object_slide_signs</object>
-      <object>objects\object_boss_room_boundary</object>
+      <object>objects\object_boss_room_boundary_r</object>
+      <object>objects\object_boss_room_boundary_l</object>
     </objects>
   </objects>
   <timelines name="timelines">
