@@ -187,9 +187,37 @@ if (place_meeting(x, y, object_player_combat_hitbox)) {
 
 if (rebounded) {
     if keyboard_check(vk_up) {
-        direction += 7
+        if ((abs(90 - direction) &lt; (6 + rebounds)) || (direction == 90)) {
+            direction = 90
+        } else if (direction &lt; 90 || direction &gt; 270) { //0 - 90 270 - 360
+            direction += (9 + (rebounds * 2))
+        } else {
+            direction -= (9 + (rebounds * 2))    
+        }
     } else if keyboard_check(vk_down) {
-        direction -= 7    
+        if ((abs(270 - direction) &lt; (6 + rebounds)) || (direction == 270)) {
+            direction = 270
+        } else if (direction &gt; 90 &amp;&amp; direction &lt; 270) { // 90 - 270
+            direction += (9 + (rebounds * 2))
+        } else {
+            direction -= (9 + (rebounds * 2))    
+        }
+    } else if keyboard_check(vk_left) {
+        if ((abs(180 - direction) &lt; (6 + rebounds)) || (direction == 180)) {
+            direction = 180
+        } else if (direction &gt; 0 &amp;&amp; direction &lt; 180) { // 0 - 180
+            direction += (9 + (rebounds * 2))
+        } else {
+            direction -= (9 + (rebounds * 2))    
+        }
+    } else if keyboard_check(vk_right) {
+        if ((0 + direction &lt; (6 + rebounds)) || ((0 - direction + 360) &lt; (6 + rebounds))  || (direction == 0)) {
+            direction = 0
+        } else if (direction &gt; 180) { // &lt; 180
+            direction += (9 + (rebounds * 2))
+        } else {
+            direction -= (9 + (rebounds * 2))    
+        }
     }
 }
 
