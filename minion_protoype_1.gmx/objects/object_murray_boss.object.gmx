@@ -55,7 +55,7 @@ emit_reset_beam = true
     next_beam_timer = 90
     beam = instance_create(x,y,object_sword_beam)
     with (beam) {
-        beam_type = irandom(2)
+        beam_type = irandom(3)
         shield_beam = irandom(4)
         //hspeed = 4
     }

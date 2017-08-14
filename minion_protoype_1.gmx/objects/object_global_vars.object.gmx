@@ -42,7 +42,7 @@ global.room_transition_in_progress = false
 //global.room_transition_dir = "left"
 //Player
 global.player_health = 100
-audio_play_sound(boss_music, 2, true)
+global.music = audio_play_sound(boss_music, 2, true)
 </string>
           </argument>
         </arguments>

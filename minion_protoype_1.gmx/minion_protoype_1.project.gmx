@@ -51,6 +51,7 @@
       <sound>sound\crash</sound>
       <sound>sound\spyro</sound>
       <sound>sound\boss_music</sound>
+      <sound>sound\beam_rebounded</sound>
     </sounds>
     <sounds name="ui">
       <sound>sound\dialog_continue</sound>
