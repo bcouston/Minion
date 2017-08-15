@@ -53,7 +53,7 @@ emit_reset_beam = true
             <string>if ((reset_beam_timer &lt;= 0) &amp;&amp; (emit_reset_beam)) || (next_beam_timer &lt;= 0) {
     reset_beam_timer = 30
     next_beam_timer = 90
-    beam = instance_create(x,y,object_sword_beam)
+    beam = instance_create(x + 16,y,object_sword_beam)
     with (beam) {
         beam_type = irandom(3)
         shield_beam = irandom(4)

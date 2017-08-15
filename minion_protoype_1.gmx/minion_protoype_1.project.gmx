@@ -45,6 +45,8 @@
       <sound>sound\power_beam</sound>
       <sound>sound\beam_fire</sound>
       <sound>sound\beam_explode</sound>
+      <sound>sound\beam_absorb</sound>
+      <sound>sound\beam_full_power</sound>
     </sounds>
     <sounds name="Music">
       <sound>sound\vampire_killer</sound>

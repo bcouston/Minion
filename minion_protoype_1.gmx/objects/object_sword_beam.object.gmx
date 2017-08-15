@@ -32,15 +32,24 @@ rebounds = 0
 moved_past_player = false
 keep_on_path = false
 homing_on_player = false
+power_level = 0
 
 beam_part_speed = speed
 beam_part_dir = direction - 180
 beam_freeze_timer = -1
 
+spawn_timer = 30
+power_up_part_timer = 0
+
 beam_impact = part_system_create()
 part_system_depth(beam_impact, 0)
 
+beam_absorb_sys = part_system_create()
+part_system_depth(beam_impact, 0)
+
 // Particles
+
+// Beam trail
 beam_impact_part = part_type_create()
 part_type_shape(beam_impact_part, pt_shape_sphere)
 part_type_orientation(beam_impact_part, 0, 0, 0, 0, 1)
@@ -51,7 +60,19 @@ part_type_life(beam_impact_part, 12, 12)
 part_type_alpha3(beam_impact_part, 1, 0.9, 0.1)
 part_type_colour1(beam_impact_part, c_orange)
 
+// Beam_absorb
+beam_absorb_part = part_type_create()
+part_type_shape(beam_absorb_part, pt_shape_ring)
+part_type_orientation(beam_absorb_part, 0, 0, 0, 0, 1)
+part_type_size(beam_absorb_part, 0.3, 0.3, 0, 0)
+part_type_speed(beam_absorb_part, beam_part_speed, beam_part_speed, 0, 0)
+part_type_direction(beam_absorb_part, beam_part_dir, beam_part_dir, 0, 0)
+part_type_life(beam_absorb_part, 9, 9)
+part_type_alpha3(beam_absorb_part, 1, 0.5, 0.1)
+part_type_colour1(beam_absorb_part, c_white)
+
 beam_impact_part_emitter = part_emitter_create(beam_impact)
+beam_absorb_part_emitter = part_emitter_create(beam_absorb_sys)
 part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
 </string>
           </argument>
@@ -75,7 +96,7 @@ part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_
         <arguments>
           <argument>
             <kind>1</kind>
-            <string> part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
+            <string>part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
 part_emitter_burst(beam_impact, beam_impact_part_emitter, beam_impact_part, 1)
 
 image_angle = direction
@@ -113,19 +134,19 @@ if (shield_beam != -1) {
 
 // S shaped backstab
 if (beam_type == 1) {
-    if (distance_to_object(object_player) &lt;= 60 &amp;&amp; (x &gt; (object_murray_boss.x + 300))) || keep_on_path {
+    if (distance_to_object(object_player) &lt;= 45 &amp;&amp; (x &gt; (object_murray_boss.x + 300))) || keep_on_path {
         keep_on_path = true
     // Else follow sigmoid function curve
-    } else if (x &lt; (object_player.x + 90)) &amp;&amp; !moved_past_player {
+    } else if ((x &lt; (object_player.x + 90)) &amp;&amp; !moved_past_player) &amp;&amp; ((object_boss_room_boundary_r.x - x) &gt; 20) {
         new_x = x - (object_murray_boss.x + 250)
         new_y = 20 / (1 + exp(-0.1 * new_x))
         gradient = (new_y / 20) * (20 - new_y)
         new_angle = arctan2(gradient,1) * (180/pi)
         direction = new_angle
         speed = 6
-    } else if (y &lt; (object_player.y - 40)) {
+    } else if (y &lt; (object_player.y - 50)) {
         moved_past_player = true
-        direction = point_direction(x,y,x,object_player.y - 40);
+        direction = point_direction(x,y,x,object_player.y - 50);
     } else {
         direction = point_direction(x,y,object_player.x,object_player.y);   
     }
@@ -170,11 +191,12 @@ if (place_meeting(x, y, object_player_combat_hitbox)) {
     object_player.fight = false
     object_murray_boss.emit_reset_beam = false
     beam_freeze_timer = 15
+    spawn_timer = 15
     prev_speed = speed * 1.3
     prev_direction = direction
     speed = 0
     part_type_speed(beam_impact_part, 0, 0, 0, 0)
-    part_type_colour1(beam_impact_part, c_blue)
+    part_type_colour1(beam_impact_part, make_color_rgb(135, 206, 250))
     audio_sound_pitch(sword_impact_1, random_range(0.95,1.05))
     audio_play_sound(sword_impact_1, 10, false)
     instance_create(x, y, object_hit_part)
@@ -226,6 +248,7 @@ if (place_meeting(x, y, object_murray_boss)) &amp;&amp; (rebounded) {
     rebounds += 1
     object_player.fight = true
     beam_freeze_timer = 15
+    spawn_timer = 15
     prev_speed = speed * 1.3
     prev_direction = direction
     speed = 0
@@ -242,7 +265,7 @@ if (place_meeting(x, y, object_murray_boss)) &amp;&amp; (rebounded) {
 
 // Collision
 
-if ((place_meeting(x, y, object_player)) &amp;&amp; !rebounded) || (x &gt; object_boss_room_boundary_r.x) || (x &lt; object_boss_room_boundary_l.x) || place_meeting(x, y, object_solid) {
+if ((place_meeting(x, y, object_player)) &amp;&amp; !rebounded) || (x &gt; object_boss_room_boundary_r.x) || (x &lt; object_boss_room_boundary_l.x) || (place_meeting(x, y, object_solid) &amp;&amp; (spawn_timer == -1)) {
     if (rebounds &gt; 0) {
         object_player.fight = true
         // Reset music
@@ -257,9 +280,22 @@ if ((place_meeting(x, y, object_player)) &amp;&amp; !rebounded) || (x &gt; objec
 
 colliding_beam = instance_place(x, y, object_sword_beam)
 if ((colliding_beam != noone) &amp;&amp; (rebounds &gt; 0)) {
+    if (power_level &lt; 3) {
+        power_level += 1
+        power_up_part_timer = 30
+        part_type_size(beam_absorb_part, 0.3 + power_level/10, 0.3 + power_level/10, 0, 0)
+        audio_sound_pitch(beam_absorb, 1 + power_level/10)
+        audio_play_sound(beam_absorb, 0.1, 0)  
+        if (power_level == 3) {
+            part_type_colour1(beam_impact_part, c_blue)
+            part_type_size(beam_absorb_part, 0.8, 0.8, 0, 0)
+            audio_play_sound(beam_full_power, 0.1, 0)
+        }
+    }
     with (colliding_beam) {
         instance_destroy()
-    } 
+    }
+    part_type_size(beam_impact_part, 0.3 + power_level/10, 0.5 + power_level/10, 0, 0)
 }
 
 if (beam_freeze_timer == 0) {
@@ -271,6 +307,20 @@ if (beam_freeze_timer == 0) {
     part_type_speed(beam_impact_part, beam_part_speed, beam_part_speed, 0, 0)
 } else if (beam_freeze_timer != -1) {
     beam_freeze_timer -= 1;
+}
+
+if (spawn_timer == 0) {
+    spawn_timer = -1
+} else if (spawn_timer != -1) {
+    spawn_timer -= 1
+}
+
+if (power_up_part_timer == 0) {
+    power_up_part_timer = -1
+} else if (power_up_part_timer != -1) {
+    power_up_part_timer -= 1
+    part_emitter_region(beam_absorb_sys, beam_absorb_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
+    part_emitter_burst(beam_absorb_sys, beam_absorb_part_emitter, beam_absorb_part, 1)
 }
 </string>
           </argument>
