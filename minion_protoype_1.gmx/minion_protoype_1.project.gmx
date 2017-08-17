@@ -167,6 +167,7 @@
       <sprite>sprites\sprite_solid</sprite>
       <sprite>sprites\sprite_stairs</sprite>
       <sprite>sprites\solid_floor</sprite>
+      <sprite>sprites\solid_side_wall</sprite>
       <sprite>sprites\solid_large_button</sprite>
       <sprite>sprites\solid_large_button_extended</sprite>
       <sprite>sprites\solid_large_button_pressed</sprite>
@@ -280,6 +281,8 @@
     </sprites>
     <sprite>sprites\boss_room_bound_r</sprite>
     <sprite>sprites\boss_room_bound_l</sprite>
+    <sprite>sprites\boss_room_bound_u</sprite>
+    <sprite>sprites\boss_1_shockwave</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -320,7 +323,6 @@
       </objects>
       <objects name="bosses">
         <object>objects\object_knight_boss</object>
-        <object>objects\object_murray_boss</object>
       </objects>
     </objects>
     <objects name="essentials">
@@ -345,6 +347,12 @@
       <objects name="bosses">
         <objects name="murray">
           <object>objects\object_sword_beam</object>
+          <objects name="platforms">
+            <object>objects\object_side_wall</object>
+            <object>objects\object_roof_collapse_area</object>
+          </objects>
+          <object>objects\object_shockwave_attack</object>
+          <object>objects\object_murray_boss</object>
         </objects>
       </objects>
     </objects>
@@ -354,6 +362,7 @@
       <object>objects\object_exclamation</object>
       <object>objects\object_room_transition_animation</object>
       <object>objects\object_trial_timer</object>
+      <object>objects\object_screen_flash</object>
     </objects>
     <objects name="interactables">
       <object>objects\object_chest_wood_sword</object>
@@ -424,6 +433,7 @@
       <object>objects\object_slide_signs</object>
       <object>objects\object_boss_room_boundary_r</object>
       <object>objects\object_boss_room_boundary_l</object>
+      <object>objects\object_boss_room_boundary_u</object>
     </objects>
   </objects>
   <timelines name="timelines">
@@ -503,6 +513,7 @@
       </timelines>
       <timelines name="character">
         <timeline>timelines\animation_cacademon</timeline>
+        <timeline>timelines\animation_boss_1</timeline>
       </timelines>
     </timelines>
   </timelines>

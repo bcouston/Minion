@@ -158,6 +158,20 @@ previous_hview = 0
                 break;
         }
         break;
+    case "room_boss_1":
+        switch (global.view) {
+            case 0: //Moe
+                hview = 487
+                wview = 704
+                //1024 and 768
+                //52, 852, y - 248
+                camera_view(272,104,-1,0.3,-1,-1,-1,0.3,-1,-1,wview,hview,-1) 
+                break;
+            //case 1:
+                //camera_view(450,320,object_player.x,0.5,-1,-1,object_player.y,0.5,272,636,272,192,50) 
+                //break;                
+        }
+        break;
 }
 </string>
           </argument>

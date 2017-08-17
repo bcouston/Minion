@@ -1,11 +1,11 @@
 //argument 0 - y
 //argument 1 - x
 //argument 2 - position following x
-//argument 3 - speed x
+//argument 3 - speed x - set to 0 if x doesnt move
 //argument 4 - min x
 //argument 5 - max x
 //argument 6 - position following y
-//argument 7 - speed y
+//argument 7 - speed y - set to 0 if y doesnt move
 //argument 8 - max y
 //argument 9 - min y
 //argument 10 - width

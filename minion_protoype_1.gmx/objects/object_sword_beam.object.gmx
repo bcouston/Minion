@@ -133,55 +133,59 @@ if (shield_beam != -1) {
 // atan2(8,1)
 
 // S shaped backstab
-if (beam_type == 1) {
-    if (distance_to_object(object_player) &lt;= 45 &amp;&amp; (x &gt; (object_murray_boss.x + 300))) || keep_on_path {
-        keep_on_path = true
-    // Else follow sigmoid function curve
-    } else if ((x &lt; (object_player.x + 90)) &amp;&amp; !moved_past_player) &amp;&amp; ((object_boss_room_boundary_r.x - x) &gt; 20) {
-        new_x = x - (object_murray_boss.x + 250)
-        new_y = 20 / (1 + exp(-0.1 * new_x))
-        gradient = (new_y / 20) * (20 - new_y)
-        new_angle = arctan2(gradient,1) * (180/pi)
-        direction = new_angle
+
+if (instance_exists(object_player)) {
+    if (beam_type == 1) {
+        if (distance_to_object(object_player) &lt;= 45 &amp;&amp; (x &gt; (object_murray_boss.x + 300))) || keep_on_path {
+            keep_on_path = true
+        // Else follow sigmoid function curve
+        } else if ((x &lt; (object_player.x + 90)) &amp;&amp; !moved_past_player) &amp;&amp; ((object_boss_room_boundary_r.x - x) &gt; 20) {
+            new_x = x - (object_murray_boss.x + 250)
+            new_y = 20 / (1 + exp(-0.1 * new_x))
+            gradient = (new_y / 20) * (20 - new_y)
+            new_angle = arctan2(gradient,1) * (180/pi)
+            direction = new_angle
+            speed = 6
+        } else if (y &lt; (object_player.y - 50)) {
+            moved_past_player = true
+            direction = point_direction(x,y,x,object_player.y - 50);
+        } else {
+            direction = point_direction(x,y,object_player.x,object_player.y);   
+        }
+    // Homing curve
+    } else if (beam_type == 2) { 
+        if distance_to_object(object_player) &lt;= 60 || keep_on_path {
+            keep_on_path = true
+        } else if (x &lt; (object_player.x)) {
+            new_x = x - (object_player.x - ((object_player.x - object_murray_boss.x)/2))
+            //if new_x == 0 {
+            //    new_x = 1
+            //}
+            gradient = -0.004 * new_x
+            new_angle = arctan2(gradient,1) * (180/pi)
+            direction = new_angle
+            //show_message(direction)
+            speed = 6
+        }
+    // Death from above
+    } else if (beam_type == 3) {
+        beam_beyond_halfway = (x &gt; (object_boss_room_boundary_r.x - ((object_boss_room_boundary_r.x - object_boss_room_boundary_l.x)/2)))
+        if ((distance_to_object(object_player) &lt;= 60) &amp;&amp; beam_beyond_halfway) || keep_on_path {
+            keep_on_path = true
+        } else if !beam_beyond_halfway &amp;&amp; !homing_on_player {
+            direction = 30
+            //show_message(direction)
+            speed = 6
+        } else {   
+            homing_on_player = true
+            direction = point_direction(x,y,object_player.x,object_player.y);       
+        }
+    // Straight right
+    } else if (beam_type &gt; -1) {
         speed = 6
-    } else if (y &lt; (object_player.y - 50)) {
-        moved_past_player = true
-        direction = point_direction(x,y,x,object_player.y - 50);
-    } else {
-        direction = point_direction(x,y,object_player.x,object_player.y);   
+        direction = 0
+        beam_type = -1
     }
-// Homing curve
-} else if (beam_type == 2) { 
-    if distance_to_object(object_player) &lt;= 60 || keep_on_path {
-        keep_on_path = true
-    } else if (x &lt; (object_player.x)) {
-        new_x = x - (object_player.x - ((object_player.x - object_murray_boss.x)/2))
-        //if new_x == 0 {
-        //    new_x = 1
-        //}
-        gradient = -0.004 * new_x
-        new_angle = arctan2(gradient,1) * (180/pi)
-        direction = new_angle
-        //show_message(direction)
-        speed = 6
-    }
-// Death from above
-} else if (beam_type == 3) {
-    if distance_to_object(object_player) &lt;= 60 || keep_on_path {
-        keep_on_path = true
-    } else if (x &lt; (object_boss_room_boundary_r.x - ((object_boss_room_boundary_r.x - object_boss_room_boundary_l.x)/2))) &amp;&amp; !homing_on_player {
-        direction = 30
-        //show_message(direction)
-        speed = 6
-    } else {   
-        homing_on_player = true
-        direction = point_direction(x,y,object_player.x,object_player.y);       
-    }
-// Straight right
-} else if (beam_type &gt; -1) {
-    speed = 6
-    direction = 0
-    beam_type = -1
 }
 
 if (place_meeting(x, y, object_player_combat_hitbox)) {
@@ -195,6 +199,8 @@ if (place_meeting(x, y, object_player_combat_hitbox)) {
     prev_speed = speed * 1.3
     prev_direction = direction
     speed = 0
+    //global.view = 1
+    //room_speed = 15
     part_type_speed(beam_impact_part, 0, 0, 0, 0)
     part_type_colour1(beam_impact_part, make_color_rgb(135, 206, 250))
     audio_sound_pitch(sword_impact_1, random_range(0.95,1.05))
@@ -265,17 +271,19 @@ if (place_meeting(x, y, object_murray_boss)) &amp;&amp; (rebounded) {
 
 // Collision
 
-if ((place_meeting(x, y, object_player)) &amp;&amp; !rebounded) || (x &gt; object_boss_room_boundary_r.x) || (x &lt; object_boss_room_boundary_l.x) || (place_meeting(x, y, object_solid) &amp;&amp; (spawn_timer == -1)) {
-    if (rebounds &gt; 0) {
-        object_player.fight = true
-        // Reset music
-        audio_stop_sound(beam_rebounded)
-        audio_sound_gain(global.music, 1, 1000)
+if (instance_exists(object_player)) {
+    if ((place_meeting(x, y, object_player)) &amp;&amp; !rebounded) || (place_meeting(x, y, object_solid) &amp;&amp; (spawn_timer == -1)) {
+        if (rebounds &gt; 0) {
+            object_player.fight = true
+            // Reset music
+            audio_stop_sound(beam_rebounded)
+            audio_sound_gain(global.music, 1, 1000)
+        }
+        rebounded = false
+        object_murray_boss.emit_reset_beam = true
+        audio_play_sound(beam_explode,1,0)
+        instance_destroy()   
     }
-    rebounded = false
-    object_murray_boss.emit_reset_beam = true
-    audio_play_sound(beam_explode,1,0)
-    instance_destroy()   
 }
 
 colliding_beam = instance_place(x, y, object_sword_beam)
@@ -303,6 +311,8 @@ if (beam_freeze_timer == 0) {
     speed = prev_speed
     direction = prev_direction + 180
     beam_part_dir = direction + 180
+    //global.view = 0
+    //room_speed = 30
     part_type_direction(beam_impact_part, beam_part_dir, beam_part_dir, 0, 0)
     part_type_speed(beam_impact_part, beam_part_speed, beam_part_speed, 0, 0)
 } else if (beam_freeze_timer != -1) {
