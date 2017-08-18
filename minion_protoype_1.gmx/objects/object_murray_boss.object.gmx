@@ -147,6 +147,7 @@ if (jump_timer == -1) {
     if (distance_to_point(jump_aim_point_x,object_boss_room_boundary_d.y - 20) &lt; speed/4)  {
         x = jump_aim_point_x
         y = object_boss_room_boundary_d.y - 20
+        jump_timer = 600
         jump_pos_x = -1
         start_pos_x = x
         jump_direction = jump_direction * -1
