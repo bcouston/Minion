@@ -167,6 +167,7 @@
     <instance objName="object_solid" x="104" y="632" name="inst_9AAD21AF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_solid" x="808" y="632" name="inst_9FC825C1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object_camera" x="808" y="656" name="inst_359936CE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object_boss_room_boundary_d" x="724" y="624" name="inst_9898596F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

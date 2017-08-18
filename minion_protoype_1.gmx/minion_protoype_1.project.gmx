@@ -282,6 +282,7 @@
     <sprite>sprites\boss_room_bound_r</sprite>
     <sprite>sprites\boss_room_bound_l</sprite>
     <sprite>sprites\boss_room_bound_u</sprite>
+    <sprite>sprites\boss_room_bound_d</sprite>
     <sprite>sprites\boss_1_shockwave</sprite>
   </sprites>
   <backgrounds name="background">
@@ -321,8 +322,19 @@
         <object>objects\object_shield_dummy2</object>
         <object>objects\object_air_dummy</object>
       </objects>
-      <objects name="bosses">
+      <objects name="bosses_old">
         <object>objects\object_knight_boss</object>
+      </objects>
+      <objects name="bosses">
+        <objects name="murray">
+          <object>objects\object_sword_beam</object>
+          <objects name="platforms">
+            <object>objects\object_side_wall</object>
+            <object>objects\object_roof_collapse_area</object>
+          </objects>
+          <object>objects\object_shockwave_attack</object>
+          <object>objects\object_murray_boss</object>
+        </objects>
       </objects>
     </objects>
     <objects name="essentials">
@@ -343,17 +355,6 @@
       <objects name="compacter">
         <object>objects\object_compacter_up</object>
         <object>objects\object_spikes_compacter_up</object>
-      </objects>
-      <objects name="bosses">
-        <objects name="murray">
-          <object>objects\object_sword_beam</object>
-          <objects name="platforms">
-            <object>objects\object_side_wall</object>
-            <object>objects\object_roof_collapse_area</object>
-          </objects>
-          <object>objects\object_shockwave_attack</object>
-          <object>objects\object_murray_boss</object>
-        </objects>
       </objects>
     </objects>
     <objects name="hud">
@@ -434,6 +435,7 @@
       <object>objects\object_boss_room_boundary_r</object>
       <object>objects\object_boss_room_boundary_l</object>
       <object>objects\object_boss_room_boundary_u</object>
+      <object>objects\object_boss_room_boundary_d</object>
     </objects>
   </objects>
   <timelines name="timelines">

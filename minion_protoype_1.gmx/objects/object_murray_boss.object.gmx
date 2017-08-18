@@ -27,13 +27,24 @@
             <kind>1</kind>
             <string>reset_beam_timer = 30
 next_beam_timer = 90
+fire_beam_timer = -1
+jump_timer = 100
+jump_direction = 1
+jump_aim_point_x = 0
 emit_reset_beam = true
+// Position at the very beginning of the boss fight
+very_start_pos_x = x
+// Start position that changes after jumping
+start_pos_x = x
+start_pos_y = y
+jump_pos_x = -1
+animation_direction = 1
 
 // Movement animation
-timeline_index = animation_boss_1;
-timeline_position = 0;
-timeline_running = true;
-timeline_loop = true;
+//timeline_index = animation_boss_1;
+//timeline_position = 0;
+//timeline_running = true;
+//timeline_loop = true;
 </string>
           </argument>
         </arguments>
@@ -56,20 +67,23 @@ timeline_loop = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if ((reset_beam_timer &lt;= 0) &amp;&amp; (emit_reset_beam)) || (next_beam_timer &lt;= 0) {
-    reset_beam_timer = 30
-    next_beam_timer = 90
-    beam = instance_create(x + 16,y,object_sword_beam)
-    with (beam) {
-        beam_type = irandom(3)
-        shield_beam = irandom(4)
-        //hspeed = 4
-    }
-    audio_play_sound(beam_fire,1,0)
-    emit_reset_beam = false
-} else if (emit_reset_beam) {reset_beam_timer -= 1}
+            <string>if (instance_exists(object_player)) &amp;&amp; (jump_timer != -1) {
+    if ((reset_beam_timer &lt;= 0) &amp;&amp; (emit_reset_beam)) || (next_beam_timer &lt;= 0) {
+        reset_beam_timer = 30
+        next_beam_timer = 90
+        beam = instance_create(x + 16,y,object_sword_beam)
+        with (beam) {
+            beam_type = irandom(3)
+            shield_beam = irandom(4)
+            //hspeed = 4
+        }
+        fire_beam_timer = 20
+        audio_play_sound(beam_fire,1,0)
+        emit_reset_beam = false
+    } else if (emit_reset_beam) {reset_beam_timer -= 1}
+}
 
-if (instance_exists(object_player)) &amp;&amp; (distance_to_point(object_player.x,y) &lt; 64) {
+if (instance_exists(object_player)) &amp;&amp; (distance_to_point(object_player.x,y) &lt; 64) &amp;&amp; (jump_timer != -1) {
     instance_create(x,y+20,object_shockwave_attack)
 }
 
@@ -77,6 +91,67 @@ if (next_beam_timer &lt;= 0) {
     next_beam_timer = 90
 } else {
     next_beam_timer -= 1
+}
+
+// Stand still when firing beam
+if (fire_beam_timer == 0) {
+    fire_beam_timer = -1
+} else if (fire_beam_timer != -1) {
+    fire_beam_timer -= 1
+    hspeed = 0
+}
+
+// When at -1 jump to other side of screen
+if (jump_timer == 0) {
+    jump_timer = -1
+} else if (jump_timer != -1) {
+    jump_timer -= 1
+}
+
+// Moving animation up to 50 right from start
+if (fire_beam_timer == -1) {
+    if ((jump_direction * x) &lt; (jump_direction * (start_pos_x + (jump_direction * 50)))) {
+        if ((jump_direction * x) &lt; (jump_direction * start_pos_x)) {
+            animation_direction = 1   
+        }
+    } else {
+        animation_direction = -1
+    }
+    hspeed = 0.5 * animation_direction * jump_direction
+}
+
+// Jump to other side of screen
+if (jump_timer == -1) {
+    if (jump_pos_x == -1) {
+        jump_pos_x = x
+        if (jump_direction == 1) {
+            jump_aim_point_x = object_boss_room_boundary_r.x - 80
+        } else {
+            jump_aim_point_x = very_start_pos_x  
+        }
+    }
+    half_jump_distance = ((jump_aim_point_x - jump_pos_x)/2)
+    jump_middle_point_x = (jump_aim_point_x - half_jump_distance)
+    new_x = jump_middle_point_x - x
+    speed = 6 + (8 * ((distance_to_point(jump_middle_point_x, y) + 0.01) / abs(half_jump_distance)))
+    //show_message(speed)
+    //if new_x == 0 {
+    //    new_x = 1
+    //}
+    gradient = 0.006 * new_x
+    new_angle = arctan2(gradient,1) * (180/pi)
+    if (jump_direction == 1) {
+        direction = new_angle
+    } else {direction = new_angle - 180}
+    //show_message(direction)
+    if (distance_to_point(jump_aim_point_x,object_boss_room_boundary_d.y - 20) &lt; speed/4)  {
+        x = jump_aim_point_x
+        y = object_boss_room_boundary_d.y - 20
+        jump_pos_x = -1
+        start_pos_x = x
+        jump_direction = jump_direction * -1
+        speed = 0
+    }
 }
 </string>
           </argument>
