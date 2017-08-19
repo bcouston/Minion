@@ -5,7 +5,7 @@
   <visible>0</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>object_player_damage_hitbox</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,7 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Directional stuff based on which way boss is facing
+            <string>// Damage
+player_recoil = 20
+player_damage = 20
+fragile = true
+destroy = false
+
+// Directional stuff based on which way boss is facing
 beam_direction = object_murray_boss.jump_direction
 if (beam_direction == 1) {
     boundary_x = object_boss_room_boundary_r.x
@@ -49,6 +55,7 @@ beam_freeze_timer = -1
 
 spawn_timer = 30
 power_up_part_timer = 0
+spawn_decelerate_timer = 30
 
 beam_impact = part_system_create()
 part_system_depth(beam_impact, 0)
@@ -84,7 +91,7 @@ beam_impact_part_emitter = part_emitter_create(beam_impact)
 beam_absorb_part_emitter = part_emitter_create(beam_absorb_sys)
 part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
 
-speed = 6
+speed = 10
 </string>
           </argument>
         </arguments>
@@ -113,7 +120,7 @@ image_angle = direction
 part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
 part_emitter_burst(beam_impact, beam_impact_part_emitter, beam_impact_part, 1)
 
-if (shield_beam != -1) {
+/*if (shield_beam != -1) {
     if (shield_beam != 1) {
         part_type_shape(beam_impact_part, pt_shape_sphere)
         shield_beam = -1
@@ -121,37 +128,45 @@ if (shield_beam != -1) {
         part_type_shape(beam_impact_part, pt_shape_snow)
         shield_beam = -1    
     }
-}
-
-// CURVE
-// SIGMOID FUNCTION
-// Y = 1 / 1 + e^-x
-// derivative = y * (1 - y)
-
-// y = x^2 (inverse y for game maker)
-// find x
-// start of path x = -4
-// 16, 9, 4, 1, 0, 1, 4, etc.
-// dy/dx = -2x
-// start of path = 8
-// gradient = 8x
-// sin = opp/hyp
-// cos = adj/hyp
-// tan = adj/opp
-// choose two points
-// y = 8 * 0
-// y = 8 * 1
-// (0,0) -&gt; (8,1)
-// atan2(8,1)
-
-// S shaped backstab
+}*/
 
 if (instance_exists(object_player)) {
     player_x_pos = object_player.x
     player_y_pos = object_player.y
 }
 
-if (beam_type == 1) {
+// Straight forward from boss
+if (beam_type == 0) {
+    direction = 0
+    if (beam_direction == 1) {
+        direction = 0
+    } else {
+        direction = 180
+    }
+    beam_type = -1
+// Homing curve
+} else if (beam_type == 1) { 
+    new_x = x - (player_x_pos - ((player_x_pos - object_murray_boss.x)/2))
+    gradient = -0.004 * new_x
+    new_angle = arctan2(gradient,1) * (180/pi)
+    if (beam_direction == 1) {
+        direction = new_angle
+    } else {
+        direction = new_angle + 180
+    }
+// Jump height s beam
+} else if (beam_type == 2) {
+    new_x = x - (object_murray_boss.start_pos_x + (beam_direction * 30))
+    new_y = 5 / (1 + exp(-0.1 * new_x))
+    gradient = beam_direction * ((new_y / 5) * (5 - new_y))
+    new_angle = arctan2(gradient,1) * (180/pi)
+    if (beam_direction == 1) {
+        direction = new_angle
+    } else {
+        direction = new_angle + 180
+    }
+// S shaped backstab
+} else if (beam_type == 3) {
     if (distance_to_point(player_x_pos, player_y_pos) &lt;= 45 &amp;&amp; ((beam_direction * x) &gt; (beam_direction * (object_murray_boss.start_pos_x + (beam_direction * 300))))) || keep_on_path {
         keep_on_path = true
     // Else follow sigmoid function curve
@@ -171,22 +186,8 @@ if (beam_type == 1) {
     } else {
         direction = point_direction(x,y,player_x_pos,player_y_pos);   
     }
-// Homing curve
-} else if (beam_type == 2) { 
-    new_x = x - (player_x_pos - ((player_x_pos - object_murray_boss.x)/2))
-    //if new_x == 0 {
-    //    new_x = 1
-    //}
-    gradient = -0.004 * new_x
-    new_angle = arctan2(gradient,1) * (180/pi)
-    if (beam_direction == 1) {
-        direction = new_angle
-    } else {
-        direction = new_angle + 180
-    }
-    //show_message(direction)
 // Death from above
-} else if (beam_type == 3) {
+} else if (beam_type == 4) {
     beam_beyond_halfway = ((beam_direction * x) &gt; (beam_direction * (object_boss_room_boundary_r.x - ((object_boss_room_boundary_r.x - object_boss_room_boundary_l.x)/2))))
     if ((distance_to_point(player_x_pos, player_y_pos) &lt;= 60) &amp;&amp; beam_beyond_halfway) || keep_on_path {
         keep_on_path = true
@@ -201,15 +202,6 @@ if (beam_type == 1) {
         homing_on_player = true
         direction = point_direction(x,y,player_x_pos,player_y_pos);       
     }
-// Straight forward from boss
-} else if (beam_type &gt; -1) {
-    direction = 0
-    if (beam_direction == 1) {
-        direction = 0
-    } else {
-        direction = 180
-    }
-    beam_type = -1
 }
 
 if (place_meeting(x, y, object_player_combat_hitbox)) {
@@ -222,7 +214,8 @@ if (place_meeting(x, y, object_player_combat_hitbox)) {
     if (instance_exists(object_player)) {
         object_player.fight = false
     }
-    object_murray_boss.emit_reset_beam = false
+    player_damage = 0
+    object_murray_boss.pause_jump_timer = true
     beam_freeze_timer = 15
     spawn_timer = 20
     prev_speed = speed
@@ -242,73 +235,83 @@ if (place_meeting(x, y, object_player_combat_hitbox)) {
     audio_play_sound(beam_rebounded, 3, 1)
 }
 
-if (rebounded) {
+if (rebounded &amp;&amp; instance_exists(object_player) &amp;&amp; object_player.hurt_timer == -1) {
     if keyboard_check(vk_up) {
         if ((abs(90 - direction) &lt; (6 + rebounds)) || (direction == 90)) {
             direction = 90
         } else if (direction &lt; 90 || direction &gt; 270) { //0 - 90 270 - 360
-            direction += (9 + (rebounds * 3))
+            direction += (9 + (rebounds * 2))
         } else {
-            direction -= (9 + (rebounds * 3))    
+            direction -= (9 + (rebounds * 2))    
         }
     } else if keyboard_check(vk_down) {
         if ((abs(270 - direction) &lt; (6 + rebounds)) || (direction == 270)) {
             direction = 270
         } else if (direction &gt; 90 &amp;&amp; direction &lt; 270) { // 90 - 270
-            direction += (9 + (rebounds * 3))
+            direction += (9 + (rebounds * 2))
         } else {
-            direction -= (9 + (rebounds * 3))    
+            direction -= (9 + (rebounds * 2))    
         }
     } else if keyboard_check(vk_left) {
         if ((abs(180 - direction) &lt; (6 + rebounds)) || (direction == 180)) {
             direction = 180
         } else if (direction &gt; 0 &amp;&amp; direction &lt; 180) { // 0 - 180
-            direction += (9 + (rebounds * 3))
+            direction += (9 + (rebounds * 2))
         } else {
-            direction -= (9 + (rebounds * 3))    
+            direction -= (9 + (rebounds * 2))    
         }
     } else if keyboard_check(vk_right) {
         if ((0 + direction &lt; (6 + rebounds)) || ((0 - direction + 360) &lt; (6 + rebounds))  || (direction == 0)) {
             direction = 0
         } else if (direction &gt; 180) { // &lt; 180
-            direction += (9 + (rebounds * 3))
+            direction += (9 + (rebounds * 2))
         } else {
-            direction -= (9 + (rebounds * 3))    
+            direction -= (9 + (rebounds * 2))    
         }
     }
 }
 
 if (place_meeting(x, y, object_murray_boss)) &amp;&amp; (rebounded) {
-    rebounded = false
-    rebounds += 1
     if (instance_exists(object_player)) {
         object_player.fight = true
     }
-    beam_freeze_timer = 15
-    spawn_timer = 30
-    prev_speed = speed
-    prev_direction = direction
-    speed = 0
-    part_type_speed(beam_impact_part, 0, 0, 0, 0)
-    part_type_colour1(beam_impact_part, c_red)
-    audio_sound_pitch(sword_impact_1, random_range(0.7,0.8))
-    audio_play_sound(sword_impact_1, 10, false)
-    instance_create(x, y, object_hit_part)
-    // Music
-    audio_stop_sound(beam_rebounded)
-    audio_sound_pitch(beam_rebounded, 0.9 + rebounds/10)
-    audio_play_sound(beam_rebounded, 3, 1)
+    if (rebounds &gt; object_murray_boss.max_rebounds) {
+        audio_play_sound(beam_damage,1.5,0)
+        audio_play_sound(beam_explode,1,0)
+        audio_stop_sound(beam_rebounded)
+        audio_sound_gain(global.music, 1, 1000)
+        object_murray_boss.boss_health -= 20
+        object_murray_boss.phase += 1
+        object_murray_boss.pause_jump_timer = false
+        instance_destroy()
+    } else {
+        rebounded = false
+        rebounds += 1
+        player_damage = 20
+        beam_freeze_timer = 15
+        spawn_timer = 30
+        prev_speed = speed
+        prev_direction = direction
+        speed = 0
+        part_type_speed(beam_impact_part, 0, 0, 0, 0)
+        part_type_colour1(beam_impact_part, c_red)
+        audio_sound_pitch(sword_impact_1, random_range(0.7,0.8))
+        audio_play_sound(sword_impact_1, 10, false)
+        instance_create(x, y, object_hit_part)
+        // Music
+        audio_stop_sound(beam_rebounded)
+        audio_sound_pitch(beam_rebounded, 0.9 + rebounds/10)
+        audio_play_sound(beam_rebounded, 3, 1)
+    }
 }
 
 // Collision
 
 collision = false
-if (instance_exists(object_player)) {
-    if ((place_meeting(x, y, object_player)) &amp;&amp; !rebounded) {
-        collision = true
-    }
-}
 if (place_meeting(x, y, object_solid) &amp;&amp; (spawn_timer == -1)) {
+    collision = true
+}
+if (destroy) {
     collision = true
 }
 if (collision) {
@@ -321,7 +324,7 @@ if (collision) {
         audio_sound_gain(global.music, 1, 1000)
     }
     rebounded = false
-    object_murray_boss.emit_reset_beam = true
+    object_murray_boss.pause_jump_timer = false
     audio_play_sound(beam_explode,1,0)
     instance_destroy()
 }
@@ -350,17 +353,24 @@ if (beam_freeze_timer == 0) {
     beam_freeze_timer = -1;
     //beam_direction = beam_direction * -1  
     if (!rebounded) {
-        beam_type = irandom(2) + 1
+        switch (object_murray_boss.phase) {
+            case 1: beam_type = 0; break;//irandom(2) + 1
+            case 2:
+                if (rebounds == 2) {beam_type = 0;}
+                else {beam_type = 1} break;//irandom(2) + 1
+        }
     }  
     //} else {
     beam_direction = object_murray_boss.jump_direction
     direction = prev_direction + 180  
     //}
-    speed = prev_speed * 1.25
+    speed = prev_speed * 1.1
     //global.view = 0
     //room_speed = 30
     part_type_direction(beam_impact_part, beam_part_dir, beam_part_dir, 0, 0)
     part_type_speed(beam_impact_part, beam_part_speed, beam_part_speed, 0, 0)
+    audio_sound_pitch(beam_crackle, 0.9 + rebounds/10)
+    audio_play_sound(beam_crackle, 3, 0)
 } else if (beam_freeze_timer != -1) {
     beam_freeze_timer -= 1;
 }
@@ -369,6 +379,13 @@ if (spawn_timer == 0) {
     spawn_timer = -1
 } else if (spawn_timer != -1) {
     spawn_timer -= 1
+}
+
+if (spawn_decelerate_timer == 0) {
+    spawn_decelerate_timer = -1
+} else if (spawn_decelerate_timer != -1) {
+    spawn_decelerate_timer -= 1
+    speed -= (10 - 6) / 30
 }
 
 if (power_up_part_timer == 0) {
