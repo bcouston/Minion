@@ -44,7 +44,7 @@ homing_on_player = false
 power_level = 0
 
 beam_part_speed = speed
-beam_part_dir = direction - 180
+beam_part_dir = direction + 180
 beam_freeze_timer = -1
 
 spawn_timer = 30
@@ -83,6 +83,8 @@ part_type_colour1(beam_absorb_part, c_white)
 beam_impact_part_emitter = part_emitter_create(beam_impact)
 beam_absorb_part_emitter = part_emitter_create(beam_absorb_sys)
 part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
+
+speed = 6
 </string>
           </argument>
         </arguments>
@@ -105,10 +107,11 @@ part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
-part_emitter_burst(beam_impact, beam_impact_part_emitter, beam_impact_part, 1)
+            <string>//beam_part_dir = direction + 180
 
 image_angle = direction
+part_emitter_region(beam_impact, beam_impact_part_emitter, x, x, y, y, ps_shape_ellipse, ps_distr_linear)
+part_emitter_burst(beam_impact, beam_impact_part_emitter, beam_impact_part, 1)
 
 if (shield_beam != -1) {
     if (shield_beam != 1) {
@@ -162,7 +165,6 @@ if (beam_type == 1) {
         } else {
             direction = new_angle + 180
         }
-        speed = 6
     } else if (y &lt; (player_y_pos - 50)) {
         moved_past_player = true
         direction = point_direction(x,y,x,player_y_pos - 50);
@@ -171,23 +173,18 @@ if (beam_type == 1) {
     }
 // Homing curve
 } else if (beam_type == 2) { 
-    if distance_to_point(player_x_pos, player_y_pos) &lt;= 60 || keep_on_path {
-        keep_on_path = true
-    } else if ((beam_direction * x) &lt; (beam_direction * player_x_pos)) {
-        new_x = x - (player_x_pos - ((player_x_pos - object_murray_boss.x)/2))
-        //if new_x == 0 {
-        //    new_x = 1
-        //}
-        gradient = -0.004 * new_x
-        new_angle = arctan2(gradient,1) * (180/pi)
-        if (beam_direction == 1) {
-            direction = new_angle
-        } else {
-            direction = new_angle + 180
-        }
-        //show_message(direction)
-        speed = 6
+    new_x = x - (player_x_pos - ((player_x_pos - object_murray_boss.x)/2))
+    //if new_x == 0 {
+    //    new_x = 1
+    //}
+    gradient = -0.004 * new_x
+    new_angle = arctan2(gradient,1) * (180/pi)
+    if (beam_direction == 1) {
+        direction = new_angle
+    } else {
+        direction = new_angle + 180
     }
+    //show_message(direction)
 // Death from above
 } else if (beam_type == 3) {
     beam_beyond_halfway = ((beam_direction * x) &gt; (beam_direction * (object_boss_room_boundary_r.x - ((object_boss_room_boundary_r.x - object_boss_room_boundary_l.x)/2))))
@@ -200,14 +197,12 @@ if (beam_type == 1) {
             direction = 150
         }
         //show_message(direction)
-        speed = 6
     } else {   
         homing_on_player = true
         direction = point_direction(x,y,player_x_pos,player_y_pos);       
     }
 // Straight forward from boss
 } else if (beam_type &gt; -1) {
-    speed = 6
     direction = 0
     if (beam_direction == 1) {
         direction = 0
@@ -221,13 +216,16 @@ if (place_meeting(x, y, object_player_combat_hitbox)) {
     rebounded = true
     rebounds += 1
     beam_type = -1
+    keep_on_path = false
+    moved_past_player = false
+    homing_on_player = false
     if (instance_exists(object_player)) {
         object_player.fight = false
     }
     object_murray_boss.emit_reset_beam = false
     beam_freeze_timer = 15
-    spawn_timer = 15
-    prev_speed = speed * 1.3
+    spawn_timer = 20
+    prev_speed = speed
     prev_direction = direction
     speed = 0
     //global.view = 1
@@ -249,33 +247,33 @@ if (rebounded) {
         if ((abs(90 - direction) &lt; (6 + rebounds)) || (direction == 90)) {
             direction = 90
         } else if (direction &lt; 90 || direction &gt; 270) { //0 - 90 270 - 360
-            direction += (9 + (rebounds * 2))
+            direction += (9 + (rebounds * 3))
         } else {
-            direction -= (9 + (rebounds * 2))    
+            direction -= (9 + (rebounds * 3))    
         }
     } else if keyboard_check(vk_down) {
         if ((abs(270 - direction) &lt; (6 + rebounds)) || (direction == 270)) {
             direction = 270
         } else if (direction &gt; 90 &amp;&amp; direction &lt; 270) { // 90 - 270
-            direction += (9 + (rebounds * 2))
+            direction += (9 + (rebounds * 3))
         } else {
-            direction -= (9 + (rebounds * 2))    
+            direction -= (9 + (rebounds * 3))    
         }
     } else if keyboard_check(vk_left) {
         if ((abs(180 - direction) &lt; (6 + rebounds)) || (direction == 180)) {
             direction = 180
         } else if (direction &gt; 0 &amp;&amp; direction &lt; 180) { // 0 - 180
-            direction += (9 + (rebounds * 2))
+            direction += (9 + (rebounds * 3))
         } else {
-            direction -= (9 + (rebounds * 2))    
+            direction -= (9 + (rebounds * 3))    
         }
     } else if keyboard_check(vk_right) {
         if ((0 + direction &lt; (6 + rebounds)) || ((0 - direction + 360) &lt; (6 + rebounds))  || (direction == 0)) {
             direction = 0
         } else if (direction &gt; 180) { // &lt; 180
-            direction += (9 + (rebounds * 2))
+            direction += (9 + (rebounds * 3))
         } else {
-            direction -= (9 + (rebounds * 2))    
+            direction -= (9 + (rebounds * 3))    
         }
     }
 }
@@ -287,8 +285,8 @@ if (place_meeting(x, y, object_murray_boss)) &amp;&amp; (rebounded) {
         object_player.fight = true
     }
     beam_freeze_timer = 15
-    spawn_timer = 15
-    prev_speed = speed * 1.3
+    spawn_timer = 30
+    prev_speed = speed
     prev_direction = direction
     speed = 0
     part_type_speed(beam_impact_part, 0, 0, 0, 0)
@@ -350,9 +348,15 @@ if ((colliding_beam != noone) &amp;&amp; (rebounds &gt; 0)) {
 
 if (beam_freeze_timer == 0) {
     beam_freeze_timer = -1;
-    speed = prev_speed
-    direction = prev_direction + 180
-    beam_part_dir = direction + 180
+    //beam_direction = beam_direction * -1  
+    if (!rebounded) {
+        beam_type = irandom(2) + 1
+    }  
+    //} else {
+    beam_direction = object_murray_boss.jump_direction
+    direction = prev_direction + 180  
+    //}
+    speed = prev_speed * 1.25
     //global.view = 0
     //room_speed = 30
     part_type_direction(beam_impact_part, beam_part_dir, beam_part_dir, 0, 0)
