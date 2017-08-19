@@ -280,27 +280,26 @@
         instance_destroy()
     }
     // if player is in midst of damage
-    else if (hurt_timer != -1) {
+    /*else if (hurt_timer != -1) {
         if (hurt_timer == 0) {
             hurt_timer = -1;
         } else {
             hurt_timer -= 1;
-            gravity = 0.8
+            //gravity = 0.8
+            /*
             if (hurt_timer &gt; hurt_disable) {
-                speed = player_recoil
                 player_direction = point_direction(x,y,damage_object_pos[0],damage_object_pos[1])
-                direction = (player_direction + 180)
+                if (direction &gt;= 90) &amp;&amp; (direction &lt;= 270) {
+                    stunned = "right"
+                } else {stunned = "left"}
             }
-            if (direction &gt;= 90) &amp;&amp; (direction &lt;= 270) {
-                sprite_index = moe_damage_r
-            } else { sprite_index = moe_damage_l}
         }
-    }
+    }            */
     // if player is shield stunned
     else if (stunned == "left") {
         sprite_index = moe_stunned_r
         //y = y - 8
-        hspeed = 8
+        hspeed = 8 //player_recoil?
         vspeed = -4
         stun_speed = 0.05
         stunned = "active left"
@@ -455,7 +454,7 @@
             audio_stop_sound(wind_fall)
             // if player is moving
             if (stunned == "none") {
-                if (hspeed != 0) &amp;&amp; (h_slide_speed == 0) {
+                if (hspeed != 0) &amp;&amp; (h_slide_speed == 0) &amp;&amp; (hurt_timer == -1) {
                     if (hspeed &gt; 0) {
                         sprite_index = moe_run_r
                     } else if (hspeed &lt; 0) {
@@ -620,7 +619,7 @@
         // Moe is hurt
     
         // L/R movement and jumping
-        if keyboard_check(ord('D')) &amp;&amp; !keyboard_check(ord('A')) &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; (hurt_timer &lt;= hurt_disable)
+        if keyboard_check(ord('D')) &amp;&amp; (!keyboard_check(ord('A'))) &amp;&amp; !attack &amp;&amp; !uppercut &amp;&amp; (hurt_timer &lt;= hurt_disable) &amp;&amp; (stunned == "none")
              {
              D = "rig"
                                     // Additional check for sloped surface
@@ -641,7 +640,7 @@
             attack_phase = false;
         }
     
-        if keyboard_check(ord('A')) &amp;&amp; !keyboard_check(ord('D')) &amp;&amp; attack == false &amp;&amp; !uppercut &amp;&amp; (hurt_timer &lt;= hurt_disable)
+        if keyboard_check(ord('A')) &amp;&amp; (!keyboard_check(ord('D'))) &amp;&amp; !attack &amp;&amp; !uppercut &amp;&amp; (hurt_timer &lt;= hurt_disable) &amp;&amp; (stunned == "none")
              {
              D = "lef"
                                     // Additional check for sloped surface
@@ -734,7 +733,7 @@
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox if not facing shield
-                        if (instance_position( x + attack_range + 12, y, object_dummy_shield_collision)!= noone) {
+                        if (instance_position( x + attack_range + 16, y, object_dummy_shield_collision)!= noone) {
                             audio_sound_pitch(shield_blocked, random_range(0.8,1.2))
                             audio_play_sound(shield_blocked, 20, false)
                             with (instance_nearest(x, y, object_solid_dummy_shield)) {
@@ -782,7 +781,7 @@
                         // Reset image speed if not already
                         image_speed = 1
                         // Spawn combat invisible hitbox if not facing shield
-                        if (instance_position( x - attack_range - 12, y, object_dummy_shield_collision) != noone) {
+                        if (instance_position( x - attack_range - 16, y, object_dummy_shield_collision) != noone) {
                             audio_sound_pitch(shield_blocked, random_range(0.8,1.2))
                             audio_play_sound(shield_blocked, 20, false)
                             with (instance_nearest(x, y, object_solid_dummy_shield)) {
@@ -951,12 +950,22 @@
                 damage_hitbox_inst = instance_position(x,bbox_bottom,object_player_damage_hitbox)
             }
             if (damage_hitbox_inst != noone) {
-                if (hurt_timer &lt; 0) {
-                    hurt_timer = hurt_interval
+                if (hurt_timer &lt; 0) &amp;&amp; (damage_hitbox_inst.player_damage != 0) {
+                    //hurt_timer = hurt_interval
                     damage_object_pos[0] = damage_hitbox_inst.x
                     damage_object_pos[1] = damage_hitbox_inst.y
                     player_recoil = damage_hitbox_inst.player_recoil
                     moe_health -=  damage_hitbox_inst.player_damage
+                    hspeed = 0
+                    damage_direction = point_direction(x,y,damage_object_pos[0],damage_object_pos[1])
+                    if (damage_direction &gt;= 90) &amp;&amp; (damage_direction &lt;= 270) {
+                        stunned = "left"
+                    } else {stunned = "right"}
+                    with (damage_hitbox_inst) {
+                        if (fragile) {
+                            destroy = true
+                        }
+                    }
                     global.player_health = moe_health
                     //Audio
                     audio_sound_pitch(moe_hurt, random_range(0.9,1.1))

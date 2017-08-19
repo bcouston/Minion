@@ -47,6 +47,8 @@
       <sound>sound\beam_explode</sound>
       <sound>sound\beam_absorb</sound>
       <sound>sound\beam_full_power</sound>
+      <sound>sound\beam_crackle</sound>
+      <sound>sound\beam_damage</sound>
     </sounds>
     <sounds name="Music">
       <sound>sound\vampire_killer</sound>
@@ -278,6 +280,7 @@
       <sprite>sprites\globals</sprite>
       <sprite>sprites\player_detect</sprite>
       <sprite>sprites\health_bar</sprite>
+      <sprite>sprites\boss_health_bar</sprite>
     </sprites>
     <sprite>sprites\boss_room_bound_r</sprite>
     <sprite>sprites\boss_room_bound_l</sprite>
@@ -334,6 +337,7 @@
           </objects>
           <object>objects\object_shockwave_attack</object>
           <object>objects\object_murray_boss</object>
+          <object>objects\object_boss_1_health_bar</object>
         </objects>
       </objects>
     </objects>
@@ -516,6 +520,7 @@
       <timelines name="character">
         <timeline>timelines\animation_cacademon</timeline>
         <timeline>timelines\animation_boss_1</timeline>
+        <timeline>timelines\boss_1_phase_3_beams</timeline>
       </timelines>
     </timelines>
   </timelines>
