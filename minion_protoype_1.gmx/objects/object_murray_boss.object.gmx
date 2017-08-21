@@ -36,6 +36,8 @@ jump_timer = 600
 jump_direction = 1
 jump_aim_point_x = 0
 pause_jump_timer = false
+pause_beam_emit = false
+pause_beam_emit_timer = -1
 emit_reset_beam = true
 // Position at the very beginning of the boss fight
 very_start_pos_x = x
@@ -80,12 +82,13 @@ animation_direction = 1
 
 if !(instance_exists(object_sword_beam)) {
     emit_reset_beam = true
-} else {emit_reset_beam = false}
+}
 
 if (instance_exists(object_player)) &amp;&amp; (object_player.invulnerable_timer == -1) &amp;&amp; (jump_timer != -1) {
     if (phase == 1) {
         if ((reset_beam_timer &lt;= 0) &amp;&amp; (emit_reset_beam)) || (next_beam_timer == -1) {
             reset_beam_timer = 30
+            emit_reset_beam = false
             //next_beam_timer = 120
             beam = instance_create(x,y,object_sword_beam)
             with (beam) {
@@ -99,6 +102,7 @@ if (instance_exists(object_player)) &amp;&amp; (object_player.invulnerable_timer
     } else if (phase == 2) {
         if ((reset_beam_timer &lt;= 0) &amp;&amp; (emit_reset_beam)) || (next_beam_timer == -1) {
             reset_beam_timer = 30
+            emit_reset_beam = false
             //next_beam_timer = 90
             beam = instance_create(x,y,object_sword_beam)
             with (beam) {
@@ -110,8 +114,10 @@ if (instance_exists(object_player)) &amp;&amp; (object_player.invulnerable_timer
             audio_play_sound(beam_fire,1,0)
         }
     } else if (phase == 3) {
-        if ((reset_beam_timer &lt;= 0) &amp;&amp; (emit_reset_beam)) || (next_beam_timer == -1) {
-            reset_beam_timer = 30
+        if ((reset_beam_timer &lt;= 0) &amp;&amp; (emit_reset_beam) &amp;&amp; !timeline_running) || (next_beam_timer == -1) {
+            reset_beam_timer = 20
+            emit_reset_beam = false
+            show_message("beams")
             timeline_index = boss_1_phase_3_beams;
             timeline_position = 0;
             timeline_running = true;
@@ -131,17 +137,39 @@ if (instance_exists(object_player)) &amp;&amp; (object_player.invulnerable_timer
         emit_reset_beam = false
     } else if (emit_reset_beam) {reset_beam_timer -= 1}
     */
+} 
+
+// Pause beam emission when beam is heading towards boss after being reflected by player. Otherwise player gains free beam power ups.
+if (pause_beam_emit) &amp;&amp; (jump_timer != -1) {
+    timeline_speed = 0
+    pause_beam_emit_timer = 30  
+} else if !(pause_beam_emit) {
+    if (pause_beam_emit_timer &gt; 0) {
+        pause_beam_emit_timer -= 1
+    } else if (pause_beam_emit_timer != -1) &amp;&amp; (jump_timer != -1) {
+        timeline_position = 0
+        timeline_speed = 1
+        timeline_running = true
+        pause_beam_emit_timer = -1
+        //emit_reset_beam = true
+    }
 }
 
-if (instance_exists(object_player)) &amp;&amp; (!instance_exists(object_shockwave_attack)) &amp;&amp; (object_player.invulnerable_timer) == -1 &amp;&amp; (distance_to_point(object_player.x,y) &lt; 64) &amp;&amp; (jump_timer != -1) {
+if (instance_exists(object_player)) &amp;&amp; (distance_to_point(object_player.x,y) &lt; 160) &amp;&amp; (jump_timer != -1) {
+    instance_create(x,y+20,object_shockwave_warning)
+}
+
+if (instance_exists(object_player)) &amp;&amp; (!instance_exists(object_shockwave_attack)) &amp;&amp; (object_player.invulnerable_timer) == -1 &amp;&amp; (distance_to_point(object_player.x,y) &lt; 72) &amp;&amp; (jump_timer != -1) {
     instance_create(x,y+20,object_shockwave_attack)
+    audio_play_sound(shockwave_attack, 1, 0)
 }
 
-if (next_beam_timer &lt;= 0) {
+/*
+if (next_beam_timer == 0) {
     next_beam_timer = 90
 } else {
     next_beam_timer -= 1
-}
+} */
 
 if (reset_beam_timer == 0) {
     reset_beam_timer = -1
@@ -177,7 +205,7 @@ if (fire_beam_timer == -1) {
 }
 
 // Jump to other side of screen
-if (jump_timer == -1) {
+if (jump_timer == -1) &amp;&amp; (!pause_jump_timer) {
     if (jump_pos_x == -1) {
         jump_pos_x = x
         if (jump_direction == 1) {

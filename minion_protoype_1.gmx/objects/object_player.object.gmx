@@ -299,7 +299,9 @@
     else if (stunned == "left") {
         sprite_index = moe_stunned_r
         //y = y - 8
-        hspeed = 8 //player_recoil?
+        if !(place_meeting(x + 8,y,object_solid)) {
+            hspeed = 8 //player_recoil?
+        }
         vspeed = -4
         stun_speed = 0.05
         stunned = "active left"
@@ -316,7 +318,9 @@
     } else if (stunned == "right") {
         sprite_index = moe_stunned_l
         //y = y - 8
-        hspeed = -8
+        if !(place_meeting(x - 8,y,object_solid)) {
+            hspeed = -8
+        }
         vspeed = -4
         stun_speed = -0.05
         stunned = "active right"

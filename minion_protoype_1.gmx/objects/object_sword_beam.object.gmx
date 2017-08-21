@@ -130,6 +130,16 @@ part_emitter_burst(beam_impact, beam_impact_part_emitter, beam_impact_part, 1)
     }
 }*/
 
+// Specific phase conditions
+if (object_murray_boss.phase == 3) {
+    if (rebounded) &amp;&amp; (y &lt; (object_boss_room_boundary_d.y - ((object_boss_room_boundary_d.y - object_boss_room_boundary_u.y)/3))) {
+        object_murray_boss.pause_beam_emit = false
+    } else if (rebounded) {
+        object_murray_boss.pause_beam_emit = true      
+    }
+}
+
+
 if (instance_exists(object_player)) {
     player_x_pos = object_player.x
     player_y_pos = object_player.y
@@ -157,16 +167,32 @@ if (beam_type == 0) {
 // Jump height s beam
 } else if (beam_type == 2) {
     new_x = x - (object_murray_boss.start_pos_x + (beam_direction * 30))
-    new_y = 5 / (1 + exp(-0.1 * new_x))
-    gradient = beam_direction * ((new_y / 5) * (5 - new_y))
+    new_y = 6 / (1 + exp(-0.1 * new_x))
+    gradient = beam_direction * ((new_y / 6) * (6 - new_y))
     new_angle = arctan2(gradient,1) * (180/pi)
     if (beam_direction == 1) {
         direction = new_angle
     } else {
         direction = new_angle + 180
     }
-// S shaped backstab
+// Death from above
 } else if (beam_type == 3) {
+    beam_beyond_halfway = ((beam_direction * x) &gt; (beam_direction * (object_boss_room_boundary_r.x - ((object_boss_room_boundary_r.x - object_boss_room_boundary_l.x)/2))))
+    if ((distance_to_point(player_x_pos, player_y_pos) &lt;= 80) &amp;&amp; beam_beyond_halfway) || keep_on_path {
+        keep_on_path = true
+    } else if !beam_beyond_halfway &amp;&amp; !homing_on_player {
+        if (beam_direction == 1) {
+            direction = 30
+        } else {
+            direction = 150
+        }
+        //show_message(direction)
+    } else {   
+        homing_on_player = true
+        direction = point_direction(x,y,player_x_pos,player_y_pos);       
+    }
+// S shaped backstab
+} else if (beam_type == 4) {
     if (distance_to_point(player_x_pos, player_y_pos) &lt;= 45 &amp;&amp; ((beam_direction * x) &gt; (beam_direction * (object_murray_boss.start_pos_x + (beam_direction * 300))))) || keep_on_path {
         keep_on_path = true
     // Else follow sigmoid function curve
@@ -185,22 +211,6 @@ if (beam_type == 0) {
         direction = point_direction(x,y,x,player_y_pos - 50);
     } else {
         direction = point_direction(x,y,player_x_pos,player_y_pos);   
-    }
-// Death from above
-} else if (beam_type == 4) {
-    beam_beyond_halfway = ((beam_direction * x) &gt; (beam_direction * (object_boss_room_boundary_r.x - ((object_boss_room_boundary_r.x - object_boss_room_boundary_l.x)/2))))
-    if ((distance_to_point(player_x_pos, player_y_pos) &lt;= 60) &amp;&amp; beam_beyond_halfway) || keep_on_path {
-        keep_on_path = true
-    } else if !beam_beyond_halfway &amp;&amp; !homing_on_player {
-        if (beam_direction == 1) {
-            direction = 30
-        } else {
-            direction = 150
-        }
-        //show_message(direction)
-    } else {   
-        homing_on_player = true
-        direction = point_direction(x,y,player_x_pos,player_y_pos);       
     }
 }
 
@@ -303,6 +313,7 @@ if (place_meeting(x, y, object_murray_boss)) &amp;&amp; (rebounded) {
         audio_sound_pitch(beam_rebounded, 0.9 + rebounds/10)
         audio_play_sound(beam_rebounded, 3, 1)
     }
+    object_murray_boss.pause_beam_emit = false
 }
 
 // Collision
@@ -319,12 +330,16 @@ if (collision) {
         if (instance_exists(object_player)) {
             object_player.fight = true
         }
+        object_murray_boss.pause_jump_timer = false
+        //if (rebounded) {
+        show_message("collision")
+        object_murray_boss.pause_beam_emit = false
+        //}
         // Reset music
         audio_stop_sound(beam_rebounded)
         audio_sound_gain(global.music, 1, 1000)
     }
     rebounded = false
-    object_murray_boss.pause_jump_timer = false
     audio_play_sound(beam_explode,1,0)
     instance_destroy()
 }
@@ -358,6 +373,7 @@ if (beam_freeze_timer == 0) {
             case 2:
                 if (rebounds == 2) {beam_type = 0;}
                 else {beam_type = 1} break;//irandom(2) + 1
+            case 3: {beam_type = 3} break;//irandom(2) + 1
         }
     }  
     //} else {

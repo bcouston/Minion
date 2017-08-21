@@ -49,6 +49,7 @@
       <sound>sound\beam_full_power</sound>
       <sound>sound\beam_crackle</sound>
       <sound>sound\beam_damage</sound>
+      <sound>sound\shockwave_attack</sound>
     </sounds>
     <sounds name="Music">
       <sound>sound\vampire_killer</sound>
@@ -287,6 +288,7 @@
     <sprite>sprites\boss_room_bound_u</sprite>
     <sprite>sprites\boss_room_bound_d</sprite>
     <sprite>sprites\boss_1_shockwave</sprite>
+    <sprite>sprites\boss_1_shockwave_warning</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -330,14 +332,15 @@
       </objects>
       <objects name="bosses">
         <objects name="murray">
-          <object>objects\object_sword_beam</object>
           <objects name="platforms">
             <object>objects\object_side_wall</object>
             <object>objects\object_roof_collapse_area</object>
           </objects>
           <object>objects\object_shockwave_attack</object>
+          <object>objects\object_shockwave_warning</object>
           <object>objects\object_murray_boss</object>
           <object>objects\object_boss_1_health_bar</object>
+          <object>objects\object_sword_beam</object>
         </objects>
       </objects>
     </objects>
